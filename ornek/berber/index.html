@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0a0a">
+<title>Örnek Barber · İstanbul · Fade, skin fade, sakal tasarımı</title>
+<meta name="description" content="Örnek Cadde, İstanbuln hazır gitsin. Akşam 23:00'e kadar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a; --panel:#141414; --panel2:#1b1b1b; --cizgi:#2a2a2a; --yazi:#f3f1ea; --soluk:#9a978f;
+    --volt:#d7ff3a; --volt-koyu:#1a1f00; --yesil:#25d366; --kirmizi:#ff5a4e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--yazi);font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.5;padding-bottom:90px}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--volt);outline-offset:2px}
+  svg{width:20px;height:20px;flex:none}
+  .serit{background:var(--volt);color:var(--volt-koyu);text-align:center;font-size:12px;font-weight:700;padding:6px 12px;letter-spacing:.2px}
+  .kap{max-width:1100px;margin:auto;padding:0 16px}
+  .gizle{display:none!important}
+  .ufak{font-size:12px;color:var(--soluk)}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(10,10,10,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--cizgi)}
+  .ust{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;padding-bottom:10px}
+  .logo{font-family:Anton,sans-serif;font-size:24px;letter-spacing:1px;text-transform:uppercase;line-height:1;white-space:nowrap}
+  .logo span{color:var(--volt)}
+  .durum{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 10px;border:1px solid var(--cizgi);border-radius:4px;white-space:nowrap}
+  .durum i{width:8px;height:8px;border-radius:50%;background:var(--yesil);box-shadow:0 0 0 3px rgba(37,211,102,.2)}
+  .durum.kapali i{background:var(--kirmizi);box-shadow:none}
+  @media(max-width:480px){.durum .genis{display:none}.logo{font-size:21px}}
+  @media(max-width:400px){.logo{font-size:18px;letter-spacing:.5px}.ust-btn{padding:9px 10px}.durum{padding:6px 8px}.ust{gap:6px}}
+  .ust-btn{background:var(--volt);color:var(--volt-koyu);font-weight:700;font-size:14px;padding:9px 12px;border-radius:4px;white-space:nowrap}
+
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--cizgi);
+    background:repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,255,255,.03) 79px 80px),radial-gradient(700px 380px at 90% 10%,rgba(215,255,58,.12),transparent 60%)}
+  .hero .kap{padding-top:34px;padding-bottom:30px}
+  .puan{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--soluk);border:1px solid var(--cizgi);padding:6px 10px;border-radius:4px;background:var(--panel)}
+  .puan b{color:var(--volt)}
+  h1{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:clamp(52px,15vw,128px);line-height:.9;letter-spacing:.5px;margin:18px 0 14px}
+  h1 em{font-style:normal;color:var(--volt)}
+  h1 .cizgili{-webkit-text-stroke:1.5px var(--yazi);color:transparent}
+  .hero p{font-size:17px;color:#c9c6be;max-width:560px}
+  .butonlar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:4px;font-weight:700;font-size:15px}
+  .btn-volt{background:var(--volt);color:var(--volt-koyu)}
+  .btn-wa{background:var(--yesil);color:#06240f}
+  .btn-cizgi{border:1.5px solid var(--yazi)}
+  .rakamlar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--cizgi);border:1px solid var(--cizgi);margin-top:26px;max-width:560px}
+  .rakamlar div{background:var(--bg);padding:12px;font-size:12px;color:var(--soluk)}
+  .rakamlar b{display:block;font-family:Anton,sans-serif;font-weight:400;font-size:26px;color:var(--yazi);line-height:1.1}
+
+  .kayan{overflow:hidden;border-bottom:1px solid var(--cizgi);background:var(--volt);color:var(--volt-koyu)}
+  .kayan div{display:flex;gap:28px;white-space:nowrap;padding:10px 0;font-family:Anton,sans-serif;font-size:18px;letter-spacing:1px;text-transform:uppercase;width:max-content;animation:kay 28s linear infinite}
+  @keyframes kay{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.kayan div{animation:none}}
+
+  section{padding:56px 0;border-bottom:1px solid var(--cizgi)}
+  h2{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(34px,8vw,56px);line-height:.95;letter-spacing:.5px;margin-bottom:8px}
+  h2 em{font-style:normal;color:var(--volt)}
+  .h2alt{color:var(--soluk);margin-bottom:22px;max-width:620px}
+  .no{font-family:Anton,sans-serif;color:var(--volt);font-size:14px;letter-spacing:2px;display:block;margin-bottom:6px}
+
+  /* fade seçici */
+  .stil{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;align-items:stretch}
+  @media(max-width:760px){.stil{grid-template-columns:1fr}}
+  .kafa-kutu{background:var(--panel);border:1px solid var(--cizgi);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;position:relative}
+  .kafa-kutu svg{width:min(100%,260px);height:auto}
+  .kafa-ad{font-family:Anton,sans-serif;text-transform:uppercase;font-size:24px;letter-spacing:.5px;text-align:center;margin-top:8px;line-height:1.1}
+  .kafa-ad small{display:block;font-family:"Space Grotesk",sans-serif;font-size:13px;color:var(--soluk);text-transform:none;letter-spacing:0;margin-top:4px}
+  .secenek{background:var(--panel);border:1px solid var(--cizgi);border-radius:4px;padding:18px}
+  .alan{margin-bottom:16px}
+  .alan>label,.alan>span{display:block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soluk);margin-bottom:8px}
+  .cips{display:flex;flex-wrap:wrap;gap:6px}
+  .cips button{padding:9px 12px;border:1px solid var(--cizgi);border-radius:4px;font-size:14px;font-weight:600;background:var(--panel2)}
+  .cips button.aktif{background:var(--volt);color:var(--volt-koyu);border-color:var(--volt)}
+  .aciklama{font-size:13px;color:var(--soluk);min-height:40px;margin-bottom:14px}
+
+  /* katalog */
+  .katlar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .katlar::-webkit-scrollbar{display:none}
+  .kat-b{flex:none;padding:10px 16px;border:1px solid var(--cizgi);border-radius:4px;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.8px;background:var(--panel)}
+  .kat-b.aktif{background:var(--yazi);color:var(--bg);border-color:var(--yazi)}
+  .arac{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;align-items:center}
+  .ara{flex:1 1 260px;min-width:0;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--cizgi);border-radius:4px;padding:0 12px}
+  .ara input{flex:1;min-width:0;border:0;outline:0;font:inherit;padding:12px 0;background:none;color:var(--yazi)}
+  .altlar{display:flex;gap:6px;flex-wrap:wrap}
+  .alt{padding:7px 11px;border-radius:4px;font-size:13px;font-weight:600;color:var(--soluk);border:1px dashed var(--cizgi)}
+  .alt.aktif{color:var(--volt);border:1px solid var(--volt)}
+  .hizmetler{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:14px}
+  .hz{background:var(--panel);border:1px solid var(--cizgi);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
+  .hz.sec{border-color:var(--volt);box-shadow:inset 0 0 0 1px var(--volt)}
+  .hz-ust{display:flex;justify-content:space-between;gap:8px;align-items:center}
+  .hz-kat{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--soluk)}
+  .hz-et{font-size:10px;font-weight:700;letter-spacing:.6px;padding:3px 7px;border-radius:3px;background:var(--volt);color:var(--volt-koyu);text-transform:uppercase}
+  .hz h3{font-size:18px;font-weight:700;line-height:1.2}
+  .hz p{font-size:13px;color:var(--soluk)}
+  .hz-alt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px}
+  .hz-bilgi{font-size:13px;color:#c9c6be}
+  .hz-btn{padding:9px 14px;border-radius:4px;font-weight:700;font-size:14px;border:1px solid var(--yazi);white-space:nowrap}
+  .hz.sec .hz-btn{background:var(--volt);color:var(--volt-koyu);border-color:var(--volt)}
+  .bos{grid-column:1/-1;padding:24px;text-align:center;color:var(--soluk)} .bos a{color:var(--volt);font-weight:700}
+
+  /* galeri */
+  .izgara{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  @media(min-width:760px){.izgara{grid-template-columns:repeat(6,1fr)}}
+  .karo{aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--cizgi);display:flex;align-items:flex-end;padding:8px}
+  .karo svg{position:absolute;inset:0;width:100%;height:100%}
+  .karo span{position:relative;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:rgba(10,10,10,.75);padding:3px 6px;border-radius:3px}
+
+  .kutular{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--cizgi);border:1px solid var(--cizgi)}
+  .kutu{background:var(--bg);padding:20px}
+  .kutu b{font-family:Anton,sans-serif;font-weight:400;font-size:40px;color:var(--volt);line-height:1;display:block;margin-bottom:6px}
+  .kutu h3{font-size:18px;margin-bottom:4px}
+  .kutu p{font-size:14px;color:var(--soluk)}
+
+  .sss details{border-bottom:1px solid var(--cizgi);padding:14px 0}
+  .sss summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+  .sss summary::-webkit-details-marker{display:none}
+  .sss summary::after{content:"+";color:var(--volt);font-weight:700;font-size:20px;line-height:1}
+  .sss details[open] summary::after{content:"–"}
+  .sss p{color:var(--soluk);margin-top:8px;font-size:14px}
+
+  .bilgi{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.bilgi{grid-template-columns:1fr}}
+  .satir{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cizgi);font-size:15px}
+  .satir b{min-width:84px;color:var(--soluk);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.8px;padding-top:2px}
+  .saat-tablo{font-size:14px;flex:1} .saat-tablo div{display:flex;justify-content:space-between;padding:2px 0} .saat-tablo .bugun{color:var(--volt);font-weight:700}
+  iframe{width:100%;height:100%;min-height:300px;border:0;border-radius:4px;filter:grayscale(1) invert(.9) contrast(.9)}
+  footer{padding:30px 16px;text-align:center;color:var(--soluk);font-size:13px}
+
+  /* alt çubuk + çekmece */
+  .cubuk{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;background:var(--volt);color:var(--volt-koyu);border-radius:6px;padding:10px 10px 10px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.5);max-width:640px;margin:auto;transform:translateY(150%);visibility:hidden;transition:transform .25s,visibility .25s}
+  .cubuk.goster{transform:none;visibility:visible}
+  .cubuk small{display:block;font-size:12px;opacity:.75}
+  .cubuk .btn{background:var(--volt-koyu);color:var(--volt);padding:12px 16px}
+  .perde{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+  .perde.acik{opacity:1;pointer-events:auto}
+  .cekmece{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--panel);border-top:2px solid var(--volt);border-radius:10px 10px 0 0;max-height:90vh;overflow:auto;
+    transform:translateY(100%);visibility:hidden;transition:transform .25s,visibility .25s;max-width:640px;margin:auto;padding:16px 16px 24px}
+  .cekmece.acik{transform:none;visibility:visible}
+  .cekmece h2{font-size:36px}
+  .kapat-x{position:absolute;right:12px;top:12px;width:40px;height:40px;border:1px solid var(--cizgi);border-radius:4px;font-size:22px}
+  .s-satir{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--cizgi);font-size:15px}
+  .s-satir span:first-child{flex:1;font-weight:600}
+  .s-satir button{width:32px;height:32px;border:1px solid var(--cizgi);border-radius:4px;font-size:18px}
+  .stil-satir{margin-top:8px;font-size:14px;color:var(--volt)}
+  .gunler{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .gunler::-webkit-scrollbar{display:none}
+  .gun{flex:none;min-width:66px;padding:8px 6px;border:1px solid var(--cizgi);border-radius:4px;text-align:center;background:var(--panel2)}
+  .gun b{display:block;font-size:13px} .gun small{font-size:12px;color:var(--soluk)}
+  .gun.aktif{background:var(--volt);color:var(--volt-koyu);border-color:var(--volt)} .gun.aktif small{color:var(--volt-koyu)}
+  .saatler{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:6px}
+  .slot{padding:9px 0;border:1px solid var(--cizgi);border-radius:4px;font-weight:600;font-size:14px;background:var(--panel2)}
+  .slot.aktif{background:var(--volt);color:var(--volt-koyu);border-color:var(--volt)}
+  .slot:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+  .form input,.form textarea{width:100%;border:1px solid var(--cizgi);border-radius:4px;padding:11px 12px;font:inherit;background:var(--bg);color:var(--yazi)}
+  .form .alan{margin-top:16px;margin-bottom:0}
+
+  .esnaf{position:fixed;left:12px;bottom:12px;z-index:45;background:var(--yazi);color:var(--bg);border-radius:4px;padding:10px 12px;font-size:12px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:calc(100vw - 24px)}
+  .esnaf-kart{position:fixed;left:12px;right:12px;bottom:70px;z-index:70;background:var(--yazi);color:var(--bg);border-radius:6px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.6);max-width:440px;display:none}
+  .esnaf-kart.acik{display:block}
+  .esnaf-kart h3{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;line-height:1;margin-bottom:10px}
+  .esnaf-kart li{margin:0 0 8px 18px;font-size:14px;color:#3b3a36} .esnaf-kart li b{color:#000}
+  .esnaf-kart .btn{background:var(--bg);color:var(--yazi);width:100%;margin-top:6px}
+  .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--volt);color:var(--volt-koyu);padding:10px 16px;border-radius:4px;font-size:14px;font-weight:700;opacity:0;transition:.2s;z-index:80;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
+  .toast.goster{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<div class="serit">Dükkân Sitesi örnek tasarımıdır; isim, fiyat ve bilgiler temsilidir.</div>
+
+<header>
+  <div class="kap ust">
+    <a href="#" class="logo">By Usta <span>Barber</span></a>
+    <span class="durum" id="durum"><i></i><span>Açık</span></span>
+    <button class="ust-btn" data-ac-randevu>Randevu</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="kap">
+    <span class="puan"><b>★ 5,0</b> örnek değerlendirmeler</span>
+    <h1>Fade'in<br><span class="cizgili">adresi</span> <em>İstanbul.</em></h1>
+    <p>Kesimini seç, saatini seç, randevun WhatsApp'tan hazır gitsin. Sıra bekleme yok, "abi kaçta boşsun" mesajı yok.</p>
+    <div class="butonlar">
+      <a class="btn btn-volt" href="#stil">Kesimini seç</a>
+      <button class="btn btn-cizgi" data-ac-randevu>Hemen randevu al</button>
+    </div>
+    <div class="rakamlar">
+      <div><b>5,0</b>Google puanı</div>
+      <div><b>23:00</b>akşam kapanış</div>
+      <div><b>2 dk</b>randevu süresi</div>
+    </div>
+  </div>
+</div>
+<div class="kayan" aria-hidden="true"><div>
+  <span lang="en">Low fade</span><span>✦</span><span lang="en">Mid fade</span><span>✦</span><span lang="en">High fade</span><span>✦</span><span lang="en">Skin fade</span><span>✦</span><span lang="en">Taper</span><span>✦</span><span>Sakal tasarımı</span><span>✦</span>
+  <span lang="en">Low fade</span><span>✦</span><span lang="en">Mid fade</span><span>✦</span><span lang="en">High fade</span><span>✦</span><span lang="en">Skin fade</span><span>✦</span><span lang="en">Taper</span><span>✦</span><span>Sakal tasarımı</span><span>✦</span>
+</div></div>
+
+<section id="stil">
+  <div class="kap">
+    <span class="no">01 / KESİM SEÇİCİ</span>
+    <h2>Fade'ini <em>seç.</em></h2>
+    <p class="h2alt">Ustaya tarif etmekle uğraşma. Geçişin yüksekliğini, üstün uzunluğunu ve sakalı seç; kesimin adıyla birlikte randevuna eklensin.</p>
+    <div class="stil">
+      <div class="kafa-kutu">
+        <svg viewBox="0 0 220 230" role="img" aria-label="Seçilen kesimin çizimi">
+          <defs>
+            <clipPath id="kafaKes"><ellipse cx="105" cy="112" rx="64" ry="72"/></clipPath>
+            <linearGradient id="fadeGr" x1="0" y1="0" x2="0" y2="1">
+              <stop id="f1" offset=".46" stop-color="#111"/>
+              <stop id="f2" offset=".66" stop-color="#111" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect x="78" y="160" width="52" height="70" rx="10" fill="#b98663"/>
+          <ellipse cx="105" cy="112" rx="64" ry="72" fill="#c99a74"/>
+          <path d="M163 92 Q182 112 168 126 Z" fill="#c99a74"/>
+          <g clip-path="url(#kafaKes)">
+            <path d="M30 36 H150 V66 Q138 74 134 92 V190 H30 Z" fill="url(#fadeGr)"/>
+            <path id="sakal" d="M110 118 H122 Q126 148 146 156 Q160 160 168 150 L176 150 V200 H110 Z" fill="#111" opacity=".85"/>
+          </g>
+          <path id="ust" d="M44 74 Q50 36 104 34 Q160 34 168 74 Q150 56 104 54 Q62 56 44 74 Z" fill="#111"/>
+          <ellipse cx="98" cy="118" rx="11" ry="17" fill="#c99a74" stroke="#a7795a" stroke-width="2"/>
+          <path d="M140 92 q10 -5 20 0" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="152" cy="103" r="3.2" fill="#111"/>
+          <path d="M150 140 q8 3 16 0" stroke="#7a4f3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="kafa-ad" id="stilAd"><span lang="en">Mid fade</span><small>Üst orta · sakal yok</small></div>
+      </div>
+      <div class="secenek">
+        <div class="alan"><span>Geçiş (fade)</span><div class="cips" id="sFade">
+          <button data-v="low">Low</button><button data-v="mid" class="aktif">Mid</button><button data-v="high">High</button><button data-v="skin">Skin</button><button data-v="taper">Taper</button></div></div>
+        <div class="alan"><span>Üst</span><div class="cips" id="sUst">
+          <button data-v="kisa">Kısa</button><button data-v="orta" class="aktif">Orta</button><button data-v="uzun">Uzun</button></div></div>
+        <div class="alan"><span>Sakal</span><div class="cips" id="sSakal">
+          <button data-v="yok" class="aktif">Yok</button><button data-v="kontur">Kontür</button><button data-v="tasarim">Sakal tasarımı</button></div></div>
+        <p class="aciklama" id="stilAciklama"></p>
+        <button class="btn btn-volt" id="stilBtn" style="width:100%">Bu kesimle randevu al</button>
+        <p class="ufak" style="margin-top:8px">Elinde referans fotoğraf varsa WhatsApp'ta mesajın altına ekle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="katalog">
+  <div class="kap">
+    <span class="no">02 / HİZMETLER</span>
+    <h2>Ne <em>yaptırıyoruz?</em></h2>
+    <p class="h2alt">Birden fazla seçebilirsin. Fiyatı dükkân WhatsApp'tan yazar.</p>
+    <div class="katlar" id="katlar"></div>
+    <div class="arac">
+      <label class="ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="ara" type="search" placeholder="Ara (ör. skin, sakal, ağda)" aria-label="Hizmet ara"></label>
+      <div class="altlar" id="altlar"></div>
+    </div>
+    <div class="hizmetler" id="hizmetler"></div>
+    <p class="ufak" style="margin-top:12px">Hizmet listesi ve süreler örnektir; dükkânın kendi listesiyle güncellenecek.</p>
+  </div>
+</section>
+
+<section id="galeri">
+  <div class="kap">
+    <span class="no">03 / KESİMLER</span>
+    <h2>Son <em>işler.</em></h2>
+    <p class="h2alt">Buraya dükkânın kendi kesim fotoğrafları gelecek. Instagram hesabı da bağlanır: [Instagram: dükkândan teyit].</p>
+    <div class="izgara" id="izgara"></div>
+  </div>
+</section>
+
+<section id="neden">
+  <div class="kap">
+    <span class="no">04 / NEDEN BURASI</span>
+    <h2>Kısa <em>özet.</em></h2>
+    <div class="kutular" style="margin-top:18px">
+      <div class="kutu"><b>5,0</b><h3>Haritalardaki puanınız</h3><p>Puanınız ve yorumlarınız sitede de görünür. Yorumlar sahibinin izniyle buraya eklenecek.</p></div>
+      <div class="kutu"><b>23:00</b><h3>İş çıkışı da gel</h3><p>Akşam geç saate kadar açık. Mesai bitince koşturma yok.</p></div>
+      <div class="kutu"><b>0</b><h3>Bekleme</h3><p>Saatini önceden al, gelince koltuğa otur.</p></div>
+      <div class="kutu"><b>2+</b><h3>Arkadaşınla gel</h3><p>Randevuda kişi sayısını seç, ikinize birden yer ayrılsın.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sss">
+  <div class="kap sss">
+    <span class="no">05 / SSS</span>
+    <h2>Sık <em>sorulanlar.</em></h2>
+    <p class="h2alt">Cevaplar örnektir, dükkândan teyit edilecek.</p>
+    <details><summary>Randevusuz gelebilir miyim?</summary><p>[dükkândan teyit] Örnek: gelebilirsin, ama randevulu müşteri önce alınır.</p></details>
+    <details><summary>Fade kesim ne kadar sürer?</summary><p>[dükkândan teyit] Örnek: 40-50 dakika, sakalla birlikte 1 saat.</p></details>
+    <details><summary>Randevumu nasıl iptal ederim?</summary><p>WhatsApp'tan yazman yeterli. Yerini başkasına verelim.</p></details>
+    <details><summary>Kartla ödeme var mı?</summary><p>[dükkândan teyit]</p></details>
+  </div>
+</section>
+
+<section id="iletisim" style="border-bottom:0">
+  <div class="kap">
+    <span class="no">06 / ADRES</span>
+    <h2>Nerede, <em>ne zaman?</em></h2>
+    <p class="h2alt">Örnek Mah., İstanbul</p>
+    <div class="bilgi">
+      <div>
+        <div class="satir"><b>Adres</b><span>Örnek Mah., İstanbul</span></div>
+        <div class="satir"><b>Telefon</b><a href="tel:+">05xx xxx xx xx</a></div>
+        <div class="satir"><b>Yol</b><a href="https://maps.google.com/maps?q=%C4%B0stanbul&z=11&output=embed" target="_blank" rel="noopener" style="color:var(--volt)">Haritada aç →</a></div>
+        <div class="satir" style="align-items:flex-start"><b>Saatler</b><div class="saat-tablo" id="saatTablo"></div></div>
+        <p class="ufak">Kapanış (23:00) Google'daki bilgiden; açılış saatleri ve günler örnektir, dükkândan teyit edilecek.</p>
+      </div>
+      <iframe loading="lazy" title="Harita" src="https://maps.google.com/maps?q=%C4%B0stanbul&z=11&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>© Örnek Barber · İstanbul<br>Örnek tasarım: Berat Emre Bozacı</footer>
+
+<div class="cubuk" id="cubuk">
+  <div><b id="cubukYazi">0 hizmet</b><small id="cubukAlt">Saat seçmeye geç</small></div>
+  <button class="btn" data-ac-randevu>Saat seç</button>
+</div>
+
+<div class="perde" id="perde"></div>
+<div class="cekmece" id="cekmece" role="dialog" aria-modal="true" aria-label="Randevu">
+  <button class="kapat-x" id="kapatX" aria-label="Kapat">×</button>
+  <h2>Randevu</h2>
+  <div id="secListe"></div>
+  <div class="stil-satir" id="stilSatir"></div>
+  <div class="form">
+    <div class="alan"><span>Gün</span><div class="gunler" id="gunler"></div></div>
+    <div class="alan"><span>Saat</span><div class="saatler" id="saatler"></div><p class="ufak" id="saatNot" style="margin-top:6px"></p></div>
+    <div class="alan"><span>Kaç kişisiniz?</span><div class="cips" id="kisi"><button data-v="1" class="aktif">Sadece ben</button><button data-v="2">2 kişi</button><button data-v="3">3 kişi</button></div></div>
+    <div class="alan"><label for="isim">Adın</label><input id="isim" autocomplete="given-name" placeholder="Ör. Emre"></div>
+    <div class="alan"><label for="notu">Not (isteğe bağlı)</label><input id="notu" placeholder="Ör. üstten sadece uç alınsın"></div>
+  </div>
+  <button class="btn btn-wa" id="gonder" style="width:100%;margin-top:18px;font-size:16px;padding:15px">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+    Randevuyu WhatsApp'tan gönder</button>
+  <p class="ufak" style="text-align:center;margin-top:8px">Mesaj hazır açılır, sen Gönder'e basarsın. Saati dükkân onaylar.</p>
+</div>
+
+<button class="esnaf" id="esnafBtn">Dükkân sahibi misiniz? Bu site ne yapar?</button>
+<div class="esnaf-kart" id="esnafKart" role="dialog" aria-label="Bu site ne yapar">
+  <h3>Bu site size ne kazandırır?</h3>
+  <ul>
+    <li><b>Randevu hazır gelir:</b> müşteri kesimi, günü ve saati seçer; WhatsApp'ınıza tek mesaj düşer. "Kaçta boşsun abi" yazışması biter.</li>
+    <li><b>Kesim seçici:</b> genç müşteri fade'ini kendisi seçer, koltuğa oturmadan ne istediği belli olur.</li>
+    <li><b>Google'da görünürsünüz:</b> "İstanbul berber" arayan sitenizi ve 5,0 puanınızı görür. Instagram'ınız da buraya bağlanır.</li>
+    <li><b>Aylık kira yok:</b> tek masraf yıllık alan adı. Hizmet ve fotoğraf değişikliklerini ben yaparım.</li>
+  </ul>
+  <button class="btn" id="esnafKapat">Tamam</button>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const TEL="";
+// ÖRNEK saatler: kapanış 23:00 Google'dan, açılış ve günler dükkândan teyit edilecek.
+const SAAT=[["Pazartesi","10:00","23:00"],["Salı","10:00","23:00"],["Çarşamba","10:00","23:00"],["Perşembe","10:00","23:00"],["Cuma","10:00","23:00"],["Cumartesi","10:00","23:00"],["Pazar","10:00","23:00"]];
+// Örnek hizmetler: [kategori, ad, açıklama, süre dk (örnek), etiket]
+const H=[
+ ["Saç","Fade kesim","Low, mid ya da high geçiş, üstte makas","45","Çok tercih"],
+ ["Saç","Skin fade","Sıfıra inen keskin geçiş","50",""],
+ ["Saç","Taper kesim","Ense ve favoride yumuşak geçiş","40",""],
+ ["Saç","Makas kesim","Makine kullanmadan klasik kesim","45",""],
+ ["Saç","Çocuk kesimi","12 yaş altı","30",""],
+ ["Sakal","Sakal tasarımı","Çizgi, şekil, sıcak havlu","20","Çok tercih"],
+ ["Sakal","Ustura tıraş","Sıcak havlu ile tam tıraş","25",""],
+ ["Sakal","Kontür (line-up)","Alın, favori ve sakal çizgisi","15",""],
+ ["Bakım","Yıkama + şekillendirme","Wax ya da sprey ile","15",""],
+ ["Bakım","Cilt bakımı","Siyah nokta maskesi + bakım","20",""],
+ ["Bakım","Kaş düzeltme","Makas ya da iple","10",""],
+ ["Bakım","Burun-kulak ağdası","Hızlı ağda","10",""],
+ ["Paket","Fade + sakal","En çok istenen ikili","60","Çok tercih"],
+ ["Paket","Damat paketi","Kesim, tıraş, bakım, özel gün","90",""],
+ ["Ürün","Wax / pomad","Dükkânda kullanılan ürün","",""],
+ ["Ürün","Sakal yağı","Dükkândan teslim al","",""]
+].map((x,i)=>({id:i,kat:x[0],ad:x[1],acik:x[2],sure:+x[3]||0,et:x[4]}));
+
+/* ---------- ortak çekirdek ---------- */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const wa=t=>"https://wa.me/"+TEL+"?text="+encodeURIComponent(t);
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("goster");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("goster"),1600);}
+const dk=s=>+s.slice(0,2)*60+ +s.slice(3);
+const gi=d=>(d.getDay()+6)%7;
+function aralik(g){let o=dk(SAAT[g][1]),c=dk(SAAT[g][2]);if(c<=o)c+=1440;return[o,c];}
+const hm=m=>{m=((m%1440)+1440)%1440;return String(m/60|0).padStart(2,"0")+":"+String(m%60).padStart(2,"0");};
+const simdi=()=>{const d=new Date();return d.getHours()*60+d.getMinutes();};
+function durum(){const d=new Date(),n=simdi(),[o,c]=aralik(gi(d));
+  if(n>=o&&n<c)return{acik:true,kap:c};
+  const y=new Date(d);y.setDate(d.getDate()-1);const[o2,c2]=aralik(gi(y));if(n+1440>=o2&&n+1440<c2)return{acik:true,kap:c2-1440};
+  return{acik:false,ac:n<o?o:aralik((gi(d)+1)%7)[0]};}
+function gunler(){return Array.from({length:7},(_,i)=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+i);return d;});}
+let kat="Hepsi",alt="Hepsi",secili=new Set(),gun=0,saat=null,kisi=1,stil="";
+const ALTLAR=["Hepsi","Çok tercih","30 dk ve altı"];
+function katCiz(){$("#katlar").innerHTML=["Hepsi",...new Set(H.map(h=>h.kat))].map(k=>`<button class="kat-b ${k===kat?"aktif":""}" data-kat="${k}">${k}</button>`).join("");}
+function altCiz(){$("#altlar").innerHTML=ALTLAR.map(a=>`<button class="alt ${a===alt?"aktif":""}" data-alt="${a}">${a}</button>`).join("");}
+function hizCiz(){const q=$("#ara").value.trim().toLocaleLowerCase("tr");
+  const l=H.filter(h=>(q?(h.ad+" "+h.acik+" "+h.kat).toLocaleLowerCase("tr").includes(q):(kat==="Hepsi"||h.kat===kat))&&(alt==="Hepsi"||(alt===ALTLAR[1]?h.et:(h.sure&&h.sure<=30))));
+  $("#hizmetler").innerHTML=l.length?l.map(h=>{const s=secili.has(h.id);return `<article class="hz${s?" sec":""}">
+    <div class="hz-ust"><span class="hz-kat">${h.kat}</span>${h.et?`<span class="hz-et">${h.et}</span>`:""}</div>
+    <h3>${h.ad}</h3><p>${h.acik}</p>
+    <div class="hz-alt"><span class="hz-bilgi">${h.sure?"~"+h.sure+" dk · ":""}Fiyat sor</span>
+    <button class="hz-btn" data-h="${h.id}" aria-pressed="${s}">${s?"✓ Seçildi":"+ Ekle"}</button></div></article>`;}).join("")
+    :`<div class="bos">Bulunamadı. <a href="${wa("Merhaba, şu hizmet var mı: "+$("#ara").value)}" target="_blank" rel="noopener">Dükkâna sor →</a></div>`;}
+function secGuncelle(){const n=secili.size,t=[...secili].reduce((a,i)=>a+H[i].sure,0);
+  $("#cubuk").classList.toggle("goster",n>0);$("#esnafBtn").classList.toggle("gizle",n>0);
+  $("#cubukYazi").textContent=n+" hizmet seçildi";$("#cubukAlt").textContent=t?"Toplam ~"+t+" dk (örnek)":"Saat seçmeye geç";
+  $("#secListe").innerHTML=n?[...secili].map(i=>`<div class="s-satir"><span>${H[i].ad}</span><span class="ufak">${H[i].sure?"~"+H[i].sure+" dk":"ürün"}</span><button data-cikar="${i}" aria-label="${H[i].ad} çıkar">×</button></div>`).join("")+(t?`<p class="ufak" style="margin-top:6px">Toplam yaklaşık ${t} dk (örnek süre)</p>`:"")
+    :`<p class="ufak">Hizmet seçmedin, dükkânda da karar verebilirsin. <a href="#katalog" data-kapat style="color:var(--volt);font-weight:700">Hizmet seç →</a></p>`;
+  $("#stilSatir").textContent=stil?"Kesim: "+stil:"";}
+function gunCiz(){$("#gunler").innerHTML=gunler().map((d,i)=>`<button class="gun ${i===gun?"aktif":""}" data-gun="${i}"><b>${i===0?"Bugün":i===1?"Yarın":d.toLocaleDateString("tr-TR",{weekday:"short"})}</b><small>${d.getDate()} ${d.toLocaleDateString("tr-TR",{month:"short"})}</small></button>`).join("");saatCiz();}
+function saatCiz(){const d=gunler()[gun],[o,c]=aralik(gi(d)),n=simdi();let h="",bos=0;
+  for(let m=o;m<=c-30;m+=30){const gecti=gun===0&&m<n+20;if(!gecti)bos++;h+=`<button class="slot ${saat===m?"aktif":""}" data-saat="${m}" ${gecti?"disabled":""}>${hm(m)}</button>`;}
+  $("#saatler").innerHTML=h;$("#saatNot").textContent=bos?"Saatler örnektir; dükkân onaylar.":"Bugün için saat kalmadı, yarını seç.";}
+function gunYazi(){const d=gunler()[gun];return d.toLocaleDateString("tr-TR",{day:"numeric",month:"long",weekday:"long"})+(gun===0?" (bugün)":gun===1?" (yarın)":"");}
+function mesaj(){const l=[...secili].map(i=>H[i].ad);
+  let m="Merhaba, siteden randevu istiyorum.\n\n";
+  m+="Hizmet: "+(l.length?l.join(", "):"Dükkânda karar vereceğim")+"\n";
+  if(stil)m+="Kesim: "+stil+"\n";
+  m+="Gün: "+gunYazi()+"\n";
+  m+="Saat: "+hm(saat)+(saat>=1440?" (gece yarısından sonra)":"")+"\n";
+  if(kisi>1)m+="Kişi: "+kisi+" kişiyiz\n";
+  const ad=$("#isim").value.trim(),nt=$("#notu").value.trim();
+  if(ad)m+="İsim: "+ad+"\n";if(nt)m+="Not: "+nt+"\n";
+  return m+"\nBu saat uygun mu, yazar mısınız?";}
+function cekmece(ac){$("#cekmece").classList.toggle("acik",ac);$("#perde").classList.toggle("acik",ac);if(ac){gunCiz();secGuncelle();}}
+function esnaf(ac){$("#esnafKart").classList.toggle("acik",ac);$("#perde").classList.toggle("acik",ac);}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.closest("[data-ac-randevu]")){cekmece(true);return;}
+  const k=t.closest("[data-kat]");if(k){kat=k.dataset.kat;$("#ara").value="";katCiz();hizCiz();return;}
+  const a=t.closest("[data-alt]");if(a){alt=a.dataset.alt;altCiz();hizCiz();return;}
+  const h=t.closest("[data-h]");if(h){const id=+h.dataset.h;if(secili.has(id))secili.delete(id);else{secili.add(id);toast(H[id].ad+" eklendi");}hizCiz();secGuncelle();return;}
+  const c=t.closest("[data-cikar]");if(c){secili.delete(+c.dataset.cikar);hizCiz();secGuncelle();return;}
+  if(t.closest("[data-kapat]")){cekmece(false);return;}
+  const g=t.closest("[data-gun]");if(g){gun=+g.dataset.gun;saat=null;gunCiz();return;}
+  const s=t.closest("[data-saat]");if(s&&!s.disabled){saat=+s.dataset.saat;saatCiz();return;}
+});
+$("#ara").addEventListener("input",hizCiz);
+$("#kisi").onclick=e=>{const b=e.target.closest("button");if(!b)return;kisi=+b.dataset.v;$$("#kisi button").forEach(x=>x.classList.toggle("aktif",x===b));};
+$("#perde").onclick=()=>{cekmece(false);esnaf(false);};$("#kapatX").onclick=()=>cekmece(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){cekmece(false);esnaf(false);}});
+$("#gonder").onclick=()=>{if(saat===null){toast("Önce bir saat seç");$("#saatler").scrollIntoView({block:"center",behavior:"smooth"});return;}window.open(wa(mesaj()),"_blank","noopener");};
+$("#esnafBtn").onclick=()=>esnaf(true);$("#esnafKapat").onclick=()=>esnaf(false);
+(function(){const d=durum();$("#durum").classList.toggle("kapali",!d.acik);
+  $("#durum span").innerHTML=d.acik?"Açık<span class=genis> · "+hm(d.kap)+" kapanış</span>":"Kapalı<span class=genis> · "+hm(d.ac)+" açılış</span>";
+  const b=gi(new Date());$("#saatTablo").innerHTML=SAAT.map((s,i)=>`<div class="${i===b?"bugun":""}"><span>${s[0]}</span><span>${s[1]}–${s[2]}</span></div>`).join("");})();
+
+/* ---------- By Usta'e özel: fade seçici ---------- */
+const FADE={low:{ad:"Low fade",o:[.6,.8],a:"Geçiş kulağın altından başlar. İlk fade için en güvenli seçim, ofiste de sırıtmaz."},
+  mid:{ad:"Mid fade",o:[.46,.66],a:"Geçiş şakak hizasında. En çok istenen; hem temiz hem dikkat çekici."},
+  high:{ad:"High fade",o:[.29,.49],a:"Geçiş yukarıdan başlar, yanlar çok kısa. Üstü uzun olanlarda iyi durur."},
+  skin:{ad:"Skin fade",o:[.46,.56],a:"Yanlar sıfıra iner, geçiş keskin. 2-3 haftada bir tazelemek gerekir."},
+  taper:{ad:"Taper",o:[.72,.86],a:"Sadece ense ve favoride yumuşak geçiş. Klasik ve sade."}};
+const UST={kisa:"M52 66 Q60 44 104 42 Q152 42 160 66 Q140 54 104 54 Q66 54 52 66 Z",
+  orta:"M44 74 Q50 36 104 34 Q160 34 168 74 Q150 56 104 54 Q62 56 44 74 Z",
+  uzun:"M40 80 Q38 18 106 16 Q176 18 176 70 Q170 84 160 66 Q140 50 104 52 Q60 54 40 80 Z"};
+const USTAD={kisa:"Üst kısa",orta:"Üst orta",uzun:"Üst uzun"},SAKAD={yok:"sakal yok",kontur:"sakal kontürü",tasarim:"sakal tasarımı"};
+let st={fade:"mid",ust:"orta",sakal:"yok"};
+function stilCiz(){const f=FADE[st.fade];$("#f1").setAttribute("offset",f.o[0]);$("#f2").setAttribute("offset",f.o[1]);
+  $("#ust").setAttribute("d",UST[st.ust]);$("#sakal").setAttribute("opacity",st.sakal==="yok"?0:st.sakal==="kontur"?.35:.85);
+  $("#stilAd").innerHTML=`<span lang="en">${f.ad}</span><small>${USTAD[st.ust]} · ${SAKAD[st.sakal]}</small>`;$("#stilAciklama").textContent=f.a;}
+[["#sFade","fade"],["#sUst","ust"],["#sSakal","sakal"]].forEach(([id,k])=>{$(id).onclick=e=>{const b=e.target.closest("button");if(!b)return;st[k]=b.dataset.v;
+  $$(id+" button").forEach(x=>x.classList.toggle("aktif",x===b));stilCiz();};});
+$("#stilBtn").onclick=()=>{stil=`${FADE[st.fade].ad}, ${USTAD[st.ust].toLocaleLowerCase("tr")}, ${SAKAD[st.sakal]}`;
+  secili.add(st.fade==="skin"?1:st.fade==="taper"?2:0);if(st.sakal==="tasarim")secili.add(5);if(st.sakal==="kontur")secili.add(7);
+  hizCiz();cekmece(true);};
+
+/* galeri karoları (fotoğraf yerine geçici) */
+$("#izgara").innerHTML=["Mid fade","Skin fade","Sakal","Taper","High fade","Kontür"].map((t,i)=>`<div class="karo"><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="80" height="100" fill="${i%2?"#161616":"#1d1d1d"}"/><ellipse cx="40" cy="${56+i%3*2}" rx="24" ry="28" fill="#2a2a2a"/>
+  <path d="M16 ${48-i*2} Q40 ${18+i} 64 ${48-i*2} Z" fill="#d7ff3a" opacity="${.18+i*.05}"/></svg><span>${t}</span></div>`).join("");
+
+katCiz();altCiz();hizCiz();secGuncelle();stilCiz();
+</script>
+</body>
+</html>

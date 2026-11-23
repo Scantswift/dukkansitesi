@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dükkân Sitesi · Esnafa web sitesi ve Google Haritalar düzenlemesi</title>
+<meta name="description" content="Dükkânınız kapanır, siteniz çalışır. Esnafa özel web sitesi ve Haritalar düzenlemesi: 1 günde ücretsiz taslak, 1 haftada yayın, ödeme yayından sonra. Başlangıç 1.500 TL, aylık ücret yok.">
+<meta name="theme-color" content="#07090F">
+<meta property="og:title" content="Dükkân Sitesi · Dükkânınız kapanır. Siteniz çalışır.">
+<meta property="og:description" content="Dükkânınızın adını yazın, sitenizi 3 saniyede görün. Ödeme site yayına girince.">
+<meta property="og:image" content="img/paylas.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0D14'/%3E%3Cpath d='M14 24h36v6H14z' fill='%232F7BFF'/%3E%3Cpath d='M14 33h36v3H14zm0 6h36v3H14zm0 6h36v3H14z' fill='%23E8ECF4' opacity='.85'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090F;--bg2:#0C1019;--kart:#111726;--kart2:#162036;--cizgi:#202A40;
+  --metin:#EEF1F7;--soluk:#8D98B2;--mavi:#2F7BFF;--mavi2:#6AA8FF;--mor:#6B5BFF;--parilti:rgba(47,123,255,.35);
+  --yesil:#2BD07B;--kirmizi:#FF5A6A;--r:20px;--max:1140px;
+  --yay:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--metin);font:16px/1.6 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.kap{width:min(var(--max),100% - 32px);margin-inline:auto}
+section{padding:100px 0;position:relative}
+.ust-baslik{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mavi2);margin-bottom:14px}
+h1,h2,h3{line-height:1.08;letter-spacing:-.025em}
+h2{font-size:clamp(32px,5.4vw,56px);font-weight:800;max-width:17ch}
+.orta{text-align:center}.orta h2,.orta .alt{margin-inline:auto}
+.alt{color:var(--soluk);font-size:clamp(16px,2vw,19px);max-width:58ch;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:999px;font-weight:800;font-size:16px;transition:transform .2s,box-shadow .25s,background .2s;cursor:pointer;border:0;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-mavi{background:var(--mavi);color:#fff;box-shadow:0 10px 34px -10px var(--parilti),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-mavi:hover{background:#3F88FF;box-shadow:0 14px 44px -8px rgba(47,123,255,.65)}
+.btn-hayalet{background:rgba(255,255,255,.06);border:1px solid var(--cizgi);color:var(--metin)}
+.btn-hayalet:hover{background:rgba(255,255,255,.1)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* üst hap çubuğu (Soma / Superwhisper esinli) */
+header{position:fixed;top:14px;left:0;right:0;z-index:50;pointer-events:none}
+.hap{pointer-events:auto;width:min(760px,100% - 24px);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 7px 7px 16px;border-radius:999px;background:rgba(14,19,31,.66);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 10px 40px -16px rgba(0,0,0,.8)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+.logo-ik{width:28px;height:28px;border-radius:8px;background:var(--kart2);display:grid;place-items:center;border:1px solid var(--cizgi)}
+.logo-ik i{display:block;width:14px;height:2.5px;background:var(--metin);border-radius:2px;box-shadow:0 4.5px 0 var(--metin),0 9px 0 var(--metin);opacity:.85;position:relative;top:-2px}
+.logo-ik i::before{content:"";position:absolute;left:0;top:-5.5px;width:14px;height:3.5px;background:var(--mavi);border-radius:2px}
+.hap nav{display:flex;gap:4px}
+.hap nav a{font-size:14px;font-weight:700;color:var(--soluk);padding:8px 12px;border-radius:999px;transition:color .2s,background .2s}
+.hap nav a:hover{color:var(--metin);background:rgba(255,255,255,.06)}
+.hap .btn{padding:10px 16px;font-size:14px}
+
+/* giriş */
+.giris{padding:104px 0 40px;overflow:hidden;text-align:center}
+.ufuk{position:absolute;left:50%;top:0;width:1600px;height:100%;translate:-50% 0;pointer-events:none;background:radial-gradient(60% 46% at 50% 92%,rgba(47,123,255,.55),rgba(107,91,255,.22) 45%,transparent 72%)}
+.ufuk::after{content:"";position:absolute;left:10%;right:10%;bottom:7%;height:1px;background:linear-gradient(90deg,transparent,rgba(160,200,255,.9),transparent);filter:blur(.3px);box-shadow:0 0 30px 6px rgba(80,140,255,.45)}
+.yildizlar{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 20%,#fff6,transparent),radial-gradient(1px 1px at 40% 60%,#fff4,transparent),radial-gradient(1px 1px at 85% 55%,#fff5,transparent),radial-gradient(1px 1px at 10% 75%,#fff4,transparent),radial-gradient(1px 1px at 60% 40%,#fff3,transparent);opacity:.6}
+.secici{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;padding:6px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--cizgi);position:relative}
+.secici .etk{font-size:13px;font-weight:700;color:var(--soluk);padding:0 8px 0 10px}
+.cip{border:0;background:transparent;padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;color:var(--soluk);cursor:pointer;transition:all .25s var(--yay)}
+.cip:hover{color:var(--metin)}
+.cip.secili{background:var(--metin);color:#0A0D14}
+.giris h1{font-size:clamp(44px,7.4vw,92px);font-weight:800;margin-top:22px;position:relative}
+.giris h1 .parla{display:block;background:linear-gradient(100deg,#9CC3FF,var(--mavi2) 30%,#B7A8FF 60%,var(--mavi2));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:akis 8s linear infinite}
+@keyframes akis{to{background-position:-200% 0}}
+.giris .alt{margin:22px auto 0;font-size:clamp(17px,2.2vw,21px);min-height:3.2em;transition:opacity .3s}
+.giris .dugmeler{justify-content:center}
+.dugmeler{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.notlar{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:22px;color:var(--soluk);font-size:14px;font-weight:700}
+.notlar span{display:flex;align-items:center;gap:7px}
+.notlar span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--yesil);box-shadow:0 0 10px var(--yesil)}
+
+/* telefon + mini site */
+.telefon{width:300px;aspect-ratio:300/620;border-radius:46px;background:#04060A;padding:10px;border:1px solid #2A3550;box-shadow:0 50px 100px -30px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.04) inset,0 0 100px -20px var(--parilti);position:relative;flex:none}
+.telefon::before{content:"";position:absolute;top:17px;left:50%;translate:-50% 0;width:84px;height:22px;border-radius:12px;background:#04060A;z-index:9}
+.ekran{width:100%;height:100%;border-radius:37px;overflow:hidden;background:#fff;position:relative;isolation:isolate}
+.ekran>img{width:100%;height:100%;object-fit:cover;object-position:top}
+.sahne-giris{margin-top:52px;display:grid;place-items:center;position:relative;perspective:1400px}
+.sahne-giris .telefon{transform:rotateX(8deg);transition:transform .6s var(--yay)}
+.durum-etiket{position:absolute;top:-38px;left:50%;translate:-50% 0;font-size:13px;font-weight:800;letter-spacing:.16em;padding:7px 14px;border-radius:999px;background:rgba(10,13,20,.85);border:1px solid var(--cizgi);white-space:nowrap;transition:color .3s}
+.durum-etiket.kotu{color:var(--kirmizi)}.durum-etiket.iyi{color:var(--yesil)}
+.yan-rozet{position:absolute;z-index:10;background:rgba(17,23,38,.92);border:1px solid var(--cizgi);backdrop-filter:blur(10px);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:9px;box-shadow:0 14px 40px -12px rgba(0,0,0,.8);opacity:0;transform:translateY(10px) scale(.96);transition:all .5s var(--yay);text-align:left}
+.yan-rozet.acik{opacity:1;transform:none}
+.yan-rozet .nokta{width:9px;height:9px;border-radius:50%;background:var(--yesil);box-shadow:0 0 10px var(--yesil);flex:none}
+.yan-rozet b{color:var(--mavi2)}
+.yr1{top:22%;left:calc(50% - 300px)}.yr2{top:58%;right:calc(50% - 310px)}
+/* kötü profil katmanı */
+.kotu-kat{position:absolute;inset:0;background:#F4F5F7;color:#2A2F3A;padding:44px 14px 14px;font-size:12px;z-index:3;transition:clip-path .9s var(--yay)}
+.kotu-kat .arama{height:34px;border-radius:17px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);display:flex;align-items:center;padding:0 14px;color:#7A808C;font-weight:600;margin-bottom:10px}
+.kotu-kat .gri{height:120px;border-radius:12px;background:repeating-linear-gradient(135deg,#E3E5EA 0 9px,#DADDE3 9px 18px);display:grid;place-items:center;color:#9AA0AB;font-weight:700;margin-bottom:10px}
+.kotu-kat .isim{font-size:17px;font-weight:800;filter:blur(3.5px);color:#2A2F3A}
+.kotu-kat .yil{color:#B48A00;font-weight:700}
+.kotu-kat .s{margin-top:8px;padding:8px 10px;border-radius:9px;background:#fff;color:#D0384A;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.tarayici{position:absolute;top:0;bottom:0;width:3px;background:#6AA8FF;box-shadow:0 0 22px 4px rgba(47,123,255,.7);z-index:4;left:100%;opacity:0}
+
+/* mini site şablonu (.ms) */
+.ms{position:absolute;inset:0;overflow:hidden;font-size:12px;line-height:1.4;background:var(--ms-bg);color:var(--ms-yazi)}
+.ms-ic{transition:transform .9s var(--yay)}
+.ms-ust{display:flex;align-items:center;justify-content:space-between;padding:42px 14px 10px;position:relative;z-index:2}
+.ms-ad{font-weight:800;font-size:15px;letter-spacing:-.01em;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-acik{font-size:10px;font-weight:800;padding:4px 8px;border-radius:999px;background:var(--ms-acikbg);color:var(--ms-acik);display:flex;align-items:center;gap:5px}
+.ms-acik::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.ms-kahraman{margin:0 10px;height:170px;border-radius:16px;overflow:hidden;position:relative}
+.ms-kahraman img{width:100%;height:100%;object-fit:cover}
+.ms-kahraman::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.65))}
+.ms-kahraman .ms-slogan{position:absolute;left:12px;right:12px;bottom:10px;z-index:2;color:#fff;font-weight:800;font-size:17px;line-height:1.15}
+.ms-blok{margin:12px 10px 0;padding:12px;border-radius:14px;background:var(--ms-kart);transition:box-shadow .5s,transform .5s var(--yay)}
+.ms-blok.isik{box-shadow:0 0 0 2px var(--ms-vurgu),0 0 30px -4px var(--ms-vurgu);transform:scale(1.03)}
+.ms-bb{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ms-vurgu);margin-bottom:6px}
+.ms-satir{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--ms-cizgi);font-weight:600}
+.ms-satir:last-child{border:0}
+.ms-satir b{color:var(--ms-vurgu);font-weight:800;white-space:nowrap}
+.ms-wa{display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;font-weight:800;border-radius:12px;padding:11px;font-size:13px}
+.ms-saat{display:grid;grid-template-columns:1fr auto;gap:3px 8px;font-weight:600}
+.ms-harita{height:70px;border-radius:10px;background:linear-gradient(135deg,var(--ms-cizgi) 25%,transparent 25%) -10px 0/20px 20px,linear-gradient(225deg,var(--ms-cizgi) 25%,transparent 25%) -10px 0/20px 20px,var(--ms-kart2);display:grid;place-items:center;font-size:20px;margin-top:6px}
+.ms-not{text-align:center;font-size:9px;opacity:.55;padding:10px 0 30px}
+
+/* kayan bant */
+.bant{border-block:1px solid var(--cizgi);overflow:hidden;padding:16px 0;background:var(--bg2);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.bant-ic{display:flex;gap:44px;width:max-content;animation:kay 38s linear infinite;font-weight:800;font-size:18px;color:#5E6985}
+.bant-ic span{display:flex;align-items:center;gap:44px}
+.bant-ic span::after{content:"✦";color:var(--mavi);font-size:12px}
+@keyframes kay{to{transform:translateX(-50%)}}
+
+/* görünme */
+.gor{opacity:0;transform:translateY(30px);transition:opacity .9s var(--yay),transform .9s var(--yay)}
+.gor.acik{opacity:1;transform:none}
+.gor.g2{transition-delay:.1s}.gor.g3{transition-delay:.2s}.gor.g4{transition-delay:.3s}
+
+/* video */
+.video-alan{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
+.video-tel{width:320px;aspect-ratio:9/16;border-radius:38px;overflow:hidden;border:1px solid #2A3550;background:var(--kart);position:relative;box-shadow:0 50px 110px -40px var(--parilti),0 0 0 8px #04060A,0 0 0 9px #2A3550}
+.video-tel video{width:100%;height:100%;object-fit:cover}
+.oynat{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle,rgba(7,9,15,.05),rgba(7,9,15,.5));cursor:pointer;border:0;transition:opacity .3s}
+.oynat span{width:84px;height:84px;border-radius:50%;background:var(--mavi);display:grid;place-items:center;box-shadow:0 0 0 12px rgba(47,123,255,.2),0 0 60px var(--parilti);transition:transform .25s}
+.oynat:hover span{transform:scale(1.08)}
+.oynat svg{width:30px;height:30px;margin-left:5px;fill:#fff}
+
+/* mini sahneler (sohbet) */
+.sahneler{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+.mini{background:linear-gradient(180deg,var(--kart),var(--bg2));border:1px solid var(--cizgi);border-radius:24px;padding:20px;display:flex;flex-direction:column;min-height:360px}
+.mini-ust{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;color:var(--soluk);margin-bottom:16px}
+.mini-ust .saat{font-size:22px;color:var(--metin);letter-spacing:-.02em}
+.sohbet{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:flex-start}
+.balon{max-width:85%;padding:10px 13px;border-radius:16px;font-size:14px;font-weight:600;opacity:0;transform:translateY(10px) scale(.96);transition:all .45s var(--yay)}
+.balon.goster{opacity:1;transform:none}
+.balon.gelen{background:#1F2A44;border-bottom-left-radius:5px;align-self:flex-start}
+.balon.durum{align-self:flex-end;background:transparent;color:var(--soluk);font-size:12px;padding:0 4px;font-weight:700}
+.yaziyor{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:16px;background:#1F2A44;opacity:0;transition:opacity .3s}
+.yaziyor.goster{opacity:1}
+.yaziyor i{width:7px;height:7px;border-radius:50%;background:#8D98B2;animation:zipla 1s infinite}
+.yaziyor i:nth-child(2){animation-delay:.15s}.yaziyor i:nth-child(3){animation-delay:.3s}
+@keyframes zipla{50%{transform:translateY(-4px);opacity:.5}}
+.harita-mini{border-radius:14px;background:#F4F5F7;color:#2A2F3A;padding:12px;opacity:0;transform:translateY(10px);transition:all .5s var(--yay)}
+.harita-mini.goster{opacity:1;transform:none}
+.harita-mini b{font-size:15px}
+.kapali{display:inline-block;margin-top:6px;color:#D0384A;font-weight:800}
+.dukkan-isik{margin-top:10px;height:70px;border-radius:10px;background:linear-gradient(180deg,#FFD27A,#E59A2E);display:grid;place-items:center;font-size:12px;font-weight:800;color:#5A3A08}
+.mini-son{margin-top:16px;font-weight:800;color:var(--kirmizi);opacity:0;transform:translateX(-10px);transition:all .5s var(--yay)}
+.mini-son.goster{opacity:1;transform:none}
+.mini h3{font-size:17px;margin-top:12px;color:var(--metin)}
+
+/* önce sonra */
+.ks{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.karsilastir{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--cizgi);user-select:none;touch-action:pan-y;background:var(--kart)}
+.profil{padding:20px;min-height:440px}
+.profil .foto{height:150px;border-radius:14px;margin-bottom:16px;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px}
+.profil .foto i{border-radius:10px;display:block;background-size:cover;background-position:center}
+.profil .foto i:first-child{grid-row:1/3}
+.profil .ad{font-size:20px;font-weight:800;filter:blur(5px)}
+.profil .bilgi{display:flex;flex-direction:column;gap:10px;margin-top:14px;font-size:14px}
+.profil .satir{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.03)}
+.once .foto i{background:repeating-linear-gradient(135deg,#1A2132 0 10px,#161C2B 10px 20px)}
+.once .yok{color:var(--kirmizi)}.once .yildiz,.sonra .yildiz{color:#FFC94A}
+.sonra{position:absolute;inset:0;clip-path:inset(0 0 0 var(--ks,50%));background:var(--kart2)}
+.sonra .foto i:nth-child(1){background-image:url(img/sektor-berber.webp)}
+.sonra .foto i:nth-child(2){background-image:url(img/sektor-kuafor.webp)}
+.sonra .foto i:nth-child(3){background-image:url(img/sektor-diger.webp)}
+.sonra .var{color:var(--yesil)}
+.cevap{margin-top:4px;padding:10px 12px;border-left:3px solid var(--mavi);background:rgba(47,123,255,.08);border-radius:0 10px 10px 0;font-size:13px}
+.ks-cizgi{position:absolute;top:0;bottom:0;left:var(--ks,50%);width:2px;background:var(--mavi2);box-shadow:0 0 16px var(--mavi);z-index:3;pointer-events:none}
+.ks-tutamac{position:absolute;top:50%;left:var(--ks,50%);translate:-50% -50%;width:48px;height:48px;border-radius:50%;background:var(--mavi);display:grid;place-items:center;z-index:4;box-shadow:0 0 0 8px rgba(47,123,255,.2);pointer-events:none}
+.ks-tutamac svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.5}
+.ks-etiket{position:absolute;top:14px;z-index:3;font-size:12px;font-weight:800;letter-spacing:.1em;padding:6px 10px;border-radius:8px;background:rgba(7,9,15,.8)}
+.ks-etiket.e1{left:14px;color:var(--kirmizi)}.ks-etiket.e2{right:14px;color:var(--yesil)}
+.karsilastir input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:5;margin:0}
+.ks-metin h3{font-size:clamp(26px,3.6vw,38px);font-weight:800;margin-bottom:12px}
+.liste{list-style:none;margin-top:20px;display:grid;gap:12px}
+.liste li{display:flex;gap:12px;align-items:flex-start;color:var(--soluk)}
+.liste li::before{content:"";flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;background:rgba(43,208,123,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232BD07B' stroke-width='3'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat}
+.liste li b{color:var(--metin)}
+
+/* adını yaz siteni gör */
+.uret{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;margin-top:10px;background:radial-gradient(80% 90% at 90% 50%,rgba(47,123,255,.16),transparent 60%),linear-gradient(180deg,var(--kart),var(--bg2));border:1px solid var(--cizgi);border-radius:32px;padding:clamp(24px,5vw,60px)}
+.uret h2{max-width:13ch}
+.kutu-giris{margin-top:28px;display:flex;flex-direction:column;gap:14px;max-width:460px}
+.kutu-giris label{font-size:13px;font-weight:800;color:var(--soluk);letter-spacing:.06em}
+.kutu-giris input{width:100%;padding:18px 20px;border-radius:16px;border:1px solid var(--cizgi);background:#0A0E17;color:var(--metin);font:700 20px Manrope,sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+.kutu-giris input:focus{border-color:var(--mavi);box-shadow:0 0 0 4px rgba(47,123,255,.2)}
+.uret .secici{justify-content:flex-start;background:transparent;border:0;padding:0}
+.uret .cip{background:rgba(255,255,255,.05);border:1px solid var(--cizgi)}
+.uret .cip.secili{background:var(--metin);border-color:var(--metin)}
+.uret-not{font-size:13px;color:var(--soluk);margin-top:6px}
+
+/* kaydırmalı anlatım (Soma esinli) */
+.anlatim{display:grid;grid-template-columns:1fr auto;gap:60px;position:relative}
+.anlatim-adimlar{display:flex;flex-direction:column}
+.an{min-height:78vh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transition:opacity .5s}
+.an.aktif{opacity:1}
+.an .no{font-size:13px;font-weight:800;color:var(--mavi2);letter-spacing:.14em}
+.an h3{font-size:clamp(28px,4vw,44px);font-weight:800;margin-top:10px;max-width:14ch}
+.an p{color:var(--soluk);font-size:18px;margin-top:12px;max-width:40ch}
+.anlatim-tel{position:sticky;top:calc(50vh - 310px);height:620px;align-self:start}
+
+/* örnekler */
+.ornekler{display:flex;gap:26px;overflow-x:auto;scroll-snap-type:x mandatory;padding:44px 16px 30px;margin:0 -16px;scrollbar-width:none}
+.ornekler::-webkit-scrollbar{display:none}
+.ornek{scroll-snap-align:center;flex:none;width:250px;text-align:center}
+.ornek .telefon{width:250px;border-radius:40px;padding:9px;transition:transform .4s var(--yay),box-shadow .4s}
+.ornek .telefon::before{width:70px;height:18px;top:15px}
+.ornek .ekran{border-radius:31px}
+.ornek:hover .telefon{transform:translateY(-10px)}
+.ornek h3{margin-top:22px;font-size:18px}
+.ornek p{color:var(--soluk);font-size:14px;margin-top:6px}
+.ornek .ac{display:inline-block;margin-top:12px;color:var(--mavi2);font-weight:800;font-size:14px}
+.kaydir-ipucu{color:var(--soluk);font-size:13px;text-align:center;display:none}
+
+/* adımlar */
+.adimlar{margin-top:50px;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.adim{position:relative;background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--r);padding:24px}
+.adim .no{width:38px;height:38px;border-radius:50%;background:var(--mavi);display:grid;place-items:center;font-weight:800;box-shadow:0 0 24px var(--parilti);margin-bottom:16px}
+.adim h3{font-size:19px}
+.adim p{color:var(--soluk);margin-top:6px;font-size:15px}
+.adim .etiket{display:inline-block;margin-top:12px;font-size:12px;font-weight:800;color:var(--yesil);background:rgba(43,208,123,.1);padding:4px 10px;border-radius:999px}
+
+/* ben */
+.ben{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;background:linear-gradient(135deg,var(--kart2),var(--kart));border:1px solid var(--cizgi);border-radius:28px;padding:clamp(26px,5vw,52px)}
+.ben-ik{width:110px;height:110px;border-radius:30px;background:radial-gradient(circle at 30% 30%,var(--mavi2),var(--mavi) 50%,#123A8F);display:grid;place-items:center;font-size:44px;font-weight:800;box-shadow:0 20px 60px -20px var(--parilti)}
+.ben p{font-size:clamp(17px,2.2vw,21px);line-height:1.55}
+.ben .imza{margin-top:16px;color:var(--soluk);font-weight:700}
+
+/* sss */
+.sss{margin:40px auto 0;display:grid;gap:12px;max-width:820px;text-align:left}
+details{background:var(--kart);border:1px solid var(--cizgi);border-radius:16px;overflow:hidden;transition:border-color .3s}
+details[open]{border-color:#34507F}
+summary{list-style:none;cursor:pointer;padding:20px 22px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;color:var(--mavi2);transition:transform .3s;flex:none}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 22px 20px;color:var(--soluk)}
+
+/* paketler */
+.paketler{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px;align-items:stretch}
+.paket{background:var(--kart);border:1px solid var(--cizgi);border-radius:26px;padding:30px;display:flex;flex-direction:column;position:relative;text-align:left}
+.paket.one{background:linear-gradient(180deg,#15244C,var(--kart) 70%);border-color:var(--mavi);box-shadow:0 30px 80px -30px var(--parilti)}
+.paket .serit{position:absolute;top:-13px;left:50%;translate:-50% 0;background:var(--mavi);color:#fff;font-size:12px;font-weight:800;padding:6px 14px;border-radius:999px;white-space:nowrap}
+.paket h3{font-size:22px}
+.paket .fiyat{font-size:46px;font-weight:800;letter-spacing:-.03em;margin-top:14px}
+.paket .fiyat small{font-size:16px;font-weight:600;color:var(--soluk);letter-spacing:0}
+.paket .aciklama{color:var(--soluk);font-size:14px;font-weight:600;min-height:2.6em}
+.paket ul{list-style:none;margin:22px 0 26px;display:grid;gap:11px;flex:1}
+.paket li{display:flex;gap:10px;font-size:15px}
+.paket li::before{content:"✓";color:var(--yesil);font-weight:800}
+.paket-not{margin-top:30px;color:var(--soluk);font-size:17px}
+.paket-not b{color:var(--metin)}
+
+/* son */
+.son{overflow:hidden;padding-bottom:140px}
+.son .ufuk{top:auto;bottom:0;height:120%}
+footer{border-top:1px solid var(--cizgi);padding:34px 0 110px;color:var(--soluk);font-size:14px}
+footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+.yapiskan{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:60;display:none;transform:translateY(150%);transition:transform .45s var(--yay)}
+.yapiskan.goster{transform:none}
+.yapiskan .btn{width:100%;padding:16px;font-size:17px}
+
+@media (max-width:900px){
+  section{padding:78px 0}
+  .hap nav{display:none}
+  .giris{padding-top:110px}
+  .yr1{left:4px;top:12%}.yr2{right:4px;top:70%}
+  .video-alan,.uret,.ks{grid-template-columns:1fr;gap:36px}
+  .video-tel{margin-inline:auto;width:min(320px,86vw)}
+  .uret .telefon{margin-inline:auto}
+  .sahneler,.paketler{grid-template-columns:1fr}
+  .adimlar{grid-template-columns:1fr 1fr}
+  .anlatim{grid-template-columns:1fr;gap:0}
+  .anlatim-tel{order:-1;top:64px;height:auto;z-index:2;display:grid;place-items:center;padding:6px 0 14px;background:linear-gradient(180deg,var(--bg) 88%,transparent)}
+  .anlatim-tel .telefon{width:168px;border-radius:30px;padding:6px}
+  .anlatim-tel .telefon::before{width:56px;height:15px;top:12px}
+  .anlatim-tel .ekran{border-radius:26px}
+  .an{min-height:72vh;justify-content:flex-end;padding-bottom:10vh}
+  .an h3{font-size:28px}.an p{font-size:16px}
+  .ben{grid-template-columns:1fr}
+  .paket.one{order:-1}
+  .yapiskan{display:block}
+  .kaydir-ipucu{display:block}
+}
+@media (max-width:520px){.adimlar{grid-template-columns:1fr}.secici .etk{width:100%;padding:4px 0 2px}.cip{padding:8px 11px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.gor{opacity:1;transform:none}}
+</style>
+</head>
+<body data-sektor="berber">
+
+<header>
+  <div class="hap">
+    <a href="#" class="logo" aria-label="Dükkân Sitesi"><span class="logo-ik"><i></i></span>Dükkân Sitesi</a>
+    <nav><a href="#uret">Siteni gör</a><a href="#nasil">Nasıl?</a><a href="#paketler">Fiyatlar</a></nav>
+    <a class="btn btn-mavi wa" data-mesaj="Merhaba, Dükkân Sitesi'ni gördüm, bilgi almak istiyorum." href="#">WhatsApp</a>
+  </div>
+</header>
+
+<main>
+<section class="giris">
+  <div class="ufuk"></div><div class="yildizlar"></div>
+  <div class="kap" style="position:relative">
+    <div class="secici gor" role="group" aria-label="Sektör seçin"><span class="etk">Dükkânınız ne?</span></div>
+    <h1 class="gor g2">Dükkânınız kapanır.<span class="parla">Siteniz çalışır.</span></h1>
+    <p class="alt gor g3" id="altBaslik"></p>
+    <div class="dugmeler gor g4">
+      <a href="#uret" class="btn btn-mavi">Dükkânınızın sitesini görün</a>
+      <a href="#video" class="btn btn-hayalet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>36 sn video</a>
+    </div>
+    <div class="notlar gor g4"><span>Aylık ücret yok</span><span>Başlangıç 1.500 TL</span><span>Ödeme yayından sonra</span></div>
+    <div class="sahne-giris gor g3">
+      <div class="durum-etiket kotu" id="durumEtiket">BURADAN</div>
+      <div class="telefon" id="girisTel"><div class="ekran" id="girisEkran"></div></div>
+      <div class="yan-rozet yr1" id="yr1"><span class="nokta"></span><span>Şu an açık · 23:00'e kadar</span></div>
+      <div class="yan-rozet yr2" id="yr2"><span>Yeni mesaj: <b id="yr2m">Randevu, 18:30</b></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="bant" aria-hidden="true"><div class="bant-ic" id="bant"></div></div>
+
+<section id="video">
+  <div class="kap video-alan">
+    <div>
+      <div class="ust-baslik gor">36 saniyede</div>
+      <h2 class="gor g2">Gece 23:47. Müşteri yazdı. Siz uyuyordunuz.</h2>
+      <p class="alt gor g3">Sonrasını videoda izleyin. Sesi kapalı da anlaşılır.</p>
+    </div>
+    <div class="video-tel gor g3">
+      <video id="tanitim" playsinline muted loop preload="metadata" poster="img/video-kapak.webp"><source src="video/tanitim.mp4" type="video/mp4"></video>
+      <button class="oynat" id="oynat" aria-label="Videoyu oynat"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button>
+    </div>
+  </div>
+</section>
+
+<section id="sorun">
+  <div class="kap">
+    <div class="ust-baslik gor">Tanıdık geldi mi?</div>
+    <h2 class="gor g2">Müşteri böyle kaybediliyor.</h2>
+    <div class="sahneler">
+      <div class="mini gor" data-sahne="gece">
+        <div class="mini-ust"><span>WhatsApp</span><span class="saat">23:47</span></div>
+        <div class="sohbet"><div class="yaziyor"><i></i><i></i><i></i></div><div class="balon gelen" data-k="gece"></div><div class="balon durum">Okunmadı</div><div class="balon durum">Sabah 09:12 · "Tamam, başka yere bakarım."</div></div>
+        <div class="mini-son">→ Sabah rakibinizdeydi.</div>
+      </div>
+      <div class="mini gor g2" data-sahne="fiyat">
+        <div class="mini-ust"><span>Instagram mesaj</span><span class="saat">3 gün</span></div>
+        <div class="sohbet"><div class="yaziyor"><i></i><i></i><i></i></div><div class="balon gelen" data-k="fiyat"></div><div class="balon durum">Görüldü · cevap yok</div><div class="balon gelen">Neyse, boş verin 🙂</div></div>
+        <div class="mini-son">→ Fiyatı görseydi sormazdı bile.</div>
+      </div>
+      <div class="mini gor g3" data-sahne="harita">
+        <div class="mini-ust"><span>Haritalar</span><span class="saat">19:30</span></div>
+        <div class="sohbet"><div class="harita-mini"><b data-k="harita"></b><br><span style="color:#B48A00;font-weight:700">★ 4,6</span> · <span class="kapali">Kapalı</span><div class="dukkan-isik">Oysa dükkân ışıl ışıl açık 💡</div></div></div>
+        <div class="mini-son">→ Müşteri gelmeden döndü.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="haritalar">
+  <div class="kap">
+    <div class="ust-baslik gor">Google Haritalar</div>
+    <h2 class="gor g2">Aynı dükkân, aynı puan. Bambaşka görüntü.</h2>
+    <div class="ks">
+      <div class="karsilastir gor g2" id="ks">
+        <div class="ks-etiket e1">ÖNCE</div><div class="ks-etiket e2">SONRA</div>
+        <div class="profil once">
+          <div class="foto"><i></i><i></i><i></i></div>
+          <div class="ad">Örnek Kuaför Salonu</div>
+          <div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
+          <div class="bilgi">
+            <div class="satir yok">✕ Çalışma saati girilmemiş</div>
+            <div class="satir yok">✕ Web sitesi yok</div>
+            <div class="satir yok">✕ 1 bulanık fotoğraf</div>
+            <div class="satir">"Fiyatlar yazmıyor." <span class="yok">· cevapsız</span></div>
+          </div>
+        </div>
+        <div class="profil sonra">
+          <div class="foto"><i></i><i></i><i></i></div>
+          <div class="ad">Örnek Kuaför Salonu</div>
+          <div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
+          <div class="bilgi">
+            <div class="satir var">● Açık · 23:00'e kadar</div>
+            <div class="satir var">● Web sitesi · fiyat listesi</div>
+            <div class="satir var">● Güncel fotoğraflar</div>
+            <div class="cevap"><b>İşletme sahibi:</b> Haklısınız, fiyatlarımız artık sitemizde. WhatsApp'tan randevu da alabilirsiniz.</div>
+          </div>
+        </div>
+        <div class="ks-cizgi"></div>
+        <div class="ks-tutamac"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
+        <input type="range" min="0" max="100" value="50" aria-label="Önce ve sonra karşılaştırma">
+      </div>
+      <div class="ks-metin">
+        <h3 class="gor">Parmağınızla kaydırın.</h3>
+        <p class="alt gor g2">Puanınızı biz değiştiremeyiz, kimse değiştiremez. Ama profilinizin nasıl göründüğünü değiştirebiliriz: müşterinin sizinle ilk tanıştığı yer orası.</p>
+        <ul class="liste gor g3">
+          <li><span><b>Fotoğraflar:</b> dükkânın içi, işleriniz, vitrininiz</span></li>
+          <li><span><b>Doğru saatler:</b> bayram, Pazar, öğle arası dahil</span></li>
+          <li><span><b>Yorumlara cevap:</b> kötü yorum bile güvene döner</span></li>
+          <li><span><b>Site linki:</b> fiyat soran direkt listeyi görür</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uret">
+  <div class="kap">
+    <div class="uret gor">
+      <div>
+        <div class="ust-baslik">Deneyin</div>
+        <h2>Dükkânınızın adını yazın. Sitenizi görün.</h2>
+        <div class="kutu-giris">
+          <label for="dukkanAdi">DÜKKÂNINIZIN ADI</label>
+          <input id="dukkanAdi" maxlength="28" placeholder="Örn: Yıldız Berber" autocomplete="off">
+          <div class="secici" id="uretSecici" role="group" aria-label="Sektör"></div>
+          <a href="#" class="btn btn-mavi" id="gercekYap">Bunu gerçek yapalım</a>
+          <div class="uret-not">Fiyatlar ve fotoğraflar örnektir; gerçeğinde sizinkiler olur. Taslak ücretsiz.</div>
+        </div>
+      </div>
+      <div class="telefon"><div class="ekran" id="uretEkran"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="neler">
+  <div class="kap">
+    <div class="ust-baslik gor">Sitenizde neler olur?</div>
+    <h2 class="gor g2">Kaydırın, telefonda görün.</h2>
+    <div class="anlatim">
+      <div class="anlatim-adimlar">
+        <div class="an" data-blok="fiyat"><div class="no">01</div><h3>"Ne kadar?" sorusu biter.</h3><p>Hizmetleriniz ve fiyatlarınız tek bakışta. Soran yerine seçen müşteri.</p></div>
+        <div class="an" data-blok="wa"><div class="no">02</div><h3>Tek tuşla WhatsApp'ınıza.</h3><p>Randevu ya da sipariş hazır mesajla gelir: ne istediği, ne zaman istediği yazılı.</p></div>
+        <div class="an" data-blok="saat"><div class="no">03</div><h3>"Şu an açık mı?"</h3><p>Saatinize göre kendiliğinden değişir. Kapalıyken bile mesaj bırakılır.</p></div>
+        <div class="an" data-blok="harita"><div class="no">04</div><h3>Yol tarifi tek dokunuş.</h3><p>Haritalar profilinize bağlı. Telefonda hızlı açılır, zayıf internette bile.</p></div>
+      </div>
+      <div class="anlatim-tel"><div class="telefon"><div class="ekran" id="anlatimEkran"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="ornekler">
+  <div class="kap">
+    <div class="ust-baslik gor">Örnek siteler</div>
+    <h2 class="gor g2">Dokunun, kendi telefonunuzda gezin.</h2>
+    <p class="alt gor g3">Her esnafa kendi aracı: berberde randevu, petshopta mama hesabı, pastanede kilo hesabı.</p>
+    <div class="ornekler">
+      <a class="ornek gor" href="ornek/berber/" target="_blank" rel="noopener"><div class="telefon"><div class="ekran"><img loading="lazy" src="img/ornek-berber.webp" alt="Örnek berber sitesi" width="390" height="844"></div></div><h3>Berber</h3><p>Kesim seçici, tek tuşla randevu</p><span class="ac">Örneği aç →</span></a>
+      <a class="ornek gor g2" href="ornek/petshop/" target="_blank" rel="noopener"><div class="telefon"><div class="ekran"><img loading="lazy" src="img/ornek-petshop.webp" alt="Örnek petshop sitesi" width="390" height="844"></div></div><h3>Petshop</h3><p>Mama hesaplayıcı, sepet WhatsApp'a</p><span class="ac">Örneği aç →</span></a>
+      <a class="ornek gor g3" href="ornek/pastane/" target="_blank" rel="noopener"><div class="telefon"><div class="ekran"><img loading="lazy" src="img/ornek-pastane.webp" alt="Örnek pastane sitesi" width="390" height="844"></div></div><h3>Pastane</h3><p>Kaç kişi? Kaç kilo? Sipariş hazır</p><span class="ac">Örneği aç →</span></a>
+      <a class="ornek gor g4" href="ornek/kafe/" target="_blank" rel="noopener"><div class="telefon"><div class="ekran"><img loading="lazy" src="img/ornek-kafe.webp" alt="Örnek kafe sitesi" width="390" height="844"></div></div><h3>Kafe</h3><p>Ekip siparişi tek mesajda</p><span class="ac">Örneği aç →</span></a>
+    </div>
+    <p class="kaydir-ipucu">← Kaydırın →</p>
+  </div>
+</section>
+
+<section id="nasil">
+  <div class="kap">
+    <div class="ust-baslik gor">Nasıl çalışıyor?</div>
+    <h2 class="gor g2">4 adım. Risk sizde değil.</h2>
+    <div class="adimlar">
+      <div class="adim gor"><div class="no">1</div><h3>WhatsApp'tan yazın</h3><p>Dükkânınızı birkaç cümleyle anlatın.</p></div>
+      <div class="adim gor g2"><div class="no">2</div><h3>1 günde taslak</h3><p>Size özel taslak telefonunuza gelir.</p><span class="etiket">Ücretsiz</span></div>
+      <div class="adim gor g3"><div class="no">3</div><h3>1 haftada yayında</h3><p>Fotoğraflarınız, fiyatlarınız, değişiklikler dahil.</p></div>
+      <div class="adim gor g4"><div class="no">4</div><h3>Ödeme sonra</h3><p>Site açılmadan para yok. Beğenmezseniz ödemezsiniz.</p><span class="etiket">Peşin yok</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kap">
+    <div class="ben gor">
+      <div class="ben-ik">B</div>
+      <div>
+        <div class="ust-baslik">Ben kimim?</div>
+        <p>Merhaba, ben Berat. İstanbul'da yaşıyorum, kurumsal eğitmenim. Esnafın internette kaybettiği müşteriyi geri kazanmasına yardım ediyorum. Size satıcı gibi değil, mahalleden biri gibi yazarım: <b>önce görün, beğenirseniz ödeyin.</b></p>
+        <div class="imza">Berat · Dükkân Sitesi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="orta">
+  <div class="kap">
+    <div class="ust-baslik gor">Sık sorulanlar</div>
+    <h2 class="gor g2">Aklınızdaki sorular.</h2>
+    <div class="sss">
+      <details class="gor"><summary>Aylık ücret var mı?</summary><p>Site için yok, bir kere ödersiniz. Kendi .com adresinizi isterseniz adresin yıllık yenilemesi var. Haritalar hizmeti isteğe bağlı ve aylık.</p></details>
+      <details class="gor"><summary>Bu fiyat neden bu kadar uygun? Bir kandırmaca var mı?</summary><p>Yok. Ajans masrafı, ofis, satış ekibi yok; işi ben yapıyorum. Siz de ödemeyi site yayına girdikten sonra yaparsınız, yani riskiniz yok.</p></details>
+      <details class="gor"><summary>Site benim mi olacak?</summary><p>Evet. İçerik, fotoğraflar ve .com adresiniz sizin adınızadır. İsterseniz site dosyalarını da size teslim ederim.</p></details>
+      <details class="gor"><summary>Sen bir gün bırakırsan siteme ne olur?</summary><p>Siteniz kapanmaz. Dosyalar sizde olur, başka biri de devam ettirebilir. Adres sizin adınıza olduğu için kimse elinizden alamaz.</p></details>
+      <details class="gor"><summary>Fatura kesiyor musunuz?</summary><p>WhatsApp'tan yazın, ödeme ve belge konusunu baştan netleştirelim.</p></details>
+      <details class="gor"><summary>Ne kadar sürede hazır olur?</summary><p>Taslak 1 gün içinde telefonunuzda. Beğenirseniz 1 hafta içinde yayında.</p></details>
+      <details class="gor"><summary>Sonradan fiyat ya da fotoğraf değişirse?</summary><p>WhatsApp'tan yazarsınız, ilk ay ücretsiz güncellerim. Sonrası için küçük değişiklikleri konuşuruz.</p></details>
+      <details class="gor"><summary>Benim bir şey yapmam gerekiyor mu?</summary><p>Sadece fotoğraflarınızı ve fiyat listenizi gönderirsiniz. Gerisi bende.</p></details>
+      <details class="gor"><summary>Beğenmezsem?</summary><p>Ödemezsiniz. Ödeme site yayına girdikten sonra yapılır.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="paketler" class="orta">
+  <div class="kap">
+    <div class="ust-baslik gor">Paketler</div>
+    <h2 class="gor g2">Bir kere ödeyin, dükkânınız internette.</h2>
+    <div class="paketler">
+      <div class="paket gor">
+        <h3>Vitrin</h3><div class="fiyat">1.500 TL</div><div class="aciklama">Tek sefer · aylık ücret yok</div>
+        <ul><li>Size özel web sitesi</li><li>Ücretsiz site adresi</li><li>Tek tuşla WhatsApp randevu/sipariş</li><li>İlk ay ücretsiz güncelleme</li></ul>
+        <a href="#" class="btn btn-hayalet wa" data-mesaj="Merhaba, Vitrin paketi hakkında bilgi almak istiyorum.">Bilgi al</a>
+      </div>
+      <div class="paket one gor g2">
+        <div class="serit">En çok tercih edilen</div>
+        <h3>Vitrin + .com</h3><div class="fiyat">2.000 TL</div><div class="aciklama">İlk yıl dahil · sonra yıllık 1.000 TL</div>
+        <ul><li>Vitrin'deki her şey</li><li>dukkaniniz.com adresi</li><li>Kartvizit ve tabelaya yazılacak kısa adres</li><li>Haritalar profilinize bağlantı</li></ul>
+        <a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, Vitrin + .com paketi hakkında bilgi almak istiyorum.">Bilgi al</a>
+      </div>
+      <div class="paket gor g3">
+        <h3>Haritalar</h3><div class="fiyat">400 TL <small>/ ay</small></div><div class="aciklama">Google Haritalar profil düzenleme ve bakım</div>
+        <ul><li>Profil düzeltme: fotoğraf, saat, açıklama</li><li>Her ay yeni fotoğraf</li><li>Yorumlara cevap</li><li>Bayram ve tatil saatleri</li></ul>
+        <a href="#" class="btn btn-hayalet wa" data-mesaj="Merhaba, Haritalar paketi hakkında bilgi almak istiyorum.">Bilgi al</a>
+      </div>
+    </div>
+    <p class="paket-not gor"><b>Detaylı bilgi için arayın</b> ya da WhatsApp'tan yazın.</p>
+  </div>
+</section>
+
+<section class="son orta">
+  <div class="ufuk"></div>
+  <div class="kap" style="position:relative">
+    <h2 class="gor">Taslağınız 1 gün içinde hazır. Ücretsiz.</h2>
+    <p class="alt gor g2">Dükkânınızı birkaç cümleyle anlatın, gerisini ben yapayım.</p>
+    <div class="dugmeler gor g3" style="justify-content:center"><a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan yazın</a><a href="#" class="btn btn-hayalet ara">Arayın</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="kap">
+    <div><b style="color:var(--metin)">Dükkân Sitesi</b> · Esnafa web sitesi ve Haritalar düzenlemesi</div>
+    <div>Ödemeyi site yayına girince yaparsınız.</div>
+    <div>Örnekler temsilidir; isim, fiyat ve fotoğraflar gerçek işletmelere ait değildir.</div>
+  </div>
+</footer>
+
+<div class="yapiskan" id="yapiskan"><a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan ücretsiz taslak isteyin</a></div>
+
+<script>
+const WA="";const numara=/^90\d{10}$/.test(WA)?WA:"";
+const waLink=m=>"https://wa.me/"+numara+"?text="+encodeURIComponent(m);
+const AZ=matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* ---------- sektör verisi ---------- */
+const S={
+ berber:{ad:"Berber",ornek:"Yıldız Berber",isim:["Yıldız Berber","Usta Kemal","Fade Atölyesi"],bg:"#0F0F10",yazi:"#F2EEE6",kart:"#1A1A1C",kart2:"#222",cizgi:"#333",vurgu:"#D4A44C",acik:"#7BE3A3",acikbg:"rgba(43,208,123,.14)",
+  slogan:"Kesimini seç, saatini seç.",hiz:[["Saç kesimi","350 ₺"],["Sakal tasarımı","200 ₺"],["Saç + sakal","500 ₺"],["Çocuk kesimi","250 ₺"]],cta:"WhatsApp'tan randevu al",
+  alt:"Gece 23:47'de \"abi yarın 10'da boş musun?\" yazan müşteri, sabah rakibinizde. Siteniz o saatte bile randevu alır.",
+  gece:"Abi yarın 10'da boş musun? 💈",fiyat:"Skin fade ne kadar?",harita:"Berber · 1,2 km",yeni:"Randevu: saç + sakal, 18:30"},
+ kuafor:{ad:"Kuaför",ornek:"Lale Kuaför",isim:["Lale Kuaför","Salon Ayna","Saç Sanatı"],bg:"#FFF6F8",yazi:"#3A1F2C",kart:"#fff",kart2:"#FCE9EF",cizgi:"#F1D3DE",vurgu:"#B4467A",acik:"#1F8A55",acikbg:"#E3F6EB",
+  slogan:"Hizmetini seç, saatini ayırt.",hiz:[["Fön","300 ₺"],["Boya","1.200 ₺'den"],["Keratin","2.500 ₺'den"],["Gelin başı","Fiyat sorun"]],cta:"WhatsApp'tan randevu al",
+  alt:"\"Cumartesi gelin başı için yer var mı?\" diye soran müşteri cevap beklemez. Siteniz takvimi gösterir, randevuyu alır.",
+  gece:"Cumartesi gelin başı için yer var mı? 👰",fiyat:"Keratin fiyatı nedir?",harita:"Kuaför · 800 m",yeni:"Randevu: fön + boya, Cmt 11:00"},
+ pastane:{ad:"Pastane",ornek:"Bereket Pastanesi",isim:["Bereket Pastanesi","Tatlı Köşe","Fıstık Ustası"],bg:"#FFF8EE",yazi:"#3B2414",kart:"#fff",kart2:"#F8EAD6",cizgi:"#EBD7BA",vurgu:"#A0521F",acik:"#1F8A55",acikbg:"#E3F6EB",
+  slogan:"Kaç kişisiniz? Gerisini biz hesaplarız.",hiz:[["Fıstıklı baklava (kg)","1.400 ₺"],["Doğum günü pastası","650 ₺'den"],["Su böreği (tepsi)","900 ₺"],["Kurabiye (kg)","450 ₺"]],cta:"WhatsApp'tan sipariş ver",
+  alt:"Cumartesi'ye 3 kg baklava isteyen müşteri, telefonu açılmayınca başka yere sipariş verir. Siteniz siparişi alır, WhatsApp'ınıza düşürür.",
+  gece:"Cumartesi'ye 3 kg baklava yetişir mi? 🥮",fiyat:"Doğum günü pastası kaç TL?",harita:"Pastane · 600 m",yeni:"Sipariş: 3 kg fıstıklı, Cmt 14:00"},
+ petshop:{ad:"Petshop",ornek:"Pati Dostu",isim:["Pati Dostu","Mama Durağı","Mırnav Pet"],bg:"#F2FBF8",yazi:"#0F2E2A",kart:"#fff",kart2:"#DDF3EC",cizgi:"#C8E8DE",vurgu:"#0F7C66",acik:"#1F8A55",acikbg:"#E3F6EB",
+  slogan:"Maması bitmeden kapınızda.",hiz:[["Kedi maması 10 kg","1.850 ₺"],["Köpek maması 15 kg","2.400 ₺"],["Kedi kumu 10 L","220 ₺"],["Adrese teslim","Sorun"]],cta:"WhatsApp'tan sipariş ver",
+  alt:"Maması akşam biten müşteri \"bu akşam getirir misiniz?\" diye yazar. Cevap gelmezse internetten sipariş verir. Siteniz sepeti hazırlar, size gönderir.",
+  gece:"Mama bitti, bu akşam getirebilir misiniz? 🐱",fiyat:"10 kg kedi maması kaç TL?",harita:"Petshop · 1 km",yeni:"Sipariş: kedi maması 10 kg + kum"},
+ kafe:{ad:"Kafe",ornek:"Köşe Kafe",isim:["Köşe Kafe","Demlik","Sabah Kahvaltı Evi"],bg:"#17110D",yazi:"#F6EBDD",kart:"#221A14",kart2:"#2C221A",cizgi:"#3B2E24",vurgu:"#E0A96D",acik:"#7BE3A3",acikbg:"rgba(43,208,123,.14)",
+  slogan:"Ekip siparişi tek mesajda.",hiz:[["Serpme kahvaltı (2 kişi)","900 ₺"],["Tost","180 ₺"],["Türk kahvesi","90 ₺"],["Ofis paketi","Liste yap"]],cta:"WhatsApp'tan sipariş ver",
+  alt:"8 kişilik ofis siparişini telefonda tek tek yazdırmak kimsenin işi değil. Siteniz listeyi toplar, tek mesajla size gönderir.",
+  gece:"Yarın 8 kişilik ekip siparişi verebilir miyiz? ☕",fiyat:"Kahvaltı kişi başı ne kadar?",harita:"Kafe · 450 m",yeni:"Ekip siparişi: 8 kişi, 12:30"},
+ diger:{ad:"Diğer",ornek:"Mahalle Dükkânı",isim:["Mahalle Dükkânı","Usta Atölye","Köşebaşı"],bg:"#0E1526",yazi:"#EEF1F7",kart:"#16203A",kart2:"#1C2846",cizgi:"#26345A",vurgu:"#6AA8FF",acik:"#7BE3A3",acikbg:"rgba(43,208,123,.14)",
+  slogan:"Müşteriniz sizi bulsun.",hiz:[["Ürünleriniz","Liste"],["Hizmetleriniz","Fiyatlı"],["Kampanyalar","Güncel"],["Adrese teslim","Varsa"]],cta:"WhatsApp'tan yazın",
+  alt:"Hangi işi yaparsanız yapın: müşteri önce telefona bakar. Siteniz fiyatı, saati ve yolu gösterir, mesajı size getirir.",
+  gece:"Yarın açık mısınız? 🙂",fiyat:"Fiyat alabilir miyim?",harita:"Dükkân · 700 m",yeni:"Yeni mesaj: fiyat ve saat soruldu"}
+};
+const SIRA=["berber","kuafor","pastane","petshop","kafe","diger"];
+let sektor="berber";
+
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function sablon(ad,k){const d=S[k];return `<div class="ms" style="--ms-bg:${d.bg};--ms-yazi:${d.yazi};--ms-kart:${d.kart};--ms-kart2:${d.kart2};--ms-cizgi:${d.cizgi};--ms-vurgu:${d.vurgu};--ms-acik:${d.acik};--ms-acikbg:${d.acikbg}"><div class="ms-ic">
+ <div class="ms-ust"><div class="ms-ad">${esc(ad)}</div><div class="ms-acik">Açık</div></div>
+ <div class="ms-kahraman"><img src="img/sektor-${k}.webp" alt=""><div class="ms-slogan">${d.slogan}</div></div>
+ <div class="ms-blok" data-b="fiyat"><div class="ms-bb">Fiyatlar</div>${d.hiz.map(h=>`<div class="ms-satir"><span>${h[0]}</span><b>${h[1]}</b></div>`).join("")}</div>
+ <div class="ms-blok" data-b="wa"><div class="ms-wa">✆ ${d.cta}</div></div>
+ <div class="ms-blok" data-b="saat"><div class="ms-bb">Çalışma saatleri</div><div class="ms-saat"><span>Pzt-Cmt</span><b>09:00-23:00</b><span>Pazar</span><b>11:00-20:00</b></div></div>
+ <div class="ms-blok" data-b="harita"><div class="ms-bb">Yol tarifi</div><div class="ms-harita">📍</div></div>
+ <div class="ms-not">örnek tasarım · Dükkân Sitesi</div></div></div>`}
+
+/* ---------- sektör seçiciler ---------- */
+function cipler(kap,cb){SIRA.forEach(k=>{const b=document.createElement("button");b.className="cip";b.type="button";b.textContent=S[k].ad;b.dataset.k=k;b.onclick=()=>cb(k);kap.appendChild(b)})}
+const ustSecici=document.querySelector(".giris .secici"),uretSecici=document.getElementById("uretSecici");
+cipler(ustSecici,k=>sektorSec(k,true));cipler(uretSecici,k=>sektorSec(k,false));
+function sektorSec(k,ust){sektor=k;document.body.dataset.sektor=k;
+ document.querySelectorAll(".cip").forEach(c=>c.classList.toggle("secili",c.dataset.k===k));
+ const a=document.getElementById("altBaslik");a.style.opacity=0;setTimeout(()=>{a.textContent=S[k].alt;a.style.opacity=1},180);
+ document.querySelectorAll("[data-k=gece]").forEach(e=>e.textContent=S[k].gece);
+ document.querySelectorAll("[data-k=fiyat]").forEach(e=>e.textContent=S[k].fiyat);
+ document.querySelectorAll("[data-k=harita]").forEach(e=>e.textContent=S[k].harita);
+ document.getElementById("yr2m").textContent=S[k].yeni;
+ document.getElementById("dukkanAdi").placeholder="Örn: "+S[k].ornek;
+ uretCiz();anlatimCiz();girisDongu(true);
+ document.querySelectorAll(".mini").forEach(m=>m.dataset.oynadi&&sahneOynat(m));
+}
+
+/* ---------- giriş: buradan buraya döngüsü ---------- */
+const gEkran=document.getElementById("girisEkran"),etiket=document.getElementById("durumEtiket");
+let gSay=0,gZaman=null;
+function kotuKat(){return `<div class="kotu-kat" id="kotuKat"><div class="arama">${S[sektor].ad.toLowerCase()} yakınımda</div><div class="gri">fotoğraf yok</div><div class="isim">${esc(S[sektor].isim[0])}</div><div class="yil">★★★★☆ 4,4</div><div class="s">✕ Saat bilgisi yok</div><div class="s">✕ Web sitesi yok</div><div class="s">✕ Fiyat yok</div></div><div class="tarayici" id="tarayici"></div>`}
+function girisDongu(sifirla){clearTimeout(gZaman);if(sifirla)gSay=0;
+ const ad=S[sektor].isim[gSay%3];gEkran.innerHTML=sablon(ad,sektor)+kotuKat();
+ etiket.textContent="BURADAN";etiket.className="durum-etiket kotu";
+ document.getElementById("yr1").classList.remove("acik");document.getElementById("yr2").classList.remove("acik");
+ const kk=document.getElementById("kotuKat"),tr=document.getElementById("tarayici");kk.style.clipPath="inset(0 0 0 0)";
+ gZaman=setTimeout(()=>{if(AZ){kk.style.display="none"}else{kk.style.clipPath="inset(0 0 0 100%)";tr.style.transition="left .9s cubic-bezier(.2,.8,.2,1),opacity .2s";tr.style.opacity=1;tr.style.left="0%";setTimeout(()=>tr.style.opacity=0,900)}
+  etiket.textContent="BURAYA";etiket.className="durum-etiket iyi";
+  setTimeout(()=>document.getElementById("yr1").classList.add("acik"),700);setTimeout(()=>document.getElementById("yr2").classList.add("acik"),1500);
+  gZaman=setTimeout(()=>{gSay++;girisDongu(false)},5200)},2300)}
+
+/* ---------- adını yaz ---------- */
+const adIn=document.getElementById("dukkanAdi"),uEkran=document.getElementById("uretEkran");
+function uretCiz(){const ad=adIn.value.trim()||S[sektor].ornek;uEkran.innerHTML=sablon(ad,sektor);
+ document.getElementById("gercekYap").href=waLink(`Merhaba, Dükkân Sitesi'nde "${ad}" (${S[sektor].ad}) için örnek siteyi gördüm. Gerçeğini yapalım mı?`)}
+adIn.addEventListener("input",()=>{uretCiz();anlatimCiz()});
+document.getElementById("gercekYap").target="_blank";
+
+/* ---------- kaydırmalı anlatım ---------- */
+const aEkran=document.getElementById("anlatimEkran"),anlar=[...document.querySelectorAll(".an")];let aktifBlok="fiyat";
+function anlatimCiz(){aEkran.innerHTML=sablon(adIn.value.trim()||S[sektor].ornek,sektor);blokVurgula(aktifBlok,true)}
+function blokVurgula(b,hemen){aktifBlok=b;anlar.forEach(a=>a.classList.toggle("aktif",a.dataset.blok===b));
+ const ic=aEkran.querySelector(".ms-ic"),hedef=aEkran.querySelector(`[data-b="${b}"]`);if(!ic||!hedef)return;
+ aEkran.querySelectorAll(".ms-blok").forEach(x=>x.classList.toggle("isik",x===hedef));
+ const ekH=aEkran.clientHeight,y=Math.max(0,Math.min(hedef.offsetTop-ekH*.32,ic.scrollHeight-ekH));
+ if(hemen)ic.style.transition="none";ic.style.transform=`translateY(${-y}px)`;if(hemen)requestAnimationFrame(()=>ic.style.transition="")}
+const aio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)blokVurgula(e.target.dataset.blok)}),{rootMargin:innerWidth<=900?"-62% 0px -22% 0px":"-45% 0px -45% 0px"});
+anlar.forEach(a=>aio.observe(a));
+
+/* ---------- mini sahneler ---------- */
+function sahneOynat(m){m.dataset.oynadi=1;const p=[...m.querySelectorAll(".yaziyor,.balon,.harita-mini,.mini-son")];p.forEach(x=>x.classList.remove("goster"));
+ const yz=m.querySelector(".yaziyor");let t=200;
+ if(yz){setTimeout(()=>yz.classList.add("goster"),t);t+=1100;setTimeout(()=>yz.style.display="none",t)}
+ p.filter(x=>!x.classList.contains("yaziyor")).forEach((x,i)=>{setTimeout(()=>{if(yz&&i===0)yz.style.display="none";x.classList.add("goster")},AZ?0:t+i*900)});
+ if(yz)setTimeout(()=>{yz.style.display=""},50)}
+const mio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){sahneOynat(e.target);mio.unobserve(e.target)}}),{threshold:.5});
+document.querySelectorAll(".mini").forEach(m=>mio.observe(m));
+
+/* ---------- genel ---------- */
+document.querySelectorAll(".wa").forEach(a=>{a.href=waLink(a.dataset.mesaj||"Merhaba");a.target="_blank";a.rel="noopener"});
+document.querySelectorAll(".ara").forEach(a=>{a.href=numara?"tel:+"+numara:"#"});
+const bant=document.getElementById("bant"),isler="Berber · Kuaför · Pastane · Fırın · Petshop · Kafe · Çiçekçi · Kasap · Terzi · Oto yıkama · Güzellik salonu · Lokanta · Manav · Kırtasiye".split(" · ");
+bant.innerHTML=[...isler,...isler].map(x=>`<span>${x}</span>`).join("");
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("acik");io.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".gor").forEach(el=>io.observe(el));
+const yap=document.getElementById("yapiskan");
+addEventListener("scroll",()=>{const y=scrollY;yap.classList.toggle("goster",y>innerHeight*.9&&innerHeight+y<document.body.scrollHeight-280)},{passive:true});
+const ks=document.getElementById("ks"),ksIn=ks.querySelector("input"),ksAyar=v=>ks.style.setProperty("--ks",v+"%");
+ksIn.addEventListener("input",e=>ksAyar(e.target.value));
+let ipucu=true;new IntersectionObserver(es=>{if(es[0].isIntersecting&&ipucu&&!AZ){ipucu=false;const s=performance.now();const f=n=>{const t=(n-s)/1600;if(t<1){ksAyar(50+Math.sin(t*Math.PI*2)*22);requestAnimationFrame(f)}else ksAyar(50)};requestAnimationFrame(f)}},{threshold:.6}).observe(ks);
+const v=document.getElementById("tanitim"),oy=document.getElementById("oynat");
+oy.addEventListener("click",()=>{v.controls=true;v.muted=false;v.play();oy.style.opacity=0;setTimeout(()=>oy.remove(),300)});
+sektorSec("berber",true);
+</script>
+</body>
+</html>

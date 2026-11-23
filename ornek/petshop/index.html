@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#123c35">
+<title>Örnek Pet Shop · İstanbul · Mama, kum, aksesuar · Adrese servis</title>
+<meta name="description" content="Mahallenin pet shop'u. Sepetini hazırla, WhatsApp'tan gönder, adresine gelsin. Düzenli mama teslimatı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f8f6; --kart:#fff; --cizgi:#dbe7e1; --yazi:#13302a; --soluk:#5b726d;
+    --koyu:#123c35; --vurgu:#1f7a6b; --turuncu:#f2a541; --acik:#e5f1ec; --yesil:#25d366; --kirmizi:#d9534f;
+    --golge:0 10px 30px rgba(18,60,53,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--yazi);font-family:Inter,system-ui,sans-serif;line-height:1.5;padding-bottom:84px}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .serit{background:#0b2621;color:#cfe5de;text-align:center;font-size:12px;font-weight:600;padding:6px 12px}
+  .kap{max-width:1100px;margin:auto;padding:0 16px}
+
+  /* üst bar */
+  header{position:sticky;top:0;z-index:30;background:rgba(245,248,246,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cizgi)}
+  .ust{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+  .logo{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:23px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .logo span{color:var(--vurgu)}
+  .pati{width:28px;height:28px;color:var(--turuncu)}
+  .durum{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--acik);color:var(--vurgu);white-space:nowrap}
+  .durum i{width:8px;height:8px;border-radius:50%;background:var(--yesil);box-shadow:0 0 0 3px rgba(37,211,102,.25)}
+  .durum.kapali{background:#fbeaea;color:var(--kirmizi)} .durum.kapali i{background:var(--kirmizi);box-shadow:none}
+  .sepet-ust{position:relative;width:42px;height:42px;border-radius:12px;background:var(--koyu);color:#fff;display:flex;align-items:center;justify-content:center}
+  .rozet-say{position:absolute;top:-6px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--turuncu);color:#3a2504;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px}
+  svg{width:20px;height:20px;flex:none}
+
+  /* hero */
+  .hero{background:radial-gradient(900px 420px at 100% 0%,rgba(242,165,65,.25),transparent 60%),linear-gradient(160deg,#123c35,#1f7a6b);color:#eaf5f1;overflow:hidden}
+  .hero .kap{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding-top:40px;padding-bottom:44px}
+  @media(max-width:760px){.hero .kap{grid-template-columns:1fr}.hero-cizim{display:none}}
+  .yildiz-rozet{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 12px;border-radius:999px;font-size:13px}
+  .yildiz-rozet b{color:var(--turuncu)}
+  h1{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:clamp(38px,8vw,66px);line-height:1;margin:16px 0 12px;color:#fff}
+  h1 em{font-style:normal;color:var(--turuncu)}
+  .hero p{font-size:17px;color:#cfe5de;max-width:540px}
+  .hizli{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px;max-width:520px}
+  .hizli div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:10px;font-size:12px;color:#cfe5de}
+  .hizli b{display:block;font-size:15px;color:#fff}
+  .butonlar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:14px;font-weight:700;font-size:15px}
+  .btn-wa{background:var(--yesil);color:#06240f}
+  .btn-acik{background:#fff;color:var(--koyu)}
+  .btn-cizgi{border:1.5px solid var(--vurgu);color:var(--vurgu);background:var(--kart)}
+
+  section{padding:52px 0}
+  h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:clamp(28px,5vw,38px);line-height:1.05;margin-bottom:6px}
+  .h2alt{color:var(--soluk);margin-bottom:22px}
+  .ufak{font-size:12px;color:var(--soluk)}
+
+  /* katalog */
+  .tur-sec{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  .tur-sec::-webkit-scrollbar{display:none}
+  .tur{flex:none;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:16px;background:var(--kart);border:1.5px solid var(--cizgi);font-weight:700}
+  .tur span{font-size:22px}
+  .tur.aktif{background:var(--koyu);color:#fff;border-color:var(--koyu)}
+  .arac{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+  .ara{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--kart);border:1.5px solid var(--cizgi);border-radius:14px;padding:0 12px}
+  .ara input{flex:1;border:0;outline:0;font:inherit;padding:11px 0;background:none;color:var(--yazi)}
+  .alt-sec{display:flex;gap:6px;flex-wrap:wrap}
+  .alt{padding:7px 12px;border-radius:999px;background:var(--acik);color:var(--vurgu);font-size:13px;font-weight:600}
+  .alt.aktif{background:var(--vurgu);color:#fff}
+  .urunler{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px}
+  .urun{background:var(--kart);border:1px solid var(--cizgi);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--golge)}
+  .resim{aspect-ratio:1.15;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative}
+  .etiket{position:absolute;top:8px;left:8px;font-size:10px;font-weight:800;letter-spacing:.3px;padding:4px 8px;border-radius:999px;background:#fff;color:var(--koyu)}
+  .etiket.sicak{background:var(--turuncu);color:#3a2504}
+  .urun .ic{padding:12px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .marka{font-size:11px;font-weight:700;color:var(--vurgu);text-transform:uppercase;letter-spacing:.4px}
+  .urun h3{font-size:14px;font-weight:600;line-height:1.3}
+  .boy{font-size:12px;color:var(--soluk)}
+  .ekle{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;padding-top:8px}
+  .fiyat{font-weight:800;color:var(--koyu);font-size:14px}
+  .art{width:36px;height:36px;border-radius:12px;background:var(--koyu);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .adet{display:flex;align-items:center;gap:6px;background:var(--acik);border-radius:12px;padding:3px}
+  .adet button{width:30px;height:30px;border-radius:9px;background:#fff;font-weight:800;color:var(--koyu)}
+  .adet b{min-width:18px;text-align:center}
+  .bos{grid-column:1/-1;text-align:center;padding:30px;color:var(--soluk)}
+
+  /* hesaplayıcı */
+  .hesap{display:grid;grid-template-columns:1fr 1fr;gap:18px;background:var(--kart);border:1px solid var(--cizgi);border-radius:22px;padding:22px;box-shadow:var(--golge)}
+  @media(max-width:760px){.hesap{grid-template-columns:1fr}}
+  .alan{margin-bottom:14px}
+  .alan label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+  .secim{display:flex;gap:6px;flex-wrap:wrap}
+  .secim button{padding:9px 14px;border-radius:12px;border:1.5px solid var(--cizgi);background:var(--bg);font-weight:600;font-size:14px}
+  .secim button.aktif{border-color:var(--vurgu);background:var(--acik);color:var(--vurgu)}
+  .sonuc{background:linear-gradient(160deg,#123c35,#1f7a6b);color:#fff;border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+  .sonuc .buyuk{font-family:"Baloo 2",sans-serif;font-size:58px;font-weight:800;line-height:1;color:var(--turuncu)}
+  .sonuc p{color:#cfe5de;font-size:14px}
+
+  /* neden biz + servis */
+  .kutular{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .kutu{background:var(--kart);border:1px solid var(--cizgi);border-radius:18px;padding:20px}
+  .kutu .ik{width:44px;height:44px;border-radius:14px;background:var(--acik);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px}
+  .kutu h3{font-family:"Baloo 2",sans-serif;font-size:20px;line-height:1.1;margin-bottom:4px}
+  .kutu p{color:var(--soluk);font-size:14px}
+
+  .sss details{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px 16px;margin-bottom:8px}
+  .sss summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+  .sss summary::after{content:"+";color:var(--vurgu);font-weight:800}
+  .sss details[open] summary::after{content:"–"}
+  .sss p{color:var(--soluk);margin-top:8px;font-size:14px}
+
+  .bilgi{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.bilgi{grid-template-columns:1fr}}
+  .satir{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cizgi);font-size:15px}
+  .satir b{min-width:88px;color:var(--vurgu)}
+  .saatler{font-size:14px} .saatler div{display:flex;justify-content:space-between;padding:3px 0} .saatler .bugun{font-weight:800;color:var(--vurgu)}
+  iframe{width:100%;height:100%;min-height:300px;border:0;border-radius:18px}
+  footer{padding:30px 16px;text-align:center;color:var(--soluk);font-size:13px;border-top:1px solid var(--cizgi)}
+
+  /* alt sepet çubuğu + çekmece */
+  .sepet-cubuk{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;background:var(--koyu);color:#fff;border-radius:18px;padding:10px 10px 10px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.3);max-width:640px;margin:auto;transform:translateY(140%);transition:transform .25s}
+  .sepet-cubuk.goster{transform:none}
+  .sepet-cubuk small{color:#9fc9bd;display:block;font-size:12px}
+  .perde{position:fixed;inset:0;background:rgba(5,20,17,.5);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+  .perde.acik{opacity:1;pointer-events:auto}
+  .cekmece{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-radius:24px 24px 0 0;max-height:88vh;overflow:auto;
+    transform:translateY(100%);transition:transform .25s;max-width:640px;margin:auto;padding:18px 16px 24px}
+  .cekmece.acik{transform:none}
+  .tutamak{width:44px;height:5px;border-radius:9px;background:var(--cizgi);margin:0 auto 12px}
+  .s-satir{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--cizgi)}
+  .s-satir .em{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+  .s-satir .ad{flex:1;font-size:14px;font-weight:600;line-height:1.25}
+  .form input,.form textarea{width:100%;border:1.5px solid var(--cizgi);border-radius:12px;padding:11px 12px;font:inherit;background:var(--kart);color:var(--yazi);margin-top:6px}
+  .form label{display:block;font-size:13px;font-weight:700;margin-top:12px}
+  .teslim{display:flex;gap:6px;margin-top:6px}
+  .teslim button{flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--cizgi);background:var(--kart);font-weight:700;font-size:14px}
+  .teslim button.aktif{border-color:var(--vurgu);background:var(--acik);color:var(--vurgu)}
+
+  /* esnaf için not */
+  .esnaf{position:fixed;left:12px;bottom:12px;z-index:45;background:#fff;border:1px solid var(--cizgi);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;color:var(--koyu);box-shadow:var(--golge)}
+  .esnaf-kart{position:fixed;inset:auto 12px 70px 12px;z-index:70;background:#fff;border-radius:20px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.3);max-width:440px;display:none}
+  .esnaf-kart.acik{display:block}
+  .esnaf-kart h3{font-family:"Baloo 2",sans-serif;font-size:22px;margin-bottom:8px}
+  .esnaf-kart li{margin:0 0 8px 18px;font-size:14px;color:var(--soluk)} .esnaf-kart li b{color:var(--yazi)}
+  .gizle{display:none!important}
+  .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--koyu);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:.2s;z-index:80;white-space:nowrap}
+  .toast.goster{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<div class="serit">Dükkân Sitesi örnek tasarımıdır; isim, fiyat ve bilgiler temsilidir.</div>
+
+<header>
+  <div class="kap ust">
+    <a href="#" class="logo">
+      <svg class="pati" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="9" r="2.2"/><circle cx="10" cy="5.5" r="2.2"/><circle cx="14" cy="5.5" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M12 10.5c-3.3 0-6 3.4-6 6.2 0 1.8 1.4 2.8 3 2.8 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.6 0 3-1 3-2.8 0-2.8-2.7-6.2-6-6.2Z"/></svg>
+      Örnek <span>Pet</span>
+    </a>
+    <span class="durum" id="durum"><i></i><span>Açık</span></span>
+    <button class="sepet-ust" id="sepetUst" aria-label="Sepet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+      <span class="rozet-say gizle" id="sayUst">0</span>
+    </button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="kap">
+    <div>
+      <span class="yildiz-rozet"><b>★★★★★ 5,0</b> · örnek değerlendirmeler</span>
+      <h1>Sepetini hazırla,<br><em>kapına gelsin.</em></h1>
+      <p>Mahallenin pet shop'u artık telefonunda. Mamanı, kumunu seç, tek tuşla WhatsApp'tan gönder. Gerisini biz hallederiz.</p>
+      <div class="hizli">
+        <div><b>Adrese</b>servis</div>
+        <div><b>Düzenli</b>mama teslimatı</div>
+        <div><b>WhatsApp</b>tek tuş sipariş</div>
+      </div>
+      <div class="butonlar">
+        <a class="btn btn-acik" href="#katalog">Ürünlere göz at</a>
+        <a class="btn btn-wa" href="#" data-wa="Merhaba, sipariş vermek istiyorum.">WhatsApp'tan yaz</a>
+      </div>
+    </div>
+    <svg class="hero-cizim" viewBox="0 0 300 260" aria-hidden="true">
+      <circle cx="160" cy="140" r="110" fill="rgba(255,255,255,.07)"/>
+      <!-- kedi -->
+      <g transform="translate(70 70)">
+        <path d="M20 40 L32 8 L48 34 Z" fill="#f2a541"/><path d="M92 40 L80 8 L64 34 Z" fill="#f2a541"/>
+        <ellipse cx="56" cy="62" rx="48" ry="42" fill="#f2a541"/>
+        <ellipse cx="40" cy="58" rx="6" ry="8" fill="#123c35"/><ellipse cx="72" cy="58" rx="6" ry="8" fill="#123c35"/>
+        <path d="M52 74 L56 78 L60 74" stroke="#123c35" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M14 70 H34 M14 80 H34 M78 70 H98 M78 80 H98" stroke="#123c35" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <!-- mama kabı -->
+      <g transform="translate(150 175)">
+        <path d="M0 10 H110 L98 48 H12 Z" fill="#fff"/><ellipse cx="55" cy="10" rx="55" ry="10" fill="#e5f1ec"/>
+        <circle cx="35" cy="6" r="6" fill="#b5713a"/><circle cx="52" cy="3" r="6" fill="#c98448"/><circle cx="70" cy="6" r="6" fill="#b5713a"/>
+      </g>
+      <!-- köpek -->
+      <g transform="translate(170 50)">
+        <ellipse cx="50" cy="60" rx="44" ry="40" fill="#e9e1d4"/>
+        <ellipse cx="12" cy="52" rx="14" ry="28" fill="#8a6a4f"/><ellipse cx="88" cy="52" rx="14" ry="28" fill="#8a6a4f"/>
+        <circle cx="36" cy="54" r="6" fill="#123c35"/><circle cx="64" cy="54" r="6" fill="#123c35"/>
+        <ellipse cx="50" cy="74" rx="10" ry="7" fill="#123c35"/>
+        <path d="M44 88 Q50 98 56 88" fill="#d9534f"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section id="katalog">
+  <div class="kap">
+    <h2>Kimin için bakıyorsun?</h2>
+    <p class="h2alt">Türü seç, ürünü sepete at. Fiyat ve stoku dükkân WhatsApp'tan onaylar.</p>
+    <div class="tur-sec" id="turlar"></div>
+    <div class="arac">
+      <label class="ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="ara" type="search" placeholder="Marka ya da ürün ara (ör. kum, somon)"></label>
+    </div>
+    <div class="alt-sec" id="altlar"></div>
+    <div style="height:14px"></div>
+    <div class="urunler" id="urunler"></div>
+    <p class="ufak" style="margin-top:12px">Ürün ve fiyatlar örnektir; dükkânın kendi ürün listesi ve fotoğraflarıyla güncellenecek.</p>
+  </div>
+</section>
+
+<section id="hesap" style="background:linear-gradient(180deg,transparent,#e9f3ef)">
+  <div class="kap">
+    <h2>Mama bitmeden haberin olsun</h2>
+    <p class="h2alt">Çuvalın kaç gün gideceğini hesapla, bitmeden kapına getirelim.</p>
+    <div class="hesap">
+      <div>
+        <div class="alan"><label>Dostun</label><div class="secim" id="hTur">
+          <button data-v="kedi" class="aktif">🐈 Kedi</button><button data-v="kopek">🐕 Köpek</button></div></div>
+        <div class="alan"><label>Boyu</label><div class="secim" id="hBoy">
+          <button data-v="0">Küçük</button><button data-v="1" class="aktif">Orta</button><button data-v="2">Büyük</button></div></div>
+        <div class="alan"><label>Kaç tane?</label><div class="secim" id="hSay">
+          <button data-v="1" class="aktif">1</button><button data-v="2">2</button><button data-v="3">3</button></div></div>
+        <div class="alan"><label>Çuval</label><div class="secim" id="hCuval"></div></div>
+      </div>
+      <div class="sonuc">
+        <span class="ufak" style="color:#9fc9bd">Bu çuval yaklaşık</span>
+        <div class="buyuk" id="hGun">25 gün</div>
+        <p id="hAciklama">gider. Günde ortalama 60 g hesabıyla. Kesin miktar için ambalajdaki tabloya bakın.</p>
+        <a class="btn btn-wa" href="#" id="hBtn" style="margin-top:6px">Her 25 günde bir getirin</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="neden">
+  <div class="kap">
+    <h2>Mahallenin pet shop'u</h2>
+    <p class="h2alt">Büyük mağazaya gitmeye gerek yok.</p>
+    <div class="kutular">
+      <div class="kutu"><div class="ik">🛵</div><h3>Adrese servis</h3><p>Mama ağır, kum daha ağır. Sen yaz, biz getirelim. Servis bölgesi: [dükkândan teyit].</p></div>
+      <div class="kutu"><div class="ik">🔁</div><h3>Düzenli teslimat</h3><p>Her ay aynı mamayı mı alıyorsun? Söyle, hatırlamana gerek kalmasın.</p></div>
+      <div class="kutu"><div class="ik">💬</div><h3>Danışarak al</h3><p>Yavru mu, kısırlaştırılmış mı, hassas mide mi? Dükkâna sor, doğru mamayı birlikte seçin.</p></div>
+      <div class="kutu"><div class="ik">⭐</div><h3>Yorumlar burada</h3><p>Haritalardaki güzel yorumlarınız sitede de görünür. Yorumlar sahibinin izniyle buraya eklenecek.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sss" style="padding-top:10px">
+  <div class="kap sss">
+    <h2>Sık sorulanlar</h2>
+    <p class="h2alt">Cevaplar örnektir, dükkândan teyit edilecek.</p>
+    <details><summary>Adrese servis ücretli mi?</summary><p>[dükkândan teyit] Örnek: belirli tutarın üstü ücretsiz, altı için küçük bir ücret.</p></details>
+    <details><summary>Siparişim ne zaman gelir?</summary><p>[dükkândan teyit] Örnek: öğlene kadar verilen siparişler aynı gün.</p></details>
+    <details><summary>Aradığım marka yoksa?</summary><p>WhatsApp'tan yaz, dükkân sipariş edip haber versin.</p></details>
+    <details><summary>Nasıl ödeme yaparım?</summary><p>[dükkândan teyit] Örnek: kapıda nakit ya da kart.</p></details>
+  </div>
+</section>
+
+<section id="iletisim" style="padding-top:10px">
+  <div class="kap">
+    <h2>Nerede, ne zaman?</h2>
+    <p class="h2alt">Örnek Mah., İstanbul</p>
+    <div class="bilgi">
+      <div>
+        <div class="satir"><b>Adres</b><span>Örnek Mah., İstanbul</span></div>
+        <div class="satir"><b>Telefon</b><a href="tel:+">05xx xxx xx xx</a></div>
+        <div class="satir"><b>Yol tarifi</b><a href="https://maps.google.com/maps?q=%C4%B0stanbul&z=11&output=embed" target="_blank" rel="noopener">Haritada aç →</a></div>
+        <div class="satir" style="align-items:flex-start"><b>Saatler</b><div class="saatler" id="saatler" style="flex:1"></div></div>
+        <p class="ufak">Saatler örnektir, dükkândan teyit edilecek.</p>
+      </div>
+      <iframe loading="lazy" title="Harita" src="https://maps.google.com/maps?q=%C4%B0stanbul&z=11&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>© Örnek Pet Shop · İstanbul<br>Örnek tasarım: Berat Emre Bozacı</footer>
+
+<!-- sepet çubuğu -->
+<div class="sepet-cubuk" id="cubuk">
+  <div><b id="cubukYazi">0 ürün</b><small>Sepeti gör ve WhatsApp'tan gönder</small></div>
+  <button class="btn btn-wa" id="cubukBtn">Sepete git</button>
+</div>
+
+<div class="perde" id="perde"></div>
+<div class="cekmece" id="cekmece" role="dialog" aria-label="Sepet">
+  <div class="tutamak"></div>
+  <h2 style="font-size:28px">Sepetin</h2>
+  <div id="sepetListe"></div>
+  <div class="form">
+    <label>Teslimat</label>
+    <div class="teslim" id="teslim"><button data-v="Adrese servis" class="aktif">🛵 Adrese getir</button><button data-v="Dükkândan alacağım">🏪 Gelip alırım</button></div>
+    <div id="adresAlan"><label for="adres">Adres</label><textarea id="adres" rows="2" placeholder="Mahalle, sokak, kapı no"></textarea></div>
+    <label for="notu">Not (isteğe bağlı)</label><input id="notu" placeholder="Ör. kapıyı çalmayın, bebek uyuyor">
+  </div>
+  <button class="btn btn-wa" id="gonder" style="width:100%;margin-top:16px;font-size:16px;padding:15px">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+    Siparişi WhatsApp'tan gönder</button>
+  <p class="ufak" style="text-align:center;margin-top:8px">Sipariş listen hazır bir mesaj olarak açılır. Fiyat ve teslim saatini dükkân onaylar.</p>
+</div>
+
+<button class="esnaf" id="esnafBtn">Dükkân sahibi misiniz? Bu site ne yapar?</button>
+<div class="esnaf-kart" id="esnafKart">
+  <h3>Bu site size ne kazandırır?</h3>
+  <ul>
+    <li><b>Sipariş hazır gelir:</b> müşteri ürünleri seçer, liste ve adresle birlikte WhatsApp'ınıza tek mesaj düşer. Telefonda "ne vardı" konuşması biter.</li>
+    <li><b>Düzenli müşteri:</b> mama hesaplayıcı "her 25 günde getir" siparişi oluşturur. Müşteri başka yere gitmez.</li>
+    <li><b>Google'da görünürsünüz:</b> "İstanbul pet shop" arayan sitenizi ve 5,0 puanınızı görür.</li>
+    <li><b>Aylık kira yok:</b> tek masraf yıllık alan adı. Ürün ve fiyat değişikliklerini ben yaparım.</li>
+  </ul>
+  <button class="btn btn-cizgi" id="esnafKapat" style="width:100%;margin-top:6px">Tamam</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TEL="";
+const TURLER=[{k:"kedi",ad:"Kedi",e:"🐈"},{k:"kopek",ad:"Köpek",e:"🐕"},{k:"kus",ad:"Kuş",e:"🐦"},{k:"balik",ad:"Balık",e:"🐠"},{k:"kemirgen",ad:"Kemirgen",e:"🐹"}];
+const RENK={Mama:"#fdf0dc",Kum:"#eef2f7","Yaş mama":"#fde8e4",Ödül:"#fff4d6",Oyuncak:"#e8f5ee",Bakım:"#eef0fb",Aksesuar:"#f3ecfa",Yem:"#fff4d6",Kafes:"#eef2f7",Akvaryum:"#e3f3fb",Talaş:"#f6efe3"};
+const MAMA={kedi:"🐟",kopek:"🍖",kemirgen:"🌻"};
+const EMO={Mama:"🥣",Kum:"🪣","Yaş mama":"🥫",Ödül:"🦴",Oyuncak:"🧶",Bakım:"🪮",Aksesuar:"🎀",Yem:"🌾",Kafes:"🏠",Akvaryum:"🫧",Talaş:"🪵"};
+// Örnek ürünler: dükkânın gerçek listesiyle değiştirilecek. f: örnek fiyat (dükkân onaylar).
+const U=[
+ ["kedi","Mama","Royal Canin","Yetişkin Kedi Maması","2 kg","sicak"],["kedi","Mama","Pro Plan","Kısırlaştırılmış Somonlu","1,5 kg"],
+ ["kedi","Mama","Reflex Plus","Tavuklu Yetişkin","15 kg","avantaj"],["kedi","Mama","N&D","Tahılsız Tavuk Narlı","1,5 kg"],
+ ["kedi","Kum","Ever Clean","Topaklanan Kedi Kumu","10 lt","sicak"],["kedi","Kum","Silika","Kristal Kedi Kumu","3,8 lt"],
+ ["kedi","Yaş mama","Felix","Pouch Karışık Paket","12×85 g"],["kedi","Ödül","Dreamies","Ödül Maması","60 g"],
+ ["kedi","Oyuncak","Tüylü","Oltalı Kedi Oyuncağı","1 adet"],["kedi","Bakım","Tarak","Tüy Toplayıcı Tarak","1 adet"],
+ ["kopek","Mama","Royal Canin","Mini Adult","2 kg","sicak"],["kopek","Mama","Pro Plan","Kuzulu Orta Irk","3 kg"],
+ ["kopek","Mama","Reflex","Yetişkin Köpek","15 kg","avantaj"],["kopek","Ödül","Kemik","Pres Kemik Paket","5 adet"],
+ ["kopek","Aksesuar","Tasma","Ayarlanabilir Göğüs Tasması","M beden"],["kopek","Bakım","Şampuan","Köpek Şampuanı","250 ml"],
+ ["kus","Yem","Vitakraft","Muhabbet Kuşu Yemi","500 g","sicak"],["kus","Yem","Kraker","Ballı Kuş Krakeri","2 adet"],["kus","Kafes","Kafes","Orta Boy Kuş Kafesi","1 adet"],
+ ["balik","Yem","Tetra","Pul Balık Yemi","100 ml","sicak"],["balik","Akvaryum","Filtre","İç Filtre","1 adet"],["balik","Akvaryum","Su düzenleyici","Klor Giderici","100 ml"],
+ ["kemirgen","Mama","Versele-Laga","Hamster Yemi","400 g"],["kemirgen","Talaş","Talaş","Doğal Talaş","15 lt"],["kemirgen","Oyuncak","Çark","Hamster Çarkı","1 adet"]
+].map((x,i)=>({id:i,tur:x[0],kat:x[1],marka:x[2],ad:x[3],boy:x[4],etiket:x[5]||""}));
+
+let tur="kedi", alt="Hepsi", sepet={}, teslim="Adrese servis";
+const $=s=>document.querySelector(s);
+function wa(t){return "https://wa.me/"+TEL+"?text="+encodeURIComponent(t);}
+document.querySelectorAll("[data-wa]").forEach(a=>{a.href=wa(a.dataset.wa);a.target="_blank";a.rel="noopener";});
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("goster");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("goster"),1400);}
+
+function turCiz(){$("#turlar").innerHTML=TURLER.map(t=>`<button class="tur ${t.k===tur?"aktif":""}" data-k="${t.k}"><span>${t.e}</span>${t.ad}</button>`).join("");}
+function altCiz(){const k=["Hepsi",...new Set(U.filter(u=>u.tur===tur).map(u=>u.kat))];if(!k.includes(alt))alt="Hepsi";
+  $("#altlar").innerHTML=k.map(x=>`<button class="alt ${x===alt?"aktif":""}" data-k="${x}">${x}</button>`).join("");}
+function urunCiz(){const q=$("#ara").value.trim().toLocaleLowerCase("tr");
+  const l=U.filter(u=>q?(u.marka+" "+u.ad+" "+u.kat).toLocaleLowerCase("tr").includes(q):(u.tur===tur&&(alt==="Hepsi"||u.kat===alt)));
+  $("#urunler").innerHTML=l.length?l.map(u=>{const n=sepet[u.id]||0;
+    return `<div class="urun"><div class="resim" style="background:${RENK[u.kat]||"#eef2f7"}">${u.etiket?`<span class="etiket ${u.etiket==="sicak"?"sicak":""}">${u.etiket==="sicak"?"ÇOK SATAN":"EKONOMİK"}</span>`:""}${(u.kat==="Mama"&&MAMA[u.tur])||EMO[u.kat]||"🐾"}</div>
+    <div class="ic"><span class="marka">${u.marka}</span><h3>${u.ad}</h3><span class="boy">${u.boy}</span>
+    <div class="ekle"><span class="fiyat">Fiyat sor</span>${n?`<span class="adet"><button data-e="${u.id}" data-d="-1" aria-label="Azalt">−</button><b>${n}</b><button data-e="${u.id}" data-d="1" aria-label="Artır">+</button></span>`:`<button class="art" data-e="${u.id}" data-d="1" aria-label="Sepete ekle">+</button>`}</div></div></div>`;}).join("")
+    :`<div class="bos">Bulunamadı. <a href="${wa("Merhaba, şunu arıyorum: "+$("#ara").value)}" target="_blank" rel="noopener" style="color:var(--vurgu);font-weight:700">Dükkâna sor →</a></div>`;}
+function sepetGuncelle(){const top=Object.values(sepet).reduce((a,b)=>a+b,0);
+  $("#sayUst").textContent=top;$("#sayUst").classList.toggle("gizle",!top);
+  $("#cubuk").classList.toggle("goster",top>0);$("#esnafBtn").classList.toggle("gizle",top>0);
+  $("#cubukYazi").textContent=top+" ürün sepette";
+  $("#sepetListe").innerHTML=top?Object.entries(sepet).map(([id,n])=>{const u=U[id];
+    return `<div class="s-satir"><div class="em" style="background:${RENK[u.kat]}">${(u.kat==="Mama"&&MAMA[u.tur])||EMO[u.kat]}</div><div class="ad">${u.marka} ${u.ad}<div class="ufak">${u.boy}</div></div>
+    <span class="adet"><button data-e="${id}" data-d="-1">−</button><b>${n}</b><button data-e="${id}" data-d="1">+</button></span></div>`;}).join("")
+    :`<p class="ufak" style="padding:16px 0">Sepet boş.</p>`;}
+function degis(id,d){sepet[id]=(sepet[id]||0)+d;if(sepet[id]<=0)delete sepet[id];if(d>0)toast("Sepete eklendi");urunCiz();sepetGuncelle();}
+document.addEventListener("click",e=>{
+  const t=e.target.closest(".tur");if(t){tur=t.dataset.k;alt="Hepsi";$("#ara").value="";turCiz();altCiz();urunCiz();return;}
+  const a=e.target.closest(".alt");if(a){alt=a.dataset.k;altCiz();urunCiz();return;}
+  const b=e.target.closest("[data-e]");if(b){degis(+b.dataset.e,+b.dataset.d);return;}
+});
+$("#ara").addEventListener("input",urunCiz);
+function cekmece(ac){$("#cekmece").classList.toggle("acik",ac);$("#perde").classList.toggle("acik",ac);}
+$("#cubukBtn").onclick=()=>cekmece(true);$("#sepetUst").onclick=()=>cekmece(true);$("#perde").onclick=()=>{cekmece(false);$("#esnafKart").classList.remove("acik");};
+$("#teslim").onclick=e=>{const b=e.target.closest("button");if(!b)return;teslim=b.dataset.v;
+  document.querySelectorAll("#teslim button").forEach(x=>x.classList.toggle("aktif",x===b));$("#adresAlan").classList.toggle("gizle",teslim!=="Adrese servis");};
+$("#gonder").onclick=()=>{if(!Object.keys(sepet).length){toast("Sepet boş");return;}
+  let m="Merhaba, siteden sipariş vermek istiyorum:\n\n"+Object.entries(sepet).map(([id,n])=>`• ${n} × ${U[id].marka} ${U[id].ad} (${U[id].boy})`).join("\n");
+  m+="\n\nTeslimat: "+teslim;if(teslim==="Adrese servis"&&$("#adres").value.trim())m+="\nAdres: "+$("#adres").value.trim();
+  if($("#notu").value.trim())m+="\nNot: "+$("#notu").value.trim();m+="\n\nToplam tutarı ve teslim saatini yazar mısınız?";
+  window.open(wa(m),"_blank","noopener");};
+
+// mama hesaplayıcı (yaklaşık değerler; ambalaj tablosu esastır)
+const GUNLUK={kedi:[40,60,80],kopek:[150,300,500]}, CUVAL={kedi:[1.5,2,15],kopek:[3,7.5,15]};
+let h={tur:"kedi",boy:1,say:1,cuval:2};
+function hCiz(){$("#hCuval").innerHTML=CUVAL[h.tur].map(c=>`<button data-v="${c}" class="${c===h.cuval?"aktif":""}">${String(c).replace(".",",")} kg</button>`).join("");
+  const g=GUNLUK[h.tur][h.boy]*h.say, gun=Math.max(1,Math.floor(h.cuval*1000/g));
+  $("#hGun").textContent=gun+" gün";
+  $("#hAciklama").textContent=`gider. Günde toplam yaklaşık ${g} g hesabıyla. Kesin miktar için ambalajdaki tabloya bakın.`;
+  const her=Math.max(1,gun-3);$("#hBtn").textContent=`Her ${her} günde bir getirin`;
+  $("#hBtn").href=wa(`Merhaba, düzenli mama teslimatı istiyorum. ${h.say} ${h.tur==="kedi"?"kedi":"köpek"} için ${String(h.cuval).replace(".",",")} kg mama, yaklaşık her ${her} günde bir. Hangi markayı önerirsiniz?`);
+  $("#hBtn").target="_blank";$("#hBtn").rel="noopener";}
+function hSec(id,alan,sayi){$(id).onclick=e=>{const b=e.target.closest("button");if(!b)return;h[alan]=sayi?+b.dataset.v:b.dataset.v;
+  if(alan==="tur")h.cuval=CUVAL[h.tur][1];$(id).querySelectorAll("button").forEach(x=>x.classList.toggle("aktif",x===b));hCiz();};}
+hSec("#hTur","tur",false);hSec("#hBoy","boy",true);hSec("#hSay","say",true);
+$("#hCuval").onclick=e=>{const b=e.target.closest("button");if(!b)return;h.cuval=+b.dataset.v;hCiz();};
+
+// açık/kapalı (ÖRNEK saatler, dükkândan teyit edilecek)
+const SAAT=[["Pazartesi","09:00","21:00"],["Salı","09:00","21:00"],["Çarşamba","09:00","21:00"],["Perşembe","09:00","21:00"],["Cuma","09:00","21:00"],["Cumartesi","09:00","21:00"],["Pazar","10:00","19:00"]];
+(function(){const d=new Date(),g=(d.getDay()+6)%7,[,a,k]=SAAT[g],dk=d.getHours()*60+d.getMinutes(),m=s=>+s.slice(0,2)*60+ +s.slice(3);
+  const acik=dk>=m(a)&&dk<m(k);$("#durum").classList.toggle("kapali",!acik);$("#durum span").textContent=acik?"Şu an açık":"Şu an kapalı";
+  $("#saatler").innerHTML=SAAT.map((s,i)=>`<div class="${i===g?"bugun":""}"><span>${s[0]}</span><span>${s[1]}–${s[2]}</span></div>`).join("");})();
+
+$("#esnafBtn").onclick=()=>{$("#esnafKart").classList.add("acik");$("#perde").classList.add("acik");};
+$("#esnafKapat").onclick=()=>{$("#esnafKart").classList.remove("acik");$("#perde").classList.remove("acik");};
+turCiz();altCiz();urunCiz();sepetGuncelle();hCiz();
+</script>
+</body>
+</html>

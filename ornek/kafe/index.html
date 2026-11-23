@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#7a2e1f">
+<meta name="description" content="İstanbul Merkez'de ev yemekleri, kahvaltı ve tost. Ekibinle toplu öğle siparişi ver, liste tek mesajla WhatsApp'tan gelsin.">
+<title>Örnek Kafe · İstanbul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#7a2e1f;--green-2:#9c3d28;--pist:#e0893a;--pist-soft:#fbe9dc;
+  --gold:#f2b84b;--gold-soft:#fdf1d6;--cream:#fdf8f2;--paper:#fffdfa;
+  --ink:#1d1a16;--muted:#6b6358;--line:#e7dfd0;--red:#b4432f;--ok:#2f7d4a;
+  --r:16px;--shadow:0 6px 24px rgba(122,46,31,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit}
+.strip{background:var(--ink);color:#f3e9d6;font-size:12.5px;text-align:center;padding:7px 12px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:30;background:rgba(251,247,239,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-weight:700;font-size:20px;color:var(--green);text-decoration:none}
+.logo i{width:34px;height:34px;border-radius:9px;background:var(--green);display:grid;place-items:center;color:var(--gold);font-style:normal;font-size:18px}
+.top nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+.top nav a{text-decoration:none;font-size:14px;font-weight:600;color:var(--muted);padding:8px 10px;border-radius:10px}
+.top nav a:hover{background:var(--pist-soft);color:var(--green)}
+.cartbtn{border:0;background:var(--green);color:#fff;font-weight:700;border-radius:12px;padding:9px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.cartbtn b{background:var(--gold);color:var(--ink);border-radius:20px;min-width:22px;padding:0 6px;font-size:13px}
+@media(max-width:720px){.top nav a{display:none}}
+
+.hero{background:linear-gradient(160deg,#6b2618 0%,#7a2e1f 55%,#9c3d28 100%);color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto -60px -80px auto;width:320px;height:320px;border-radius:50%;
+  background:repeating-linear-gradient(45deg,rgba(201,154,59,.18) 0 10px,transparent 10px 22px)}
+.hero .wrap{padding:44px 16px 52px;position:relative;z-index:1;display:grid;gap:26px;grid-template-columns:1.3fr 1fr;align-items:center}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr;padding:30px 16px 36px}}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border-radius:30px;padding:6px 12px;background:rgba(255,255,255,.12)}
+.badge .dot{width:9px;height:9px;border-radius:50%;background:#aaa}
+.badge.open .dot{background:#5fd18a;box-shadow:0 0 0 4px rgba(95,209,138,.25)}
+.badge.closed .dot{background:#f08a6b}
+.badge.star{background:var(--gold);color:var(--ink)}
+.hero h1{font-size:clamp(32px,6vw,52px);font-weight:700}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{font-size:17px;color:#f5e3da;max-width:560px;margin:14px 0 22px}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 18px;font-weight:700;cursor:pointer;text-decoration:none;font-size:15px}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.btn.green{background:var(--green);color:#fff}
+.btn.line{background:#fff;color:var(--green);border:1.5px solid var(--line)}
+.btn:focus-visible,.chip:focus-visible,.tab:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.herocard{background:var(--paper);color:var(--ink);border-radius:20px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.herocard h3{font-size:19px;color:var(--green)}
+.herocard .mini{font-size:13px;color:var(--muted);margin:2px 0 12px}
+.hrow{display:flex;justify-content:space-between;padding:9px 0;border-top:1px dashed var(--line);font-size:14px}
+.hrow b{color:var(--green)}
+
+section{padding:46px 0}
+.sec-h{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px;margin-bottom:18px}
+.sec-h h2{font-size:clamp(24px,4vw,32px);color:var(--green)}
+.sec-h p{margin:4px 0 0;color:var(--muted);max-width:620px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* Hesaplayıcı */
+.calc{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.1fr 1fr;overflow:hidden}
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+.calc .in{padding:22px}
+.calc .out{padding:22px;background:var(--green);color:#fff}
+.field{margin-bottom:16px}
+.field label.l{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:30px;padding:8px 13px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.range{display:flex;align-items:center;gap:12px}
+.range input{flex:1;accent-color:var(--green)}
+.range output{min-width:74px;text-align:center;font-weight:800;font-size:18px;color:var(--green);background:var(--pist-soft);border-radius:10px;padding:4px 8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input[type=date],input[type=time],input[type=text],input[type=search],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;color:var(--ink);font-size:15px}
+textarea{resize:vertical;min-height:70px}
+.out h3{font-size:22px;margin-bottom:4px}
+.out .sub{color:#f1d6c9;font-size:14px;margin:0 0 16px}
+.res{display:grid;gap:10px}
+.resrow{background:rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.resrow span{font-size:14px;color:#f5e3da}
+.resrow b{font-size:18px;color:#fff;text-align:right}
+.tray{display:flex;height:16px;border-radius:10px;overflow:hidden;margin:6px 0 4px}
+.tray div{height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:#f5e3da}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.note{font-size:12.5px;color:#f1d6c9;margin-top:12px}
+.out .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* Katalog */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:0;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 16px}
+.tools .chips{flex:1}
+.tools input{max-width:260px}
+@media(max-width:600px){.tools input{max-width:none}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px}
+.ph{height:110px;border-radius:12px;display:grid;place-items:center;font-size:44px}
+.card h3{font-family:Inter,sans-serif;font-size:16px;font-weight:700}
+.card .meta{font-size:13px;color:var(--muted)}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11.5px;font-weight:700;border-radius:20px;padding:3px 8px;background:var(--pist-soft);color:var(--green)}
+.tag.hot{background:var(--gold-soft);color:#8a6312}
+.card .bot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.price{font-size:13px;font-weight:700;color:var(--gold)}
+.qty{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.qty button{border:0;background:#fff;width:34px;height:34px;font-size:18px;cursor:pointer;color:var(--green)}
+.qty span{min-width:54px;text-align:center;font-weight:700;font-size:14px}
+.add{border:0;background:var(--green);color:#fff;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px}
+.small{font-size:12.5px;color:var(--muted)}
+
+/* Saatler */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.cols{grid-template-columns:1fr}}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px}
+.box h3{font-size:20px;color:var(--green);margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td{padding:8px 0;border-bottom:1px dashed var(--line)}
+td:last-child{text-align:right;font-weight:600}
+tr.today td{color:var(--green);font-weight:800}
+.bar{position:relative;height:14px;border-radius:8px;background:#efe7d6;margin:14px 0 6px;overflow:hidden}
+.bar .on{position:absolute;top:0;bottom:0;background:var(--pist)}
+.bar .now{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--red);border-radius:2px}
+.barlbl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+.map{border-radius:16px;overflow:hidden;border:1px solid var(--line);height:240px}
+.map iframe{width:100%;height:100%;border:0}
+.quote{font-family:Fraunces,serif;font-size:19px;color:var(--green);margin:6px 0}
+
+/* Sahip kartı */
+.owner{background:var(--gold-soft);border:1.5px solid #e8d3a2;border-radius:22px;padding:22px}
+.owner h2{color:var(--ink);font-size:clamp(22px,3.5vw,28px)}
+.olist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.olist div{background:#fff;border-radius:14px;padding:14px;font-size:14.5px}
+.olist b{display:block;color:var(--green);margin-bottom:4px}
+
+details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700}
+details p{margin:10px 0 0;color:var(--muted)}
+
+/* Sepet */
+.drawer{position:fixed;inset:0;z-index:60;display:none}
+.drawer.show{display:block}
+.drawer .bg{position:absolute;inset:0;background:rgba(20,20,15,.45)}
+.drawer .panel{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:var(--paper);display:flex;flex-direction:column}
+.panel header{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid var(--line)}
+.panel header h3{color:var(--green)}
+.x{border:0;background:var(--pist-soft);width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer}
+.items{flex:1;overflow:auto;padding:12px 16px}
+.it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.panel .foot{padding:16px;border-top:1px solid var(--line);display:grid;gap:10px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;opacity:0;transition:.25s;z-index:80;pointer-events:none;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:40;display:none}
+@media(max-width:720px){.fab{display:flex}}
+footer{padding:30px 16px 90px;text-align:center;font-size:13px;color:var(--muted)}
+</style>
+<style>.order-list{display:grid;gap:8px;margin-top:10px}.orow{display:grid;grid-template-columns:1fr 1.4fr auto;gap:8px;align-items:center}.orow input,.orow select{padding:9px 10px;font-size:14px}.orow button{border:0;background:var(--pist-soft);width:36px;height:40px;border-radius:10px;cursor:pointer;font-size:16px}@media(max-width:520px){.orow{grid-template-columns:1fr 1fr auto}}.today{background:var(--gold-soft);border:1.5px dashed #e8c77f;border-radius:16px;padding:14px;margin-bottom:16px}.today b{color:var(--green)}</style>
+</head>
+<body>
+<div class="strip">Dükkân Sitesi örnek tasarımıdır; isim, fiyat ve bilgiler temsilidir.</div>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#"><i>☕</i>Örnek Kafe</a>
+  <nav><a href="#ekip">Ekip siparişi</a><a href="#menu">Menü</a><a href="#saat">Saatler</a><a href="#sss">SSS</a>
+  <button class="cartbtn" type="button" onclick="openCart()" aria-label="Sepeti aç">Sepet <b id="cnt">0</b></button></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="badges">
+      <span class="badge" id="openBadge"><span class="dot"></span><span id="openTxt">Saat kontrol ediliyor</span></span>
+      <span class="badge star">★ 4,9 · 16 oy (örnek)</span>
+      <span class="badge">Paket + al-götür</span>
+    </div>
+    <h1>Ev yemeği gibi.<br><em>Çünkü ev yemeği.</em></h1>
+    <p class="lead">Sabah 07:30'da kahvaltı, öğlen günün tenceresi, arada tost. Ekibin için tek seferde sipariş topla, liste WhatsApp'tan bize gelsin.</p>
+    <div class="cta"><a class="btn gold" href="#ekip">Ekip siparişi topla</a><a class="btn ghost" href="#menu">Menüye bak</a></div>
+  </div>
+  <div class="herocard" aria-label="Kısa bilgi">
+    <h3>Bugün ocakta</h3>
+    <p class="mini">Örnek Mah., İstanbul</p>
+    <div class="hrow"><span>Çalışma saati</span><b>Pzt-Cmt 07:30 – 20:00</b></div>
+    <div class="hrow"><span>Pazar</span><b>Kapalı</b></div>
+    <div class="hrow"><span>Paket servis</span><b>Var · bölge [teyit]</b></div>
+    <div class="hrow"><span>Fiyat</span><b>Fiyat sor</b></div>
+  </div>
+</div></section>
+
+<section id="ekip"><div class="wrap">
+  <div class="sec-h"><div>
+    <div class="eyebrow">Ekip siparişi</div>
+    <h2>Öğlen 8 kişiye sipariş mi toplayacaksın?</h2>
+    <p>Kimin ne istediğini tek tek yazışma. İsimleri ekle, herkesin seçimini işaretle, saati seç. Liste mutfağa tek mesajla gelir, paketlerin üstüne isim yazılır.</p>
+  </div></div>
+  <div class="calc">
+    <div class="in">
+      <div class="field"><span style="display:block;font-weight:700;font-size:14px;margin-bottom:8px">Nereye?</span><div class="chips" id="yerChips"></div></div>
+      <div class="field"><span style="display:block;font-weight:700;font-size:14px;margin-bottom:4px">Kim ne istiyor?</span>
+        <div class="order-list" id="olist"></div>
+        <button class="btn line" type="button" style="margin-top:10px" onclick="addRow()">+ Kişi ekle</button></div>
+      <div class="field two">
+        <div><label class="l" for="saat">Teslim saati</label><input id="saat" type="time" value="12:15"></div>
+        <div><label class="l" for="yerAd">Bina / kat / ad</label><input id="yerAd" type="text" placeholder="ör. 3. kat muhasebe"></div>
+      </div>
+    </div>
+    <div class="out" aria-live="polite">
+      <h3 id="oTitle">2 kişilik sipariş</h3>
+      <p class="sub" id="oSub">Liste tek mesajda, isimlerle</p>
+      <div class="res" id="oRes"></div>
+      <p class="note">Ürünler ve porsiyonlar örnektir. Kalabalık ekip siparişlerinde 11:30'a kadar yazmak iyi olur [işletmeden teyit].</p>
+      <div class="btns"><button class="btn gold" type="button" onclick="sendTeam()">Listeyi WhatsApp'tan gönder</button></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="menu" style="padding-top:10px"><div class="wrap">
+  <div class="sec-h"><div><div class="eyebrow">Menü</div><h2>Ne yiyelim?</h2><p>Seç, sepete at, paket ya da gel-al. Liste tek mesaj olarak WhatsApp'a gider.</p></div><p class="small">Ürünler örnektir; gerçek menü kafeden alınır.</p></div>
+  <div class="today"><b>Günün tenceresi (örnek):</b> mercimek çorbası · kuru fasulye · pilav · cacık. Her sabah buraya güncel liste yazılır.</div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="tools"><div class="chips" id="subChips"></div><input type="search" id="q" placeholder="Ara: tost, çorba, menemen…" aria-label="Ürün ara" oninput="render()"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="saat" style="padding-top:10px"><div class="wrap cols">
+  <div class="box"><h3>Çalışma saatleri</h3>
+    <div class="bar" aria-hidden="true"><div class="on" style="left:31.25%;right:16.67%"></div><div class="now" id="nowLine"></div></div>
+    <div class="barlbl"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+    <table id="hours"></table><p class="small">Saatler örnek bilgilerdir [işletmeden teyit].</p></div>
+  <div class="box"><h3>Yolu tarif</h3>
+    <div class="map"><iframe loading="lazy" title="Harita" src="https://maps.google.com/maps?q=%C4%B0stanbul&z=11&output=embed"></iframe></div>
+    <p class="small" style="margin-top:10px">Örnek Mah., İstanbul Üçyüzlü metro ~930 m</p>
+    <p class="quote">"Örnek müşteri yorumu: haritalardaki gerçek yorumlarınız burada görünür."</p><p class="small">Örnek yorum</p></div>
+</div></section>
+
+<section style="padding-top:10px"><div class="wrap"><div class="owner">
+  <div class="eyebrow">İşletme sahibi misiniz?</div><h2>Bu site size ne kazandırır?</h2>
+  <div class="olist">
+    <div><b>Öğlen telefonu susar</b>Ekip siparişi isimleriyle, saatiyle hazır liste olarak gelir; yanlış paket derdi biter.</div>
+    <div><b>Hastane ve ofis müşterisi</b>Devlet hastanesine 300 m'desiniz. Personel ve refakatçi sabah menüyü görüp siparişini önceden atar.</div>
+    <div><b>Günün tenceresi vitrinde</b>Sabah tek satır yazarsınız, "bugün ne var" diye arayan herkes siteden görür.</div>
+    <div><b>Haritada güçlü görünürsünüz</b>16 oyla 4,9 puanınız var. Site linki eklenince arayan kişi menüyü ve saati tek yerde görür.</div>
+  </div>
+</div></div></section>
+
+<section id="sss" style="padding-top:10px"><div class="wrap">
+  <div class="sec-h"><div><div class="eyebrow">Sık sorulanlar</div><h2>Merak edilenler</h2></div></div>
+  <details><summary>Paket servis hangi mahallelere?</summary><p>Örnek dükkânda teslimat ve al-götür var. Bölge ve ücret [işletmeden teyit].</p></details>
+  <details><summary>Ekip siparişi için en geç kaçta yazmalıyım?</summary><p>Örnek cevap: 11:30'a kadar [işletmeden teyit].</p></details>
+  <details><summary>Pazar açık mısınız?</summary><p>Örnekte Pazar kapalı [işletmeden teyit].</p></details>
+  <details><summary>Fiyatlar ne kadar?</summary><p>Menü güne göre değiştiği için "Fiyat sor" yazdık. Siparişinizi gönderin, toplamı yazalım.</p></details>
+</div></section>
+
+<footer>© Örnek Kafe · İstanbul<br>Bu sayfa örnek tasarımdır; işletmenin onayı olmadan yayımlanmış resmi site değildir. Ürünler ve SSS cevapları örnektir.</footer>
+<button class="btn green fab" type="button" onclick="openCart()" aria-label="Sepeti aç">Sepet · <span id="cnt2">0</span></button>
+
+<div class="drawer" id="drawer" aria-hidden="true"><div class="bg" onclick="closeCart()"></div>
+  <div class="panel" role="dialog" aria-label="Sepet">
+    <header><h3>Sepetin</h3><button class="x" type="button" onclick="closeCart()" aria-label="Kapat">✕</button></header>
+    <div class="items" id="items"></div>
+    <div class="foot">
+      <div class="two"><button class="chip" type="button" id="cGel" aria-pressed="true" onclick="setGet('gel')">Gelip alacağım</button><button class="chip" type="button" id="cTes" aria-pressed="false" onclick="setGet('tes')">Paket servis</button></div>
+      <input type="text" id="adres" placeholder="Adres (paket için) ya da gelme saati">
+      <textarea id="not" placeholder="Not: ör. tost az kızarsın, çorbaya limon…"></textarea>
+      <button class="btn green" type="button" onclick="sendCart()">WhatsApp'tan gönder</button>
+      <p class="small" style="margin:0">Toplam fiyatı kafe yazar. Ödeme teslimde [işletmeden teyit].</p>
+    </div></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const WA="";
+const CATS=[{id:"kahvalti",ad:"Kahvaltı",ico:"🍳",bg:"#fdf1d6"},{id:"tost",ad:"Tost",ico:"🥪",bg:"#fbe9dc"},{id:"tencere",ad:"Ev yemekleri",ico:"🍲",bg:"#f7e0d6"},{id:"corba",ad:"Çorba",ico:"🥣",bg:"#fdf1d6"},{id:"tatli",ad:"Tatlı",ico:"🍮",bg:"#f9e6e1"},{id:"icecek",ad:"İçecekler",ico:"☕",bg:"#efe6dc"}];
+const P=[
+ {c:"kahvalti",ad:"Serpme kahvaltı",d:"2 kişilik",u:"adet",t:["cok"]},{c:"kahvalti",ad:"Menemen",d:"Soğanlı ya da soğansız",u:"porsiyon",t:["cok"]},
+ {c:"kahvalti",ad:"Sucuklu yumurta",d:"Sahanda",u:"porsiyon",t:[]},{c:"kahvalti",ad:"Simit tabağı",d:"Peynir, domates, zeytin",u:"adet",t:["paket"]},
+ {c:"tost",ad:"Kaşarlı tost",d:"Klasik",u:"adet",t:["cok","paket"]},{c:"tost",ad:"Karışık tost",d:"Sucuk + kaşar",u:"adet",t:["cok","paket"]},
+ {c:"tost",ad:"Ayvalık tostu",d:"Bol malzemeli",u:"adet",t:["paket"]},{c:"tost",ad:"Kavurmalı tost",d:"Doyurucu",u:"adet",t:["paket"]},
+ {c:"tencere",ad:"Kuru fasulye",d:"Günün tenceresi",u:"porsiyon",t:["cok","paket"]},{c:"tencere",ad:"Pilav",d:"Tereyağlı",u:"porsiyon",t:["paket"]},
+ {c:"tencere",ad:"Tavuk sote",d:"Günün tenceresi",u:"porsiyon",t:["paket"]},{c:"tencere",ad:"Karnıyarık",d:"Mevsiminde",u:"porsiyon",t:[]},
+ {c:"tencere",ad:"Nohut",d:"Etli",u:"porsiyon",t:["paket"]},
+ {c:"corba",ad:"Mercimek çorbası",d:"Limon, ekmek",u:"kase",t:["cok","paket"]},{c:"corba",ad:"Ezogelin",d:"Günlük",u:"kase",t:["paket"]},
+ {c:"tatli",ad:"Sütlaç",d:"Fırın",u:"adet",t:["paket"]},{c:"tatli",ad:"Revani",d:"Şerbetli",u:"dilim",t:[]},
+ {c:"icecek",ad:"Çay",d:"İnce belli",u:"bardak",t:["cok"]},{c:"icecek",ad:"Türk kahvesi",d:"Lokumla",u:"fincan",t:[]},{c:"icecek",ad:"Ayran",d:"Soğuk",u:"adet",t:["paket"]}];
+const SUB=[["hepsi","Hepsi"],["cok","Çok tercih edilen"],["paket","Pakete uygun"]];
+let cat="tencere",sub="hepsi",cart={},getMode="gel";
+function tabs(){document.getElementById("tabs").innerHTML=CATS.map(c=>`<button class="tab" role="tab" aria-selected="${c.id===cat}" onclick="setCat('${c.id}')">${c.ico} ${c.ad}</button>`).join("");
+ document.getElementById("subChips").innerHTML=SUB.map(s=>`<button class="chip" type="button" aria-pressed="${s[0]===sub}" onclick="setSub('${s[0]}')">${s[1]}</button>`).join("")}
+function setCat(c){cat=c;tabs();render()} function setSub(s){sub=s;tabs();render()}
+function render(){const q=document.getElementById("q").value.trim().toLocaleLowerCase("tr");
+ const list=P.filter(p=>(q?true:p.c===cat)&&(sub==="hepsi"||p.t.includes(sub))&&(!q||(p.ad+" "+p.d).toLocaleLowerCase("tr").includes(q)));
+ const g=document.getElementById("grid"); if(!list.length){g.innerHTML='<div class="empty">Bu filtrede ürün yok. Not olarak yazabilirsin.</div>';return}
+ g.innerHTML=list.map(p=>{const c=CATS.find(x=>x.id===p.c),k=P.indexOf(p),n=cart[k]||0;
+ return `<article class="card"><div class="ph" style="background:${c.bg}" aria-hidden="true">${c.ico}</div>
+ <div class="tagrow">${p.t.includes("cok")?'<span class="tag hot">Çok tercih edilen</span>':''}${p.t.includes("paket")?'<span class="tag">Pakete uygun</span>':''}</div>
+ <h3>${p.ad}</h3><div class="meta">${p.d} · örnek</div><div class="bot"><span class="price">Fiyat sor</span>
+ ${n?`<div class="qty"><button type="button" aria-label="Azalt" onclick="chg(${k},-1)">−</button><span>${n} ${p.u}</span><button type="button" aria-label="Arttır" onclick="chg(${k},1)">+</button></div>`:`<button class="add" type="button" onclick="chg(${k},1)">Ekle</button>`}</div></article>`}).join("")}
+function chg(k,d){let v=(cart[k]||0)+d;if(v<=0)delete cart[k];else cart[k]=v;if(d>0&&v===1)toast(P[k].ad+" sepete eklendi");render();count();drawItems()}
+function count(){const n=Object.keys(cart).length;document.getElementById("cnt").textContent=n;document.getElementById("cnt2").textContent=n}
+function openCart(){drawItems();const d=document.getElementById("drawer");d.classList.add("show");d.setAttribute("aria-hidden","false")}
+function closeCart(){const d=document.getElementById("drawer");d.classList.remove("show");d.setAttribute("aria-hidden","true")}
+function drawItems(){const el=document.getElementById("items"),ks=Object.keys(cart);if(!ks.length){el.innerHTML='<p class="small">Sepet boş. Menüden ekleyebilir ya da ekip siparişini kullanabilirsin.</p>';return}
+ el.innerHTML=ks.map(k=>`<div class="it"><span>${P[k].ad}</span><div class="qty"><button type="button" aria-label="Azalt" onclick="chg(${k},-1)">−</button><span>${cart[k]} ${P[k].u}</span><button type="button" aria-label="Arttır" onclick="chg(${k},1)">+</button></div></div>`).join("")}
+function setGet(m){getMode=m;document.getElementById("cGel").setAttribute("aria-pressed",m==="gel");document.getElementById("cTes").setAttribute("aria-pressed",m==="tes")}
+function wa(t){window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank","noopener")}
+function sendCart(){const ks=Object.keys(cart);if(!ks.length){toast("Sepet boş");return}const ad=document.getElementById("adres").value.trim(),nt=document.getElementById("not").value.trim();
+ let t="Merhaba, siteden sipariş:\n"+ks.map(k=>"• "+P[k].ad+": "+cart[k]+" "+P[k].u).join("\n");
+ t+="\n"+(getMode==="tes"?"Paket servis. Adres: "+(ad||"[yazacağım]"):"Gelip alacağım"+(ad?" ("+ad+")":""));if(nt)t+="\nNot: "+nt;t+="\nToplam tutarı yazar mısınız?";wa(t)}
+/* Ekip siparişi */
+const YER=[["ofis","Ofis / iş yeri"],["hastane","Hastane (personel / refakatçi)"],["dukkan","Dükkân"],["gel","Gelip alacağız"]];
+const SECIM=["Kuru fasulye + pilav","Tavuk sote + pilav","Nohut + pilav","Mercimek çorbası","Kaşarlı tost","Karışık tost","Ayvalık tostu","Menemen"];
+let yer="ofis",rows=[{ad:"",s:SECIM[0],n:1},{ad:"",s:SECIM[4],n:1}];
+function yerChips(){document.getElementById("yerChips").innerHTML=YER.map(y=>`<button class="chip" type="button" aria-pressed="${y[0]===yer}" onclick="yer='${y[0]}';yerChips();sum()">${y[1]}</button>`).join("")}
+function drawRows(){document.getElementById("olist").innerHTML=rows.map((r,i)=>`<div class="orow"><input type="text" aria-label="İsim ${i+1}" placeholder="İsim" value="${r.ad.replace(/"/g,'&quot;')}" oninput="rows[${i}].ad=this.value;sum()">
+ <select aria-label="Seçim ${i+1}" onchange="rows[${i}].s=this.value;sum()">${SECIM.map(s=>`<option ${s===r.s?"selected":""}>${s}</option>`).join("")}</select>
+ <button type="button" aria-label="Kişiyi sil" onclick="rows.splice(${i},1);drawRows();sum()">✕</button></div>`).join("")}
+function addRow(){if(rows.length>=30){toast("30 kişiden fazlası için arayın");return}rows.push({ad:"",s:SECIM[0],n:1});drawRows();sum()}
+function sum(){const c={};rows.forEach(r=>c[r.s]=(c[r.s]||0)+1);
+ document.getElementById("oTitle").textContent=rows.length+" kişilik sipariş";
+ document.getElementById("oSub").textContent=YER.find(y=>y[0]===yer)[1]+" · paketlerin üstüne isim yazılır";
+ document.getElementById("oRes").innerHTML=Object.entries(c).map(([k,v])=>`<div class="resrow"><span>${k}</span><b>${v} adet</b></div>`).join("")||'<div class="resrow"><span>Henüz kimse yok</span><b>—</b></div>'}
+function sendTeam(){if(!rows.length){toast("Önce kişi ekle");return}const c={};rows.forEach(r=>c[r.s]=(c[r.s]||0)+1);
+ let t="Merhaba, siteden ekip siparişi ("+rows.length+" kişi):\n"+Object.entries(c).map(([k,v])=>"• "+k+" × "+v).join("\n");
+ t+="\n\nİsimler:\n"+rows.map((r,i)=>(r.ad||"Kişi "+(i+1))+": "+r.s).join("\n");
+ t+="\n\n"+YER.find(y=>y[0]===yer)[1]+" · teslim "+document.getElementById("saat").value;const a=document.getElementById("yerAd").value.trim();if(a)t+=" · "+a;
+ t+="\nUygun mu, toplam ne tutar?";wa(t)}
+/* Saat */
+function ist(){const p=new Intl.DateTimeFormat("tr-TR",{timeZone:"Europe/Istanbul",hour:"2-digit",minute:"2-digit",weekday:"long",hour12:false}).formatToParts(new Date());const o={};p.forEach(x=>o[x.type]=x.value);return{h:+o.hour%24,m:+o.minute,day:o.weekday}}
+function hours(){const t=ist(),mins=t.h*60+t.m,pazar=t.day.toLocaleLowerCase("tr")==="pazar",open=!pazar&&mins>=450&&mins<1200,b=document.getElementById("openBadge");
+ b.classList.add(open?"open":"closed");document.getElementById("openTxt").textContent=open?"Şu an açık · 20:00'ye kadar":(pazar?"Bugün kapalı · Pazartesi 07:30":"Şu an kapalı · 07:30'da açılır");
+ document.getElementById("nowLine").style.left=(mins/1440*100)+"%";
+ const days=["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+ document.getElementById("hours").innerHTML=days.map(d=>`<tr class="${d.toLocaleLowerCase("tr")===t.day.toLocaleLowerCase("tr")?"today":""}"><td>${d}</td><td>${d==="Pazar"?"Kapalı":"07:30 – 20:00"}</td></tr>`).join("")}
+let tt;function toast(m){const e=document.getElementById("toast");e.textContent=m;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),1800)}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart()});
+tabs();render();yerChips();drawRows();sum();hours();count();
+</script>
+</body>
+</html>
