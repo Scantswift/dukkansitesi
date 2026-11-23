@@ -275,6 +275,31 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 .yapiskan.goster{transform:none}
 .yapiskan .btn{width:100%;padding:16px;font-size:17px}
 
+
+/* turuncu vurgu (mavinin zıttı): sadece eylem ve fiyat */
+:root{--tur:#FF8A2A;--tur2:#FFB45C}
+.btn-cta{background:linear-gradient(180deg,#FFA54A,#FF7A1A);color:#1B0C00;box-shadow:0 10px 34px -10px rgba(255,122,26,.65),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn-cta:hover{box-shadow:0 14px 44px -8px rgba(255,138,42,.85),inset 0 1px 0 rgba(255,255,255,.45);filter:brightness(1.05)}
+.paket .fiyat{background:linear-gradient(180deg,#FFD08A,var(--tur));-webkit-background-clip:text;background-clip:text;color:transparent}
+.paket .fiyat small{-webkit-text-fill-color:var(--soluk)}
+.notlar .tur{color:var(--tur2)}.notlar .tur::before{background:var(--tur);box-shadow:0 0 10px var(--tur)}
+.paket.one{border-color:var(--tur);box-shadow:0 30px 80px -30px rgba(255,122,26,.45)}
+.paket .serit{background:var(--tur);color:#1B0C00}
+/* Haritalar simülasyonu */
+.sim-kutu{display:flex;flex-direction:column;align-items:center;gap:16px;perspective:1400px}
+.sim-sec{display:inline-flex;gap:6px;padding:6px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--cizgi)}
+.sim-cip{border:0;background:transparent;padding:9px 22px;border-radius:999px;font-weight:800;font-size:15px;color:var(--soluk);cursor:pointer;transition:all .25s var(--yay)}
+.sim-cip.secili[data-m=once]{background:var(--kirmizi);color:#fff}
+.sim-cip.secili[data-m=sonra]{background:var(--yesil);color:#05210F}
+.sim-tel{width:300px;transform-style:preserve-3d}
+.sim-tel .ekran{background:#E9ECEF}
+.sim-not{font-weight:800;color:var(--soluk);text-align:center;min-height:1.6em;transition:color .3s}
+/* hafif 3D */
+.uc{transform-style:preserve-3d;will-change:transform}
+.ornekler{perspective:1100px}
+.ornek{transition:transform .15s linear}
+.paket{transition:transform .35s var(--yay),box-shadow .35s}
+
 @media (max-width:900px){
   section{padding:78px 0}
   .hap nav{display:none}
@@ -307,7 +332,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   <div class="hap">
     <a href="#" class="logo" aria-label="Dükkân Sitesi"><span class="logo-ik"><i></i></span>Dükkân Sitesi</a>
     <nav><a href="#uret">Siteni gör</a><a href="#nasil">Nasıl?</a><a href="#paketler">Fiyatlar</a></nav>
-    <a class="btn btn-mavi wa" data-mesaj="Merhaba, Dükkân Sitesi'ni gördüm, bilgi almak istiyorum." href="#">WhatsApp</a>
+    <a class="btn btn-cta wa" data-mesaj="Merhaba, Dükkân Sitesi'ni gördüm, bilgi almak istiyorum." href="#">WhatsApp</a>
   </div>
 </header>
 
@@ -319,13 +344,13 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
     <h1 class="gor g2">Dükkânınız kapanır.<span class="parla">Siteniz çalışır.</span></h1>
     <p class="alt gor g3" id="altBaslik"></p>
     <div class="dugmeler gor g4">
-      <a href="#uret" class="btn btn-mavi">Dükkânınızın sitesini görün</a>
-      <a href="#video" class="btn btn-hayalet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>36 sn video</a>
+      <a href="#uret" class="btn btn-cta">Dükkânınızın sitesini görün</a>
+      <a href="#video" class="btn btn-hayalet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>49 sn video</a>
     </div>
-    <div class="notlar gor g4"><span>Aylık ücret yok</span><span>Başlangıç 1.500 TL</span><span>Ödeme yayından sonra</span></div>
+    <div class="notlar gor g4"><span>Aylık ücret yok</span><span class="tur">Başlangıç 1.500 TL</span><span>Ödeme yayından sonra</span></div>
     <div class="sahne-giris gor g3">
       <div class="durum-etiket kotu" id="durumEtiket">BURADAN</div>
-      <div class="telefon" id="girisTel"><div class="ekran" id="girisEkran"></div></div>
+      <div class="telefon uc" id="girisTel"><div class="ekran" id="girisEkran"></div></div>
       <div class="yan-rozet yr1" id="yr1"><span class="nokta"></span><span>Şu an açık · 23:00'e kadar</span></div>
       <div class="yan-rozet yr2" id="yr2"><span>Yeni mesaj: <b id="yr2m">Randevu, 18:30</b></span></div>
     </div>
@@ -337,7 +362,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 <section id="video">
   <div class="kap video-alan">
     <div>
-      <div class="ust-baslik gor">36 saniyede</div>
+      <div class="ust-baslik gor">49 saniyede</div>
       <h2 class="gor g2">Gece 23:47. Müşteri yazdı. Siz uyuyordunuz.</h2>
       <p class="alt gor g3">Sonrasını videoda izleyin. Sesi kapalı da anlaşılır.</p>
     </div>
@@ -375,39 +400,16 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 <section id="haritalar">
   <div class="kap">
     <div class="ust-baslik gor">Google Haritalar</div>
-    <h2 class="gor g2">Aynı dükkân, aynı puan. Bambaşka görüntü.</h2>
+    <h2 class="gor g2">Müşteri Haritalarda sizi böyle görüyor.</h2>
     <div class="ks">
-      <div class="karsilastir gor g2" id="ks">
-        <div class="ks-etiket e1">ÖNCE</div><div class="ks-etiket e2">SONRA</div>
-        <div class="profil once">
-          <div class="foto"><i></i><i></i><i></i></div>
-          <div class="ad">Örnek Kuaför Salonu</div>
-          <div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
-          <div class="bilgi">
-            <div class="satir yok">✕ Çalışma saati girilmemiş</div>
-            <div class="satir yok">✕ Web sitesi yok</div>
-            <div class="satir yok">✕ 1 bulanık fotoğraf</div>
-            <div class="satir">"Fiyatlar yazmıyor." <span class="yok">· cevapsız</span></div>
-          </div>
-        </div>
-        <div class="profil sonra">
-          <div class="foto"><i></i><i></i><i></i></div>
-          <div class="ad">Örnek Kuaför Salonu</div>
-          <div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
-          <div class="bilgi">
-            <div class="satir var">● Açık · 23:00'e kadar</div>
-            <div class="satir var">● Web sitesi · fiyat listesi</div>
-            <div class="satir var">● Güncel fotoğraflar</div>
-            <div class="cevap"><b>İşletme sahibi:</b> Haklısınız, fiyatlarımız artık sitemizde. WhatsApp'tan randevu da alabilirsiniz.</div>
-          </div>
-        </div>
-        <div class="ks-cizgi"></div>
-        <div class="ks-tutamac"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
-        <input type="range" min="0" max="100" value="50" aria-label="Önce ve sonra karşılaştırma">
+      <div class="sim-kutu gor g2">
+        <div class="sim-sec" role="group" aria-label="Önce ya da sonra"><button class="sim-cip secili" data-m="once" type="button">Önce</button><button class="sim-cip" data-m="sonra" type="button">Sonra</button></div>
+        <div class="telefon sim-tel" id="simTel"><div class="ekran" id="simEkran"></div></div>
+        <div class="sim-not" id="simNot">Önce: müşteri sizi buluyor ama vazgeçiyor.</div>
       </div>
       <div class="ks-metin">
-        <h3 class="gor">Parmağınızla kaydırın.</h3>
-        <p class="alt gor g2">Puanınızı biz değiştiremeyiz, kimse değiştiremez. Ama profilinizin nasıl göründüğünü değiştirebiliriz: müşterinin sizinle ilk tanıştığı yer orası.</p>
+        <h3 class="gor">Sıra aynı. Tıklanan siz olursunuz.</h3>
+        <p class="alt gor g2">Kimse sizi "1. sıraya çıkarırım" diye kandırmasın, bunu kimse garanti edemez. Ama aynı listede fotoğraflı, saati doğru, sitesi olan dükkân seçilir. Telefonda izleyin, istediğinizde Önce/Sonra'ya dokunun.</p>
         <ul class="liste gor g3">
           <li><span><b>Fotoğraflar:</b> dükkânın içi, işleriniz, vitrininiz</span></li>
           <li><span><b>Doğru saatler:</b> bayram, Pazar, öğle arası dahil</span></li>
@@ -429,11 +431,11 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
           <label for="dukkanAdi">DÜKKÂNINIZIN ADI</label>
           <input id="dukkanAdi" maxlength="28" placeholder="Örn: Yıldız Berber" autocomplete="off">
           <div class="secici" id="uretSecici" role="group" aria-label="Sektör"></div>
-          <a href="#" class="btn btn-mavi" id="gercekYap">Bunu gerçek yapalım</a>
+          <a href="#" class="btn btn-cta" id="gercekYap">Bunu gerçek yapalım</a>
           <div class="uret-not">Fiyatlar ve fotoğraflar örnektir; gerçeğinde sizinkiler olur. Taslak ücretsiz.</div>
         </div>
       </div>
-      <div class="telefon"><div class="ekran" id="uretEkran"></div></div>
+      <div class="telefon uc" id="uretTel"><div class="ekran" id="uretEkran"></div></div>
     </div>
   </div>
 </section>
@@ -527,7 +529,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
         <div class="serit">En çok tercih edilen</div>
         <h3>Vitrin + .com</h3><div class="fiyat">2.000 TL</div><div class="aciklama">İlk yıl dahil · sonra yıllık 1.000 TL</div>
         <ul><li>Vitrin'deki her şey</li><li>dukkaniniz.com adresi</li><li>Kartvizit ve tabelaya yazılacak kısa adres</li><li>Haritalar profilinize bağlantı</li></ul>
-        <a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, Vitrin + .com paketi hakkında bilgi almak istiyorum.">Bilgi al</a>
+        <a href="#" class="btn btn-cta wa" data-mesaj="Merhaba, Vitrin + .com paketi hakkında bilgi almak istiyorum.">Bilgi al</a>
       </div>
       <div class="paket gor g3">
         <h3>Haritalar</h3><div class="fiyat">400 TL <small>/ ay</small></div><div class="aciklama">Google Haritalar profil düzenleme ve bakım</div>
@@ -544,7 +546,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   <div class="kap" style="position:relative">
     <h2 class="gor">Taslağınız 1 gün içinde hazır. Ücretsiz.</h2>
     <p class="alt gor g2">Dükkânınızı birkaç cümleyle anlatın, gerisini ben yapayım.</p>
-    <div class="dugmeler gor g3" style="justify-content:center"><a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan yazın</a><a href="#" class="btn btn-hayalet ara">Arayın</a></div>
+    <div class="dugmeler gor g3" style="justify-content:center"><a href="#" class="btn btn-cta wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan yazın</a><a href="#" class="btn btn-hayalet ara">Arayın</a></div>
   </div>
 </section>
 </main>
@@ -557,8 +559,9 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </footer>
 
-<div class="yapiskan" id="yapiskan"><a href="#" class="btn btn-mavi wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan ücretsiz taslak isteyin</a></div>
+<div class="yapiskan" id="yapiskan"><a href="#" class="btn btn-cta wa" data-mesaj="Merhaba, dükkânım için ücretsiz taslak istiyorum.">WhatsApp'tan ücretsiz taslak isteyin</a></div>
 
+<script src="js/harita-sim.js"></script>
 <script>
 const WA="";const numara=/^90\d{10}$/.test(WA)?WA:"";
 const waLink=m=>"https://wa.me/"+numara+"?text="+encodeURIComponent(m);
@@ -616,7 +619,7 @@ function sektorSec(k,ust){sektor=k;document.body.dataset.sektor=k;
  document.querySelectorAll("[data-k=harita]").forEach(e=>e.textContent=S[k].harita);
  document.getElementById("yr2m").textContent=S[k].yeni;
  document.getElementById("dukkanAdi").placeholder="Örn: "+S[k].ornek;
- uretCiz();anlatimCiz();girisDongu(true);
+ uretCiz();anlatimCiz();girisDongu(true);if(typeof simCiz==="function"){simBas=performance.now();simCiz()}
  document.querySelectorAll(".mini").forEach(m=>m.dataset.oynadi&&sahneOynat(m));
 }
 
@@ -670,12 +673,26 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll(".gor").forEach(el=>io.observe(el));
 const yap=document.getElementById("yapiskan");
 addEventListener("scroll",()=>{const y=scrollY;yap.classList.toggle("goster",y>innerHeight*.9&&innerHeight+y<document.body.scrollHeight-280)},{passive:true});
-const ks=document.getElementById("ks"),ksIn=ks.querySelector("input"),ksAyar=v=>ks.style.setProperty("--ks",v+"%");
-ksIn.addEventListener("input",e=>ksAyar(e.target.value));
-let ipucu=true;new IntersectionObserver(es=>{if(es[0].isIntersecting&&ipucu&&!AZ){ipucu=false;const s=performance.now();const f=n=>{const t=(n-s)/1600;if(t<1){ksAyar(50+Math.sin(t*Math.PI*2)*22);requestAnimationFrame(f)}else ksAyar(50)};requestAnimationFrame(f)}},{threshold:.6}).observe(ks);
+/* Haritalar simülasyonu: Önce → Sonra döngüsü, sektöre bağlı */
+const simEkran=document.getElementById("simEkran"),simNot=document.getElementById("simNot");let simMod="once",simBas=performance.now(),simGor=false,simElle=false;
+document.querySelectorAll(".sim-cip").forEach(b=>b.onclick=()=>{simMod=b.dataset.m;simBas=performance.now();simElle=true;simSec()});
+function simSec(){document.querySelectorAll(".sim-cip").forEach(b=>b.classList.toggle("secili",b.dataset.m===simMod));simNot.textContent=simMod==="once"?"Önce: müşteri sizi buluyor ama vazgeçiyor.":"Sonra: aynı sıra, ama yol tarifini sizden alıyor.";simNot.style.color=simMod==="once"?"var(--kirmizi)":"var(--yesil)"}
+function simCiz(){const d=S[sektor],t=AZ?(simMod==="once"?4.5:6.8):Math.min((performance.now()-simBas)/1000,HaritaSim.SURE);
+ HaritaSim.ciz(simEkran,{mod:simMod,t,ad:d.isim[0],kategori:d.ad.toLowerCase(),foto:"img/sektor-"+sektor+".webp",rakipler:[d.isim[1],d.isim[2]]});
+ if(!AZ&&!simElle&&t>=HaritaSim.SURE){simMod=simMod==="once"?"sonra":"once";simBas=performance.now();simSec()}}
+new IntersectionObserver(es=>{simGor=es[0].isIntersecting;if(simGor){simBas=performance.now()}},{threshold:.25}).observe(document.getElementById("simTel"));
+/* hafif 3D: kaydırmaya bağlı eğim, örneklerde dönen kart akışı, paket kartlarında fareyle eğim */
+const ucler=[...document.querySelectorAll(".uc,.sim-tel,.anlatim-tel .telefon")],ornKap=document.querySelector(".ornekler"),ornek=[...document.querySelectorAll(".ornek")];
+function ucCiz(){if(AZ)return;const H=innerHeight;
+ ucler.forEach(el=>{const r=el.getBoundingClientRect(),p=((r.top+r.height/2)-H/2)/H;el.style.transform=`perspective(1400px) rotateX(${(p*14).toFixed(2)}deg) rotateY(${(-p*10).toFixed(2)}deg)`});
+ const k=ornKap.getBoundingClientRect(),m=k.left+k.width/2;ornek.forEach(o=>{const r=o.getBoundingClientRect(),d=((r.left+r.width/2)-m)/k.width;o.style.transform=`rotateY(${(-d*38).toFixed(2)}deg) translateZ(${(-Math.abs(d)*120).toFixed(1)}px) scale(${(1-Math.min(.12,Math.abs(d)*.12)).toFixed(3)})`});
+ document.querySelectorAll(".ufuk").forEach(u=>{const r=u.parentElement.getBoundingClientRect();u.style.transform=`translateY(${(r.top*-.18).toFixed(1)}px)`})}
+ornKap.addEventListener("scroll",()=>requestAnimationFrame(ucCiz),{passive:true});addEventListener("scroll",()=>requestAnimationFrame(ucCiz),{passive:true});
+if(matchMedia("(hover:hover)").matches)document.querySelectorAll(".paket").forEach(p=>{p.addEventListener("pointermove",e=>{const r=p.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`});p.addEventListener("pointerleave",()=>p.style.transform="")});
+(function dongu(){if(simGor||AZ)simCiz();requestAnimationFrame(dongu)})();
 const v=document.getElementById("tanitim"),oy=document.getElementById("oynat");
 oy.addEventListener("click",()=>{v.controls=true;v.muted=false;v.play();oy.style.opacity=0;setTimeout(()=>oy.remove(),300)});
-sektorSec("berber",true);
+sektorSec("berber",true);simSec();ucCiz();
 </script>
 </body>
 </html>
