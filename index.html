@@ -587,7 +587,7 @@ body{background:transparent}
 
 <script src="js/harita-sim.js"></script>
 <script>
-const WA="";const numara=/^90\d{10}$/.test(WA)?WA:"";
+const WA="905419722563";const numara=/^90\d{10}$/.test(WA)?WA:"";
 const waLink=m=>"https://wa.me/"+numara+"?text="+encodeURIComponent(m);
 const AZ=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
@@ -676,8 +676,11 @@ function blokVurgula(b,hemen){aktifBlok=b;anlar.forEach(a=>a.classList.toggle("a
  aEkran.querySelectorAll(".ms-blok").forEach(x=>x.classList.toggle("isik",x===hedef));
  const ekH=aEkran.clientHeight,y=Math.max(0,Math.min(hedef.offsetTop-ekH*.32,ic.scrollHeight-ekH));
  if(hemen)ic.style.transition="none";ic.style.transform=`translateY(${-y}px)`;if(hemen)requestAnimationFrame(()=>ic.style.transition="")}
-const aio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)blokVurgula(e.target.dataset.blok)}),{rootMargin:innerWidth<=900?"-62% 0px -22% 0px":"-45% 0px -45% 0px"});
-anlar.forEach(a=>aio.observe(a));
+/* Hangi adım aktif: başlığı okuma çizgisini geçen SON adım. Önceki adımın yazısı ekrandan çıkmadan sonrakine geçmez. */
+function anlatimSec(){const H=innerHeight,cizgi=innerWidth<=900?H*.8:H*.7;let son=anlar[0];
+ anlar.forEach(a=>{if(a.querySelector("h3").getBoundingClientRect().top<cizgi)son=a});
+ if(son.dataset.blok!==aktifBlok)blokVurgula(son.dataset.blok)}
+addEventListener("scroll",()=>requestAnimationFrame(anlatimSec),{passive:true});
 
 /* ---------- mini sahneler ---------- */
 function sahneOynat(m){m.dataset.oynadi=1;const p=[...m.querySelectorAll(".yaziyor,.balon,.harita-mini,.mini-son")];p.forEach(x=>x.classList.remove("goster"));
