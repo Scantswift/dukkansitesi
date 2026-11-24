@@ -300,6 +300,19 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 .ornek{transition:transform .15s linear}
 .paket{transition:transform .35s var(--yay),box-shadow .35s}
 
+
+/* kayan arka plan: bölüme göre renk, ortada "içine çekme" */
+html{background:#07090F}
+body{background:transparent}
+.arka{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#07090F;--c1:#2F7BFF;--c2:#6B5BFF;--c3:#0E7C86;--cek:0}
+.arka i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;will-change:transform}
+.arka .b1{width:60vmax;height:60vmax;left:-10vmax;top:-20vmax;background:var(--c1)}
+.arka .b2{width:55vmax;height:55vmax;right:-15vmax;top:20vh;background:var(--c2)}
+.arka .b3{width:50vmax;height:50vmax;left:10vw;bottom:-25vmax;background:var(--c3);opacity:.3}
+.arka-ag{position:absolute;inset:-20%;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:64px 64px;transform:perspective(700px) rotateX(calc(var(--cek)*58deg)) scale(calc(1 + var(--cek)*.6));transform-origin:50% 60%;-webkit-mask-image:radial-gradient(ellipse at 50% 55%,#000 15%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 55%,#000 15%,transparent 70%)}
+.arka-vin{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent calc(60% - var(--cek)*25%),rgba(3,4,8,calc(.35 + var(--cek)*.5)) 100%)}
+.giris .ufuk{opacity:.9}
+
 @media (max-width:900px){
   section{padding:78px 0}
   .hap nav{display:none}
@@ -327,6 +340,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 </style>
 </head>
 <body data-sektor="berber">
+<div class="arka" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><div class="arka-ag"></div><div class="arka-vin"></div></div>
 
 <header>
   <div class="hap">
@@ -337,7 +351,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 </header>
 
 <main>
-<section class="giris">
+<section class="giris" data-ton="0">
   <div class="ufuk"></div><div class="yildizlar"></div>
   <div class="kap" style="position:relative">
     <div class="secici gor" role="group" aria-label="Sektör seçin"><span class="etk">Dükkânınız ne?</span></div>
@@ -345,7 +359,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
     <p class="alt gor g3" id="altBaslik"></p>
     <div class="dugmeler gor g4">
       <a href="#uret" class="btn btn-cta">Dükkânınızın sitesini görün</a>
-      <a href="#video" class="btn btn-hayalet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>49 sn video</a>
+      <a href="#video" class="btn btn-hayalet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>50 sn video</a>
     </div>
     <div class="notlar gor g4"><span>Aylık ücret yok</span><span class="tur">Başlangıç 1.500 TL</span><span>Ödeme yayından sonra</span></div>
     <div class="sahne-giris gor g3">
@@ -359,10 +373,10 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
 
 <div class="bant" aria-hidden="true"><div class="bant-ic" id="bant"></div></div>
 
-<section id="video">
+<section id="video" data-ton="1">
   <div class="kap video-alan">
     <div>
-      <div class="ust-baslik gor">49 saniyede</div>
+      <div class="ust-baslik gor">50 saniyede</div>
       <h2 class="gor g2">Gece 23:47. Müşteri yazdı. Siz uyuyordunuz.</h2>
       <p class="alt gor g3">Sonrasını videoda izleyin. Sesi kapalı da anlaşılır.</p>
     </div>
@@ -373,7 +387,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="sorun">
+<section id="sorun" data-ton="1">
   <div class="kap">
     <div class="ust-baslik gor">Tanıdık geldi mi?</div>
     <h2 class="gor g2">Müşteri böyle kaybediliyor.</h2>
@@ -397,7 +411,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="haritalar">
+<section id="haritalar" data-ton="2">
   <div class="kap">
     <div class="ust-baslik gor">Google Haritalar</div>
     <h2 class="gor g2">Müşteri Haritalarda sizi böyle görüyor.</h2>
@@ -405,23 +419,33 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
       <div class="sim-kutu gor g2">
         <div class="sim-sec" role="group" aria-label="Önce ya da sonra"><button class="sim-cip secili" data-m="once" type="button">Önce</button><button class="sim-cip" data-m="sonra" type="button">Sonra</button></div>
         <div class="telefon sim-tel" id="simTel"><div class="ekran" id="simEkran"></div></div>
-        <div class="sim-not" id="simNot">Önce: müşteri sizi buluyor ama vazgeçiyor.</div>
+        <div class="sim-not" id="simNot">Önce: müşteri sizi görüyor ama rakibe gidiyor.</div>
       </div>
       <div class="ks-metin">
-        <h3 class="gor">Sıra aynı. Tıklanan siz olursunuz.</h3>
-        <p class="alt gor g2">Kimse sizi "1. sıraya çıkarırım" diye kandırmasın, bunu kimse garanti edemez. Ama aynı listede fotoğraflı, saati doğru, sitesi olan dükkân seçilir. Telefonda izleyin, istediğinizde Önce/Sonra'ya dokunun.</p>
+        <h3 class="gor">Aynı sıra. Az müşteri mi, çok müşteri mi?</h3>
+        <p class="alt gor g2">Kimse sizi "1. sıraya çıkarırım" diye kandırmasın, bunu kimse garanti edemez. Ama aynı listede fotoğraflı, saati doğru, sitesi olan, yorumlarına cevap veren dükkân seçilir. Müşteri kaliteye gider: az müşteriden çok müşteriye.</p>
         <ul class="liste gor g3">
           <li><span><b>Fotoğraflar:</b> dükkânın içi, işleriniz, vitrininiz</span></li>
           <li><span><b>Doğru saatler:</b> bayram, Pazar, öğle arası dahil</span></li>
           <li><span><b>Yorumlara cevap:</b> kötü yorum bile güvene döner</span></li>
           <li><span><b>Site linki:</b> fiyat soran direkt listeyi görür</span></li>
         </ul>
+        <div class="karsilastir gor g3" id="ks" style="margin-top:28px">
+          <div class="ks-etiket e1">ÖNCE</div><div class="ks-etiket e2">SONRA</div>
+          <div class="profil once"><div class="foto"><i></i><i></i><i></i></div><div class="ad">Örnek Kuaför Salonu</div><div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
+            <div class="bilgi"><div class="satir yok">✕ Çalışma saati girilmemiş</div><div class="satir yok">✕ Web sitesi yok</div><div class="satir yok">✕ 1 bulanık fotoğraf</div><div class="satir">"Fiyatlar yazmıyor." <span class="yok">· cevapsız</span></div></div></div>
+          <div class="profil sonra"><div class="foto"><i></i><i></i><i></i></div><div class="ad">Örnek Kuaför Salonu</div><div class="yildiz">★★★★☆ 4,4 · 21 yorum</div>
+            <div class="bilgi"><div class="satir var">● Açık · 23:00'e kadar</div><div class="satir var">● Web sitesi · fiyat listesi</div><div class="satir var">● Güncel fotoğraflar</div><div class="cevap"><b>İşletme sahibi:</b> Haklısınız, fiyatlarımız artık sitemizde. WhatsApp'tan randevu da alabilirsiniz.</div></div></div>
+          <div class="ks-cizgi"></div><div class="ks-tutamac"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Önce ve sonra karşılaştırma">
+        </div>
+        <p class="sim-not" style="margin-top:10px;text-align:left">← Parmağınızla kaydırın →</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="uret">
+<section id="uret" data-ton="3">
   <div class="kap">
     <div class="uret gor">
       <div>
@@ -440,7 +464,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="neler">
+<section id="neler" data-ton="3">
   <div class="kap">
     <div class="ust-baslik gor">Sitenizde neler olur?</div>
     <h2 class="gor g2">Kaydırın, telefonda görün.</h2>
@@ -456,7 +480,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="ornekler">
+<section id="ornekler" data-ton="4">
   <div class="kap">
     <div class="ust-baslik gor">Örnek siteler</div>
     <h2 class="gor g2">Dokunun, kendi telefonunuzda gezin.</h2>
@@ -471,7 +495,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="nasil">
+<section id="nasil" data-ton="4">
   <div class="kap">
     <div class="ust-baslik gor">Nasıl çalışıyor?</div>
     <h2 class="gor g2">4 adım. Risk sizde değil.</h2>
@@ -515,7 +539,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section id="paketler" class="orta">
+<section id="paketler" class="orta" data-ton="5">
   <div class="kap">
     <div class="ust-baslik gor">Paketler</div>
     <h2 class="gor g2">Bir kere ödeyin, dükkânınız internette.</h2>
@@ -541,7 +565,7 @@ footer .kap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betw
   </div>
 </section>
 
-<section class="son orta">
+<section class="son orta" data-ton="5">
   <div class="ufuk"></div>
   <div class="kap" style="position:relative">
     <h2 class="gor">Taslağınız 1 gün içinde hazır. Ücretsiz.</h2>
@@ -676,7 +700,7 @@ addEventListener("scroll",()=>{const y=scrollY;yap.classList.toggle("goster",y>i
 /* Haritalar simülasyonu: Önce → Sonra döngüsü, sektöre bağlı */
 const simEkran=document.getElementById("simEkran"),simNot=document.getElementById("simNot");let simMod="once",simBas=performance.now(),simGor=false,simElle=false;
 document.querySelectorAll(".sim-cip").forEach(b=>b.onclick=()=>{simMod=b.dataset.m;simBas=performance.now();simElle=true;simSec()});
-function simSec(){document.querySelectorAll(".sim-cip").forEach(b=>b.classList.toggle("secili",b.dataset.m===simMod));simNot.textContent=simMod==="once"?"Önce: müşteri sizi buluyor ama vazgeçiyor.":"Sonra: aynı sıra, ama yol tarifini sizden alıyor.";simNot.style.color=simMod==="once"?"var(--kirmizi)":"var(--yesil)"}
+function simSec(){document.querySelectorAll(".sim-cip").forEach(b=>b.classList.toggle("secili",b.dataset.m===simMod));simNot.textContent=simMod==="once"?"Önce: müşteri sizi görüyor ama rakibe gidiyor.":"Sonra: aynı sıra, müşteri size geliyor.";simNot.style.color=simMod==="once"?"var(--kirmizi)":"var(--yesil)"}
 function simCiz(){const d=S[sektor],t=AZ?(simMod==="once"?4.5:6.8):Math.min((performance.now()-simBas)/1000,HaritaSim.SURE);
  HaritaSim.ciz(simEkran,{mod:simMod,t,ad:d.isim[0],kategori:d.ad.toLowerCase(),foto:"img/sektor-"+sektor+".webp",rakipler:[d.isim[1],d.isim[2]]});
  if(!AZ&&!simElle&&t>=HaritaSim.SURE){simMod=simMod==="once"?"sonra":"once";simBas=performance.now();simSec()}}
@@ -689,6 +713,24 @@ function ucCiz(){if(AZ)return;const H=innerHeight;
  document.querySelectorAll(".ufuk").forEach(u=>{const r=u.parentElement.getBoundingClientRect();u.style.transform=`translateY(${(r.top*-.18).toFixed(1)}px)`})}
 ornKap.addEventListener("scroll",()=>requestAnimationFrame(ucCiz),{passive:true});addEventListener("scroll",()=>requestAnimationFrame(ucCiz),{passive:true});
 if(matchMedia("(hover:hover)").matches)document.querySelectorAll(".paket").forEach(p=>{p.addEventListener("pointermove",e=>{const r=p.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`});p.addEventListener("pointerleave",()=>p.style.transform="")});
+const ks=document.getElementById("ks"),ksIn=ks.querySelector("input"),ksAyar=v=>ks.style.setProperty("--ks",v+"%");
+ksIn.addEventListener("input",e=>ksAyar(e.target.value));
+let ipucu=true;new IntersectionObserver(es=>{if(es[0].isIntersecting&&ipucu&&!AZ){ipucu=false;const s0=performance.now();const f=n=>{const q=(n-s0)/1600;if(q<1){ksAyar(50+Math.sin(q*Math.PI*2)*22);requestAnimationFrame(f)}else ksAyar(50)};requestAnimationFrame(f)}},{threshold:.6}).observe(ks);
+/* kayan arka plan */
+const TON=[["#2F7BFF","#6B5BFF","#0E7C86"],["#6B5BFF","#B04BFF","#2F7BFF"],["#0FB5A6","#2F7BFF","#1B4FD8"],["#2F9BFF","#00D1FF","#6B5BFF"],["#C04BFF","#2F7BFF","#FF4B8B"],["#FF8A2A","#6B5BFF","#2F7BFF"]];
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),karis=(a,b,q)=>"rgb("+hex(a).map((v,i)=>Math.round(v+(hex(b)[i]-v)*q)).join(",")+")";
+const arka=document.querySelector(".arka"),bl=[...arka.querySelectorAll("i")],tonlu=[...document.querySelectorAll("[data-ton]")];
+function arkaCiz(){const H=innerHeight;let ton=0,q=0;
+ for(let i=0;i<tonlu.length;i++){const r=tonlu[i].getBoundingClientRect();if(r.top<=H*.5){ton=+tonlu[i].dataset.ton;const sonraki=tonlu[i+1];if(sonraki){const nr=sonraki.getBoundingClientRect(),span=nr.top-r.top;q=Math.min(1,Math.max(0,(H*.5-r.top)/span))*(+sonraki.dataset.ton!==ton?1:0);var hedef=+sonraki.dataset.ton}else{q=0;hedef=ton}}}
+ hedef=hedef===undefined?ton:hedef;const yumus=q*q*(3-2*q);
+ ["--c1","--c2","--c3"].forEach((v,j)=>arka.style.setProperty(v,karis(TON[ton][j],TON[hedef][j],yumus)));
+ // içine çekme: Haritalar'dan "Adını yaz" bölümüne geçerken
+ const u=document.getElementById("uret").getBoundingClientRect(),cek=Math.max(0,Math.min(1,1-Math.abs((u.top+u.height/2)-H/2)/(H*.9)));
+ arka.style.setProperty("--cek",cek.toFixed(3));
+ const y=scrollY*.04;bl[0].style.transform=`translate(${(Math.sin(y*.05)*6+cek*18).toFixed(1)}vw,${(y%40*0+cek*22).toFixed(1)}vh) scale(${1+cek*.5})`;
+ bl[1].style.transform=`translate(${(-cek*22).toFixed(1)}vw,${(Math.cos(y*.04)*5+cek*10).toFixed(1)}vh) scale(${1+cek*.6})`;
+ bl[2].style.transform=`translate(${(cek*12).toFixed(1)}vw,${(-cek*25).toFixed(1)}vh) scale(${1+cek*.4})`}
+if(!AZ){addEventListener("scroll",()=>requestAnimationFrame(arkaCiz),{passive:true});addEventListener("resize",arkaCiz)}arkaCiz();
 (function dongu(){if(simGor||AZ)simCiz();requestAnimationFrame(dongu)})();
 const v=document.getElementById("tanitim"),oy=document.getElementById("oynat");
 oy.addEventListener("click",()=>{v.controls=true;v.muted=false;v.play();oy.style.opacity=0;setTimeout(()=>oy.remove(),300)});

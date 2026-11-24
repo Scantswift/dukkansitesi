@@ -34,9 +34,11 @@ const CSS=`
 .hs-cevap{margin:4px 0 0 10px;padding:6px 8px;border-left:3px solid #1A73E8;background:#EEF4FE;border-radius:0 8px 8px 0;font-size:10.5px}
 .hs-uyari{position:absolute;right:10px;z-index:12;background:#C5221F;color:#fff;font-weight:800;font-size:11px;padding:5px 9px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
 .hs-iyi{background:#1E8E3E}
-.hs-rota{position:absolute;left:12px;right:12px;bottom:14px;z-index:9;background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:800}
-.hs-rota span{color:#1E8E3E;font-size:16px}
-.hs-git{background:#1A73E8;color:#fff;border-radius:999px;padding:8px 16px}
+.hs-rozet{position:absolute;left:50%;top:104px;z-index:11;translate:-50% 0;padding:10px 20px;border-radius:999px;font-weight:800;font-size:17px;color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.28);white-space:nowrap}
+.hs-rozet.az{background:#C5221F}.hs-rozet.cok{background:#1E8E3E}
+.hs-arti{position:absolute;z-index:12;background:#fff;color:#1E8E3E;font-weight:800;font-size:11px;padding:4px 8px;border-radius:999px;box-shadow:0 4px 10px rgba(0,0,0,.2);white-space:nowrap}
+.hs-say{position:absolute;z-index:10;min-width:30px;height:30px;padding:0 8px;border-radius:15px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;border:2.5px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.25);transition:transform .15s}
+.hs-canli{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:9px;font-weight:700;color:#80868B;z-index:11}
 `;
 let cssEklendi=false;
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),seg=(t,a,b)=>cl((t-a)/(b-a));
@@ -51,7 +53,7 @@ ${[60,150,240].map(x=>`<rect x="${x}" y="80" width="12" height="400" fill="#fff"
 <path d="M-10,560 L310,260" stroke="#FFE08A" stroke-width="16"/><path d="M-10,560 L310,260" stroke="#FFF3C4" stroke-width="10"/>
 ${[[30,150],[100,170],[200,300],[260,360],[120,250],[40,380],[180,370],[250,120]].map(([x,y])=>`<rect x="${x}" y="${y}" width="${22+(x%3)*6}" height="${18+(y%4)*5}" rx="3" fill="#DDE1E6"/>`).join("")}
 <text x="70" y="106" font-size="8" fill="#80868B" font-weight="700">Örnek Cd.</text><text x="200" y="326" font-size="8" fill="#80868B" font-weight="700">Çarşı Sk.</text>
-<polyline id="hsRota" points="66,520 66,404 156,404 156,334 246,334 246,268" fill="none" stroke="#1A73E8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="700" stroke-dashoffset="700"/>
+<g id="hsAkis"></g>
 <circle cx="66" cy="520" r="9" fill="#1A73E8" stroke="#fff" stroke-width="3"/><circle cx="66" cy="520" r="18" fill="#1A73E8" opacity=".15"/>
 <g id="hsPin0"><path d="M118,232 c-9,0 -15,7 -15,15 c0,11 15,24 15,24 s15,-13 15,-24 c0,-8 -6,-15 -15,-15z" fill="#EA4335" stroke="#B3261E" stroke-width="1.5"/><circle cx="118" cy="247" r="5" fill="#fff"/></g>
 <g id="hsPin1"><path d="M196,384 c-9,0 -15,7 -15,15 c0,11 15,24 15,24 s15,-13 15,-24 c0,-8 -6,-15 -15,-15z" fill="#EA4335" stroke="#B3261E" stroke-width="1.5"/><circle cx="196" cy="399" r="5" fill="#fff"/></g>
@@ -61,7 +63,7 @@ function ciz(kok,o){
   if(!cssEklendi){const st=document.createElement("style");st.textContent=CSS;document.head.appendChild(st);cssEklendi=true}
   const t=o.t,sonra=o.mod==="sonra",ad=esc(o.ad),kat=o.kategori;
   const sorgu=`${kat} yakınımda`,n=Math.floor(cl((t-.2)/1)*sorgu.length);
-  if(!kok._hs){kok.innerHTML=`<div class="hs">${HARITA}<div class="hs-ara"><i></i><span class="hs-q"></span><span class="hs-imlec"></span></div><div class="hs-sayfa"></div><div class="hs-profil"></div><div class="hs-rota"></div><div class="hs-dokun"></div><div class="hs-uyarilar"></div></div>`;kok._hs={}}
+  if(!kok._hs){kok.innerHTML=`<div class="hs">${HARITA}<div class="hs-ara"><i></i><span class="hs-q"></span><span class="hs-imlec"></span></div><div class="hs-sayfa"></div><div class="hs-profil"></div><div class="hs-rozet"></div><div class="hs-artilar"></div><div class="hs-say" data-p="0"></div><div class="hs-say" data-p="1"></div><div class="hs-say" data-p="2"></div><div class="hs-canli">örnek canlandırma</div><div class="hs-dokun"></div><div class="hs-uyarilar"></div></div>`;kok._hs={}}
   const hs=kok.querySelector(".hs");hs.style.transform=`scale(${kok.clientWidth/300})`;
   hs.querySelector(".hs-q").textContent=sorgu.slice(0,n);hs.querySelector(".hs-imlec").style.opacity=t<1.3&&Math.floor(t*3)%2===0?1:0;
   // sonuç listesi
@@ -84,26 +86,37 @@ function ciz(kok,o){
        <div class="hs-btnlar"><div class="hs-btn ana" data-yol="1">Yol tarifi</div><div class="hs-btn">Ara</div><div class="hs-btn pasif">Web sitesi yok</div><div class="hs-btn pasif">WhatsApp yok</div></div>
        <div class="hs-satir hs-gri">🕘 Çalışma saati eklenmemiş</div>
        <div class="hs-yorum">"Fiyatlar yazmıyor, aradım açmadılar." <span class="hs-y">★★★</span><div class="hs-gri" style="margin-top:4px;font-size:10px">İşletme cevap vermedi</div></div>`;
-    hs.querySelector(".hs-rota").innerHTML=`<div>${ad}<br><span>6 dk</span> <span class="hs-gri" style="font-size:11px">· 450 m yürüme</span></div><div class="hs-git">Başla</div>`;
+    const rz=hs.querySelector(".hs-rozet");rz.className="hs-rozet "+(sonra?"cok":"az");rz.textContent=sonra?"Çok müşteri":"Az müşteri";
+    hs.querySelector(".hs-artilar").innerHTML=sonra?["+1 WhatsApp","+1 Arama","+1 Randevu","+1 Sipariş"].map(x=>`<div class="hs-arti">${x}</div>`).join(""):"";
+    // müşteri noktaları: önce rakiplere, sonra çoğu bize
+    const hedefler=sonra?[2,2,0,2,2,1,2,2,2,2]:[0,1,0,0,1,0,1,0,1,0];
+    hs.querySelector("#hsAkis").innerHTML=hedefler.map((h,i)=>`<g class="hs-m" data-h="${h}" data-i="${i}"><circle r="7" fill="#1A73E8" stroke="#fff" stroke-width="2.5"/><circle r="2.4" cy="-1.5" fill="#fff"/></g>`).join("");
     hs.querySelector(".hs-uyarilar").innerHTML=sonra?
       ["✓ 24 fotoğraf","✓ Saatler doğru","✓ Site ve WhatsApp","✓ Yorumlara cevap"].map(x=>`<div class="hs-uyari hs-iyi">${x}</div>`).join(""):
       ["✕ Fotoğraf yok","✕ Saat yok","✕ Site yok","✕ Cevapsız yorum"].map(x=>`<div class="hs-uyari">${x}</div>`).join("");
   }
-  // sahneler: 0-1.2 yaz · 1.3-2 liste · 2.3 dokun · 2.6-3.2 profil · (önce) 3.4-6 uyarılar · (sonra) 3.4-4.6 galeri, 4.8 yol tarifi, 5.2-6.8 rota
-  const liste=out(seg(t,1.3,2)),sayfa=hs.querySelector(".hs-sayfa"),gizle=sonra?io(seg(t,4.9,5.4)):0;sayfa.style.transform=`translateY(${(1-liste+gizle)*100}%)`;
+  // sahneler: 0-1.2 yaz · 1.3-2 liste · 2.3 dokun · 2.6-3.2 profil · (önce) 3.5-5 kırmızı uyarılar, 5.2 kapan, 5.6-7.6 müşteriler rakiplere, "Az müşteri" · (sonra) 3.4-4.4 galeri, 4.5-5.8 yeşil, 5.9 kapan, 6.3-8.3 müşteriler bize, "Çok müşteri"
+  const liste=out(seg(t,1.3,2)),sayfa=hs.querySelector(".hs-sayfa"),gizle=io(seg(t,sonra?5.9:5.2,sonra?6.4:5.7));sayfa.style.transform=`translateY(${(1-liste+gizle)*100}%)`;
   const biz=sayfa.querySelector("[data-biz]");biz.style.background=t>2.3&&t<2.8?"#EEF4FE":"";
-  const prof=out(seg(t,2.6,3.2)),yolT=sonra?seg(t,4.9,5.4):0,p=hs.querySelector(".hs-profil");
+  const kapan=io(seg(t,sonra?5.9:5.2,sonra?6.4:5.7)),prof=out(seg(t,2.6,3.2)),yolT=kapan,p=hs.querySelector(".hs-profil");
   p.style.transform=`translateY(${(1-prof)*100+yolT*100}%)`;
   const gal=p.querySelector(".hs-galeri");if(sonra&&gal)gal.style.transform=`translateX(${-io(seg(t,3.5,4.6))*164}px)`;
   const dk=hs.querySelector(".hs-dokun");let dx=-99,dy=-99,da=0;
   if(t>2.2&&t<2.7){const r=biz.getBoundingClientRect(),h=hs.getBoundingClientRect(),s=h.width/300;dx=(r.left-h.left)/s+120;dy=(r.top-h.top)/s+34;da=1-seg(t,2.45,2.7)}
-  if(sonra&&t>4.6&&t<5.1){dx=58;dy=120+160+82;da=1-seg(t,4.85,5.1)}
   dk.style.left=dx+"px";dk.style.top=dy+"px";dk.style.opacity=da;dk.style.transform=`scale(${.6+da*.6})`;
-  const uy=[...hs.querySelectorAll(".hs-uyari")];uy.forEach((u,i)=>{const a=(sonra?5.6:3.5)+i*.5,g=out(seg(t,a,a+.3));u.style.top=(136+i*34)+"px";u.style.opacity=g;u.style.transform=`translateX(${(1-g)*30}px)`});
-  const rota=hs.querySelector("#hsRota");rota.style.strokeDashoffset=sonra?700-380*io(seg(t,5.3,6.6)):700;
-  const rk=hs.querySelector(".hs-rota");const rg=sonra?out(seg(t,5.6,6)):0;rk.style.opacity=rg;rk.style.transform=`translateY(${(1-rg)*40}px)`;
+  const uy=[...hs.querySelectorAll(".hs-uyari")];uy.forEach((u,i)=>{const a=(sonra?4.5:3.5)+i*.32,g=out(seg(t,a,a+.25))*(1-seg(t,sonra?5.9:5.2,sonra?6.1:5.4));u.style.top=(136+i*34)+"px";u.style.opacity=g;u.style.transform=`translateX(${(1-g)*30}px)`});
+  // müşteri akışı: başlangıç noktalarından iğnelere
+  const PIN=[[118,262],[196,414],[246,290]],BAS=[[20,560],[300,520],[40,200],[290,180],[150,600],[10,380],[300,420],[120,140],[280,600],[60,450]];
+  const a0=sonra?6.3:5.6;
+  const say=[0,0,0];
+  hs.querySelectorAll(".hs-m").forEach(m=>{const i=+m.dataset.i,h=+m.dataset.h,st=a0+i*.17,g=io(seg(t,st,st+1.1)),b=BAS[i],e=PIN[h];if(g>=1)say[h]++;
+    const x=b[0]+(e[0]-b[0])*g,y=b[1]+(e[1]-b[1])*g-Math.sin(g*Math.PI)*18;m.setAttribute("transform",`translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${g>=1?.0001:1})`);m.style.opacity=t>st?1:0});
+  hs.querySelectorAll(".hs-say").forEach(el=>{const k=+el.dataset.p,v=say[k];el.textContent=v;el.style.left=(PIN[k][0]+12)+"px";el.style.top=(PIN[k][1]-62)+"px";
+    el.style.background=k===2?(sonra?"#1E8E3E":"#80868B"):"#5F6368";el.style.opacity=t>a0-.2?1:0;el.style.transform=`scale(${k===2&&sonra&&v>0?1.15:1})`});
+  const rz=hs.querySelector(".hs-rozet"),rg=out(seg(t,a0+.3,a0+.7));rz.style.opacity=rg;rz.style.transform=`scale(${.7+.3*rg})`;
+  hs.querySelectorAll(".hs-arti").forEach((x,i)=>{const st=a0+.9+i*.45,g=out(seg(t,st,st+.3))*(1-seg(t,st+1.2,st+1.5));x.style.left=(150+(i%2)*40)+"px";x.style.top=(200-g*24-(i%2)*26)+"px";x.style.opacity=g});
   const pin=hs.querySelector("#hsBiz path");pin.setAttribute("fill",sonra?"#EA4335":"#80868B");pin.setAttribute("stroke",sonra?"#B3261E":"#5F6368");
-  hs.querySelector("#hsBiz").style.transform=sonra&&t>5.3?`translateY(${-Math.abs(Math.sin((t-5.3)*6))*6}px)`:"";
+  hs.querySelector("#hsBiz").style.transform=sonra&&t>a0?`translateY(${-Math.abs(Math.sin((t-a0)*6))*5}px)`:"";
 }
-window.HaritaSim={ciz,SURE:7.4};
+window.HaritaSim={ciz,SURE:8.4};
 })();
