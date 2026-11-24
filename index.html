@@ -734,7 +734,11 @@ if(!AZ){addEventListener("scroll",()=>requestAnimationFrame(arkaCiz),{passive:tr
 (function dongu(){if(simGor||AZ)simCiz();requestAnimationFrame(dongu)})();
 const v=document.getElementById("tanitim"),oy=document.getElementById("oynat");
 oy.addEventListener("click",()=>{v.controls=true;v.muted=false;v.play();oy.style.opacity=0;setTimeout(()=>oy.remove(),300)});
-sektorSec("berber",true);simSec();ucCiz();
+(function(){const q=new URLSearchParams(location.search),k=q.get("s"),ad=(q.get("ad")||"").slice(0,28);
+ sektorSec(S[k]?k:"berber",true);
+ if(ad){adIn.value=ad;uretCiz();anlatimCiz();const h=document.querySelector("#uret h2");h.innerHTML=esc(ad)+" için hazırladığımız taslak:";
+  document.getElementById("gercekYap").textContent="Bunu gerçek yapalım";
+  setTimeout(()=>document.getElementById(innerWidth<=900?"uretTel":"uret").scrollIntoView({behavior:AZ?"auto":"smooth",block:innerWidth<=900?"center":"start"}),900)}})();simSec();ucCiz();
 </script>
 </body>
 </html>
